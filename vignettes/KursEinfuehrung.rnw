@@ -89,7 +89,7 @@ navigation
 \frame{
 
   \frametitle{Inhalt}
-    \tableofcontents[currentsection]
+    \tableofcontents %[currentsection]
 }
 \note{}
 
@@ -136,8 +136,12 @@ navigation
   und gibt immer noch Milch. [...] ''
   \end{block}
 
-  \begin{block}{Zitat 2:}
-
+  \begin{block}{Zitat 2: swissherdbookbulletin 5/15}
+  ``Bei der Auswahl von K\"uhen
+    f\"ur die Zuchtprogramme sollten
+    also auch Eigenleistungen,
+    Leistungen von Vorfahren und
+    Blutlinien stimmen.''
   \end{block}
 }
 \note{}
@@ -291,9 +295,9 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 %  \begin{block}{\"Ubungen}
     \begin{itemize}
     \item Zu jedem Vorlesungsblock wird es eine \"Ubung geben
-    \item \"Ubungen werden w\"ahrend der \"Ubungsstunde bearbeitet
-    \item L\"osungsvorschl\"age eine Woche sp\"ater
-    \item Stil der \"Ubungen: Bearbeitung einer Fragestellung mit R (oder anderer Programmiersprache)
+    \item \"Ubungsstunde steht zur Bearbeitung der Aufgaben zur Verf\"ugung
+    \item L\"osungsvorschl\"age zu einem sp\"ateren Zeitpunkt
+    \item Stil der \"Ubungsaufgaben: Bearbeitung einer Fragestellung mit R (oder anderer Programmiersprache)
     \end{itemize}
 %  \end{block}
 
