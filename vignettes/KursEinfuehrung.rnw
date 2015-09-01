@@ -1,0 +1,343 @@
+%  Example for the ETH Beamer template
+%  Copyright 2014 by
+%  Dr. Antonios Garas,
+%  Chair of Systems Design, ETH Zurich
+%  Weinbergstrasse 56/58 CH-8092 Zurich
+%
+\documentclass[
+%aspectratio=169,
+first,
+%handout,
+%compress,
+%Helv,
+ETH3, %ETH1,
+navigation
+]{ETHbeamerclass}
+
+% Options for beamer:
+%
+% compress: navigation bar becomes smaller
+% t       : place contents of frames on top (alternative: b,c)
+% handout : handoutversion
+% notes   : show notes
+% notes=onlyslideswithnotes
+%
+\setbeamertemplate{note page}{\ \\[.3cm]
+\textbf{\color{colorSG}Notes:}\\%[0.1cm]
+{\footnotesize %\tiny
+\insertnote}}
+
+\setbeameroption{hide notes}
+%\setbeameroption{show notes}
+
+\setbeamertemplate{navigation symbols}{} % suppresses all navigation symbols:
+% \setbeamertemplate{navigation symbols}[horizontal] % Organizes the navigation symbols horizontally.
+% \setbeamertemplate{navigation symbols}[vertical] % Organizes the navigation symbols vertically.
+% \setbeamertemplate{navigation symbols}[only frame symbol] % Shows only the navigational symbol for navigating frames.
+
+\usepackage{amsmath, amssymb}
+\usepackage{pifont}
+\usepackage{multimedia}
+
+%--------------------------------------------------------------------------------------------------------
+%--- Some custom definitions...
+
+\definecolor{cbf}{RGB}{199,100,95}%{163,15,0}
+\newcommand{\cbf}{\color{cbf}}
+
+\newcommand{\mean}[1]{\left\langle #1 \right\rangle}
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+%--------------------------------------------------------------------------------------------------------
+%--- Inputs for the title page...
+
+\title{Z\"uchtungslehre I+II}
+\newcommand{\shorttitle}{}
+
+\author{Birgit Gredler and Peter von Rohr}
+\date{\today}
+\institute{Qualitas AG}
+
+\newcommand{\collaborators}{}
+\newcommand{\event}{Folien ZL I+II}
+\newcommand{\place}{LFW C11}
+
+\newcommand{\Prob}{\mathrm{Pr}}
+\newcommand{\sign}{\mathrm{sign}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\nbin}[1]{\mathrm{nb}_\mathrm{in}(#1)}
+\newcommand{\nbout}[1]{\mathrm{nb}_\mathrm{out}(#1)}
+\newcommand{\one}{\mathbb{\bf 1}}
+
+\newcommand{\sref}[1]{SLIDE \ref{#1}}
+
+%--------------------------------------------------------------------------------------------------------
+%--- Here begins the presentation...
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\frame{
+\maketitle
+}
+\note{}
+
+
+\section{Einf\"uhrung in die Vorlesung}
+
+\frame{
+
+  \frametitle{Inhalt}
+    \tableofcontents[currentsection]
+}
+\note{}
+
+
+\frame{
+
+  \frametitle{Who Is Who}
+  \begin{block}{Dozierende}
+    \begin{itemize}
+    \item Birgit Gredler
+    \item Peter von Rohr
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Studentierende}
+      \begin{itemize}
+      \item Studiengang
+      \item Erfahrungen mit Tierzucht
+      \item Motivation f\"ur diese Vorlesung
+    \end{itemize}
+  \end{block}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Ziele der Vorlesung}
+  \begin{itemize}
+  \item Verstehen der Grundlagen
+  \item Erkl\"arung von Zusammenh\"angen
+  \item Beurteilung von Aussagen (siehe folgende Zitate)
+  \end{itemize}
+}
+\note{}
+
+
+
+\frame{
+  \frametitle{Zitate}
+  \begin{block}{Zitat 1: Leserbrief im Schweizer Bauer}
+  ``[...] Ich habe noch niemanden getroffen, der mir diese Zuchtwerte
+  erkl\"aren kann. Eine Kuh von mir hat einen Zuchtwert von $-900$
+  und gibt immer noch Milch. [...] ''
+  \end{block}
+
+  \begin{block}{Zitat 2:}
+
+  \end{block}
+}
+\note{}
+
+
+\frame{
+
+  \frametitle{Administrative Angelegenheiten}
+  \begin{block}{Sprache}
+    \begin{itemize}
+    \item Deutsch
+    \item Fachbegriffe Englisch
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Webseite}
+    \begin{itemize}
+    \item Link: http://charlotte-ngs.github.io/LivestockBreedingAndGenomics/
+    \item Syllabus, Folien und \"Ubungen werden auf der Webseite verf\"ugbar sein
+    \end{itemize}
+  \end{block}
+
+
+}
+\note{}
+
+
+\frame{
+
+  \frametitle{Administrative Angelegenheiten II}
+  \begin{block}{Keine Vorlesung am 9. Oktober 2015}
+  M\"ogliche Alternativen sind
+    \begin{itemize}
+    \item Zusatztermin
+    \item W\"ahrend dreier Wochen eine Lektion kompensieren
+    \item Entscheidung vor 9. Oktober 2015
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Kreditpunkte}
+  Leistungsnachweis: schriftliche Pr\"ufung am 18.12.2015
+  \end{block}
+
+
+}
+\note{}
+
+
+\frame{
+
+  \frametitle{Vorlesungsprogramm}
+  Vorlesungsprogramm auf der Webseite unter ``Syllabus'' verf\"ugbar
+  \begin{tabular}{|p{0.5cm}|p{1.5cm}|p{6.5cm}|p{1.5cm}|}
+\hline
+     & Datum   & Thema & Wer \\
+\hline
+$1$  & 18.09  & Einf\"uhrung in die Vorlesung, R            & BG \\
+     &        & Selektionsindex                             & PvR\\
+\hline
+$2$  & 25.09  & Selektionsindex mehrere Merkmale            & PvR     \\
+\hline
+$3$  & 02.10  & Verwandtschaftsmatrix und ihre Inverse      & PvR     \\
+\hline
+$4$  & 09.10  & keine Vorlesung & \\
+\hline
+$5$  & 16.10  & Korrektur f\"ur fixe Effekte                & PvR     \\
+\hline
+$6$  & 23.10  & Varianzanalyse                              & PvR     \\
+\hline
+$7$  & 30.10  & Varianzkomponentensch\"atzung               & PvR     \\
+\hline
+$8$  & 06.11  & Varianzkomponentensch\"atzung Teil II       & PvR     \\
+     &        & BLUP ein Merkmal                            & BG      \\
+\hline
+$9$  & 13.11  & BLUP mehrere Merkmale,                      & BG      \\
+     &        & wirtschaftliche Gewichte      & \\
+\hline
+\end{tabular}
+
+}
+\note{}
+
+\frame{
+
+  \frametitle{Vorlesungsprogramm II}
+  \begin{tabular}{|p{0.5cm}|p{1.5cm}|p{6.5cm}|p{1.5cm}|}
+\hline
+$10$ & 20.11  & Linkage disequilibrium                      & BG      \\
+\hline
+$11$ & 27.11  & Genomische Selektion                        & BG      \\
+\hline
+$12$ & 04.12  & Genomische Selektion                        & BG      \\
+\hline
+$13$ & 11.12  & Genom-weite Assoziationsstudien             & BG      \\
+\hline
+$14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
+\hline
+\end{tabular}
+
+}
+\note{}
+
+\frame{
+  \frametitle{Ablauf einer Vorlesung}
+  \begin{block}{Typ gem\"ass Vorlesungsverzeichnis}
+    \begin{itemize}
+    \item Typ G, d.h. Vorlesung und \"Ubung
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Unser Anliegen}
+    \begin{itemize}
+    \item M\"oglichst viel Interaktion, denn so lernen wir am meisten
+    \item M\"oglichst wenig Konsumation, denn dabei lernen wir nichts
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Ablauf}
+    \begin{itemize}
+    \item Ab kommender Woche
+    \item $3 G = 1 U + 2 V$ wobei $U$: 9-10, $V$: 10-12
+    \item Pausen
+    \end{itemize}
+  \end{block}
+}
+
+\frame{
+  \frametitle{Voraussetzungen f\"ur diese Vorlesung}
+  \begin{block}{Streng genommen}
+    \begin{itemize}
+    \item KEINE
+    \item Grundlegende Begriffe und wichtige Konzepte werden erl\"autert
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Hilfreich sind ...}
+    \begin{itemize}
+    \item Grundbegriffe der quantitativen Genetik (Bachelor)
+    \item Grundbegriffe der Statistik (Erwartungswert, Varianz, Sch\"atzung)
+    \item Elementare Kenntnisse der linearen Algebra (Vektoren, Matrizen)
+    \item Erste Erfahrung mit Programmiersprache (Matlab) oder Statistiksoftware (R)
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+
+\frame{
+
+  \frametitle{\"Ubungen}
+%  \begin{block}{\"Ubungen}
+    \begin{itemize}
+    \item Zu jedem Vorlesungsblock wird es eine \"Ubung geben
+    \item \"Ubungen werden w\"ahrend der \"Ubungsstunde bearbeitet
+    \item L\"osungsvorschl\"age eine Woche sp\"ater
+    \item Stil der \"Ubungen: Bearbeitung einer Fragestellung mit R (oder anderer Programmiersprache)
+    \end{itemize}
+%  \end{block}
+
+}
+\note{}
+
+
+\frame{
+
+  \frametitle{\"Ubungen II}
+  \begin{block}{Weshalb programmieren?}
+    \begin{itemize}
+    \item Datenmengen verlangen nach Tools zur effizienten Bearbeitung und Analyse
+    \item Flexibilit\"at: Excel und co. sind zu wenig flexibel und zu beschr\"ankt (z. Bsp. Anzahl Zeilen und Kolonnen)
+    \item Reproduzierbarkeit und Nachvollziehbarkeit
+    \end{itemize}
+    $\rightarrow$ besseres Verst\"andnis
+  \end{block}
+
+  }
+\note{}
+
+
+\section{Einf\"uhrung in R}
+
+
+\frame{
+
+  \frametitle{Einf\"uhrung in R}
+
+
+}
+\note{}
+
+
+\section{Einf\"uhrung in die Theorie des Selektionsindexes}
+
+\frame{
+
+  \frametitle{Einf\"uhrung in die Theorie des Selektionsindexes}
+
+
+  }
+\note{}
+
+
+\end{document}
