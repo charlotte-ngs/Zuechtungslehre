@@ -307,31 +307,75 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 
 \frame{
 
-  \frametitle{\"Ubungen II}
-  \begin{block}{Weshalb programmieren?}
+  \frametitle{\"Ubungen II: Weshalb programmieren?}
+  \begin{block}{Vorteile der Probleml\"osung mit einem Programm}
     \begin{itemize}
     \item Datenmengen verlangen nach Tools zur effizienten Bearbeitung und Analyse
     \item Flexibilit\"at: Excel und co. sind zu wenig flexibel und zu beschr\"ankt (z. Bsp. Anzahl Zeilen und Kolonnen)
     \item Reproduzierbarkeit und Nachvollziehbarkeit
+    \item Repetivite Arbeiten werden von einem Computerprogramm besser erledigt
+    \item besseres Verst\"andnis eines Problems
+    \item Programmierf\"ahigkeiten k\"onnen Sie immer wieder gebrauchen (Praktika, Masterarbeit, Doktorarbeit, Job)
     \end{itemize}
-    $\rightarrow$ besseres Verst\"andnis
   \end{block}
 
+}
+\note{}
+
+
+\frame{
+
+  \frametitle{\"Ubungen III: Ihre Erfahrungen}
+  \begin{block}{Umfrage nach Programmiererfahrung}
+    \begin{itemize}
+    \item Kennen Sie eine/mehrere Programmiersprachen, wenn ja welche?
+    \item Wie erledigen Sie Datenverarbeitungsjobs? (Semesterarbeit, Praktika, Bachelorarbeit)
+    \item Was hat Sie bis jetzt daran gehindert das Programmieren zu erlernen?
+    \item In welchen Veranstaltungen (Vorlesungen, \"Ubungen, Praktika) wurden Sie schon mit Programmiersprachen konfrontiert
+          und was sind Ihre Erfahrungen
+    \end{itemize}
+  \end{block}
   }
 \note{}
 
 
 \section{Einf\"uhrung in R}
 
-
 \frame{
 
-  \frametitle{Einf\"uhrung in R}
-
+  \frametitle{Wieso R}
+  \begin{itemize}
+  \item Interpretierte Sprache, d.h. ein Programm - der sogenannte Interpreter - wartet auf Eingaben
+  \item Einfache Installation: Download und Installation, analog zu anderen Programmen
+  \item Verf\"ugbarkeit: Windows, Mac, Linux
+  \item Gratis und offen, d.h. Programm-code ist verf\"ugbar
+  \item Gute Unterst\"utzung durch externe Tools, z. Bsp RStudio
+  \item Grosse Benutzergemeinde, da sehr popul\"ar in Statistik
+  \item Flexibles Arbeiten und schnelles Prototyping, d.h. Ideen sind sehr schnell in Programmcode verwandelt
+  \item Gute Grafikf\"ahigkeiten, d.h. Daten k\"onnen schnell und einfach visualisiert werden
+  \end{itemize}
 
 }
 \note{}
 
+
+\frame{
+
+  \frametitle{Einf\"uhrung in R - Erste Schritte}
+  \begin{block}{Installation von R}
+    \begin{itemize}
+    \item Download von CRAN (Comprehensive R Archive Network): https://
+    \item Installation des Binaries (.exe unter Windows und .pkg unter Mac) mit Doppelclick auf Datei
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Installation von RStudio}
+    \begin{itemize}
+    \item Download von https://www.rstudio.com
+    \item Installation des Binaries (verlangt, dass R schon installiert ist)
+    \end{itemize}
+  \end{block}
+}
 
 \section{Einf\"uhrung in die Theorie des Selektionsindexes}
 
