@@ -364,8 +364,9 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
   \frametitle{Einf\"uhrung in R - Erste Schritte}
   \begin{block}{Installation von R}
     \begin{itemize}
-    \item Download von CRAN (Comprehensive R Archive Network): https://
+    \item Download von CRAN (Comprehensive R Archive Network): https://stat.ethz.ch/CRAN/
     \item Installation des Binaries (.exe unter Windows und .pkg unter Mac) mit Doppelclick auf Datei
+    \item Webseite https://www.r-project.org/
     \end{itemize}
   \end{block}
 
