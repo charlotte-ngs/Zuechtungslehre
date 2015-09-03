@@ -366,7 +366,7 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
     \begin{itemize}
     \item Download von CRAN (Comprehensive R Archive Network): https://stat.ethz.ch/CRAN/
     \item Installation des Binaries (.exe unter Windows und .pkg unter Mac) mit Doppelclick auf Datei
-    \item Webseite https://www.r-project.org/
+    \item Webseite von R: https://www.r-project.org/
     \end{itemize}
   \end{block}
 
