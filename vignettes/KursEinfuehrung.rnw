@@ -545,14 +545,151 @@ help("vector")
   \end{itemize}
 \end{frame}
 
+
 \begin{frame}[fragile]
   \frametitle{Datentypen in R}
   Es werden sechs Datentypen unterschieden
   \begin{enumerate}
   \item \texttt{numeric}: reelle Zahlen, default f\"ur Zahlen in R
   \item \texttt{integer}: ganze Zahlen (0, 1, 2, ...) mit ``L'' hinter der Zahl
-  \item \texttt{complex}:
+  \item \texttt{complex}: Quadratwurzeln aus negativen Zahlen
+  \item \texttt{character}: Buchstaben, Zeichen, ...
+  \item \texttt{factor}: spezieller Datentype f\"ur lineare Modelles
   \end{enumerate}
+\end{frame}
+
+
+\frame{
+  \frametitle{Wichtige Punkte zu Datentypen}
+
+  \begin{block}{Datentypen - Pr\"ufung und Umwandlung}
+  \begin{itemize}
+  \item R kennt keine strenge Pr\"ufung von Datentypen (strong typing)
+  \item R konvertiert Datentypen automatisch (coersion)
+  \item Coersion ist bequem, kann aber auch Fehlerquelle sein
+  \end{itemize}
+  \end{block}
+
+  \begin{block}{Hilfreiche Funktionen}
+  \begin{itemize}
+  \item \texttt{class()} gibt den Type eines Objekts zur\"uck
+  \item \texttt{is.<data.type>()} pr\"uft, ob ein Objekt von gewissen Datentyp ist,
+    z. Bsp \texttt{is.integer(5)}
+  \item \texttt{as.<data.type>()} kann f\"ur eine explizite Umwandlung verwendet werden
+    z. Bsp \texttt{as.character(12)}
+  \end{itemize}
+  \end{block}
+}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vektoren}
+  \begin{itemize}
+  \item Ein Vektor ist eine Sequenz von Datenelementen vom gleichen Basistyp
+  \item Datenelemente in einem Vektor werden als Komponenten bezeichnet
+  \item In R werden Vektoren mit der Funktion \texttt{vector()} erzeugt und mit
+    Funktion \texttt{c()} erweitert.
+  \item Beispiel:
+<<VectorNumeric>>=
+vecNum <- vector(mode = "numeric", length = 2)
+vecNum[1] <- 5
+vecNum[2] <- -1
+print(vecNum)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vektoren II}
+  \begin{itemize}
+  \item ... oder in einem Schritt mit \texttt{c()}
+<<cVectorNumeric>>=
+vecNum <- c(5,-1)
+print(vecNum)
+@
+  \item Erweiterung bestehender Vektoren mit
+<<cVectorExtend>>=
+vecChar <- c("aa","bb","da")
+vecChar <- c(vecNum, vecChar)
+print(vecChar)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Eigenschaften von Vektoren}
+  \begin{itemize}
+  \item Anzahl Komponenten in einem Vektor
+<<LengthVector>>=
+length(vecChar)
+@
+  \item Test ob ein Vektor leer ist, also keine Elemente enth\"alt
+<<EmptyVectorChar>>=
+length(vecChar) == 0
+@
+<<EmptyVectorLogical>>=
+vecLogical <- vector(mode = "logical", length = 0)
+length(vecLogical) == 0
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Logische Operationen mit Vektoren}
+  \begin{itemize}
+  \item Logische oder Boolsche Operationen (gr\"osser, kleiner, gleich) auf Vektoren
+    werden elementweise ausgef\"uhrt
+  \item Resultat entspricht einem Vektor der gleichen L\"ange wie der urspr\"ungliche
+    Vektor mit TRUE und FALSE Werten
+  \item Beispiel:
+<<VectorLogicalOp>>=
+a <- c(33,5,7,13,-1)
+a > 5
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vektorarithmetik - Plus, Minus}
+  \begin{itemize}
+  \item Arithmetische Operationen mit Vektoren (plus, minus, mal, durch)
+    werden elementweise ausgef\"uhrt
+  \item Beispiel
+<<VectorPlus>>=
+x <- c(3,5,13,-2)
+y <- c(2,6,-3,19)
+x+y
+@
+<<VectorMinus>>=
+x-y
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vektorarithmetik - Mal, Durch}
+  \begin{itemize}
+  \item Elementweise Ausf\"uhrung analog zu Plus, Minus
+<<VectorMal>>=
+x*y
+@
+<<VectorDurch>>=
+x/y
+@
+  \item Skalarprodukt zwischen zwei Vektoren mit
+<<CrossProduct>>=
+crossprod(x,y)
+@
+  \end{itemize}
+\end{frame}
+
+
+
 
 
 \section{Einf\"uhrung in die Theorie des Selektionsindexes}
