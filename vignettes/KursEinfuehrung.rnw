@@ -127,7 +127,6 @@ navigation
 \note{}
 
 
-
 \frame{
   \frametitle{Zitate}
   \begin{block}{Zitat 1: Leserbrief im Schweizer Bauer}
@@ -148,7 +147,6 @@ navigation
 
 
 \frame{
-
   \frametitle{Administrative Angelegenheiten}
   \begin{block}{Sprache}
     \begin{itemize}
@@ -163,14 +161,11 @@ navigation
     \item Syllabus, Folien und \"Ubungen werden auf der Webseite verf\"ugbar sein
     \end{itemize}
   \end{block}
-
-
 }
 \note{}
 
 
 \frame{
-
   \frametitle{Administrative Angelegenheiten II}
   \begin{block}{Keine Vorlesung am 9. Oktober 2015}
   M\"ogliche Alternativen sind
@@ -184,14 +179,11 @@ navigation
   \begin{block}{Kreditpunkte}
   Leistungsnachweis: schriftliche Pr\"ufung am 18.12.2015
   \end{block}
-
-
 }
 \note{}
 
 
 \frame{
-
   \frametitle{Vorlesungsprogramm}
   Vorlesungsprogramm auf der Webseite unter ``Syllabus'' verf\"ugbar
   \begin{tabular}{|p{0.5cm}|p{1.5cm}|p{6.5cm}|p{1.5cm}|}
@@ -224,8 +216,8 @@ $9$  & 13.11  & BLUP mehrere Merkmale,                      & BG      \\
 }
 \note{}
 
-\frame{
 
+\frame{
   \frametitle{Vorlesungsprogramm II}
   \begin{tabular}{|p{0.5cm}|p{1.5cm}|p{6.5cm}|p{1.5cm}|}
 \hline
@@ -243,6 +235,7 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 
 }
 \note{}
+
 
 \frame{
   \frametitle{Ablauf einer Vorlesung}
@@ -268,6 +261,7 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
   \end{block}
 }
 
+
 \frame{
   \frametitle{Voraussetzungen f\"ur diese Vorlesung}
   \begin{block}{Streng genommen}
@@ -290,7 +284,6 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 
 
 \frame{
-
   \frametitle{\"Ubungen}
 %  \begin{block}{\"Ubungen}
     \begin{itemize}
@@ -306,7 +299,6 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 
 
 \frame{
-
   \frametitle{\"Ubungen II: Weshalb programmieren?}
   \begin{block}{Vorteile der Probleml\"osung mit einem Programm}
     \begin{itemize}
@@ -324,7 +316,6 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 
 
 \frame{
-
   \frametitle{\"Ubungen III: Ihre Erfahrungen}
   \begin{block}{Umfrage nach Programmiererfahrung}
     \begin{itemize}
@@ -342,7 +333,6 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 \section{Einf\"uhrung in R}
 
 \frame{
-
   \frametitle{Wieso R}
   \begin{itemize}
   \item Interpretierte Sprache, d.h. ein Programm - der sogenannte Interpreter - wartet auf Eingaben
@@ -360,23 +350,210 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 
 
 \frame{
+  \frametitle{Einf\"uhrung in R - Installation}
+  %\begin{block}
 
-  \frametitle{Einf\"uhrung in R - Erste Schritte}
-  \begin{block}{Installation von R}
     \begin{itemize}
-    \item Download von CRAN (Comprehensive R Archive Network): https://stat.ethz.ch/CRAN/
+    \item Download von CRAN (Comprehensive R Archive Network): http://stat.ethz.ch/CRAN/
     \item Installation des Binaries (.exe unter Windows und .pkg unter Mac) mit Doppelclick auf Datei
     \item Webseite von R: https://www.r-project.org/
     \end{itemize}
-  \end{block}
+  %\end{block}
+  \includegraphics[width=0.7\textwidth]{figure/cran}
+}
+\note{}
 
-  \begin{block}{Installation von RStudio}
+
+\frame{
+  \frametitle{Installation von RStudio}
     \begin{itemize}
     \item Download von https://www.rstudio.com
     \item Installation des Binaries (verlangt, dass R schon installiert ist)
     \end{itemize}
-  \end{block}
+  \includegraphics[width=0.7\textwidth]{figure/rstudio}
 }
+\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Erste Sitzung mit R - Interaktiver Modus}
+  \begin{itemize}
+  \item R kann wie ein Taschenrechner verwendet werden $\hat{=}$ \emph{interaktiver Modus}
+<<Addition>>=
+5 + 7
+@
+<<Multiplication>>=
+9*3
+@
+
+  \item Es gilt Klammer vor Punkt vor Strich
+
+<<SubtractionDivision>>=
+45 - 15 / 2
+@
+
+<<SubtractionBeforeDivision>>=
+(45 - 15) / 2
+@
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Erste Sitzung mit R - Mehr Operatoren}
+  \begin{itemize}
+  \item Quadratwurzel
+<<Sqrt>>=
+sqrt(2)
+@
+
+  \item Potenz
+<<Power>>=
+4.92 ^ 3
+@
+
+  \item Logarithmus
+<<Logarithm>>=
+log(15)
+@
+
+  \end{itemize}
+\end{frame}
+%\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Variablen = Objekte}
+  \begin{itemize}
+  \item Interaktiver Modus m\"uhsam, falls l\"angere Berechnungen mit Zwischenergebnissen
+  \item Beispiel: Mittelwert $m$ und Standardabweichung $s$ von f\"unf Zahlen
+  \item Mittelwert: Interaktiv
+<<MeanInteractive>>=
+(15 + 9 + 8 + 34 + 76) / 5
+@
+<<SdInteractive>>=
+sqrt(((15-28.4)^2 + (9-28.4)^2 + (8-28.4)^2
+      + (34-28.4)^2 + (76-28.4)^2)/4)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Variablen = Objekte II}
+  \begin{itemize}
+  \item Verbesserung: Ablage von Zwischenresultaten im Arbeitsspeicher
+  \item Wie sieht das aus im Arbeitsspeicher eines Computers?
+  \end{itemize}
+  \begin{center}
+  \includegraphics[width=0.7\textwidth]{figure/vonNeumannComputerArch}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Arbeitsspeicher}
+  \begin{center}
+  \includegraphics[width=0.7\textwidth]{figure/Arbeitsspeicher1}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zuweisung von Werten zu Objekten}
+<<VarZuweisung>>=
+n <- 5
+@
+  \begin{center}
+  \includegraphics[width=0.7\textwidth]{figure/Arbeitsspeicher2}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zuweisung von Werten zu Objekten II}
+<<VarZuweisungSumme>>=
+summe <- 15 + 9 + 8 + 34 + 76
+summeq <- 15^2 + 9^2 + 8^2 + 34^2 + 76^2
+@
+  \begin{center}
+  \includegraphics[width=0.7\textwidth]{figure/Arbeitsspeicher3}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zugriff auf Werte}
+<<VarZugriff>>=
+n
+@
+  \begin{center}
+  \includegraphics[width=0.7\textwidth]{figure/ArbeitsspeicherZugriff}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Namen von Objekten}
+  \begin{itemize}
+  \item Kann Buchstaben, Zahlen und Zeichen wie ``-'', ``\_'' oder ``.'' enthalten
+  \item Nicht mit einer Zahl beginnen
+  \item Reservierte Namen wie c, i, t, oder andere Funktionsnamen nicht als Objektnamen verwenden
+  \item Allgemeine Hinweise zu Style, Namen und Notationen: http://r-pkgs.had.co.nz/style.html
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Rechnen mit Objekten}
+  \begin{itemize}
+  \item Mittelwert $m$
+<<VariablenMittelwert>>=
+m <- summe / n
+@
+  \item Standardabweichung $s$
+<<VariablenStd>>=
+s <- sqrt((summeq - summe^2/n)/(n-1))
+@
+  \item Der R-interpreter gibt bei Zuweisungen kein Resultat zurueck (ausser man macht eine Klammer)
+  \item Output wird angezeigt, wenn Objektname eingegeben wird oder mit der \texttt{print()}-Funktion
+<<OutputVar1>>=
+m
+@
+<<OutputVar2>>=
+print(s)
+@
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Erzeugung von Objekten mit Funktionen}
+  \begin{itemize}
+  \item Bisher: Objekte durch Zuweisungen erzeugt
+  \item Funktionen \texttt{sqrt()} und \texttt{print()} schon angetroffen
+  \item Beispiel - Vektor
+<<VectorCreate>>=
+(vecNum <- vector(mode = "numeric", length = 2))
+@
+  \item Hilfe zu einer Funktion mit
+<<FunctionHelp, eval=FALSE>>=
+help("vector")
+?vector
+@
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Datentypen in R}
+  Es werden sechs Datentypen unterschieden
+  \begin{enumerate}
+  \item \texttt{numeric}: reelle Zahlen, default f\"ur Zahlen in R
+  \item \texttt{integer}: ganze Zahlen (0, 1, 2, ...) mit ``L'' hinter der Zahl
+  \item \texttt{complex}:
+  \end{enumerate}
+
 
 \section{Einf\"uhrung in die Theorie des Selektionsindexes}
 
@@ -388,5 +565,13 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
   }
 \note{}
 
+
+
+\begin{frame}[fragile]
+  \frametitle{Titel}
+  \begin{itemize}
+  \item
+  \end{itemize}
+\end{frame}
 
 \end{document}
