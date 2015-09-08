@@ -808,12 +808,90 @@ matA - matB
 \begin{frame}[fragile]
   \frametitle{Matrix Multiplikation}
   \begin{itemize}
-
   \item Regel: Zeile mal Kolonne
   \item Dimensionen m\"ussen stimmen
+<<MatrixMultiplikation>>=
+matA %*% t(matB)
+@
   \end{itemize}
 \end{frame}
 
+
+\begin{frame}[fragile]
+  \frametitle{Liste}
+  \begin{itemize}
+  \item Eine Liste fasst eine Sammlung von Objekten zusammen.
+  \item Einzelne Objekte heissen \emph{Komponenten}
+  \item Komponenten innerhalb der Liste haben eine fixe Reihenfolge
+  \item Komponenten m\"ussen nicht vom selben Typ sein
+  \item Beispiel
+<<ListExample>>=
+lstA <- list(nZahlen = c(5,-2,7),
+             sNamen = c("Fred","Mary"),
+             lBool = c(FALSE,TRUE))
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zugriff auf Listenelemente}
+  \begin{itemize}
+  \item Mit Index und einfacher Klammerung, Resultat ist wieder eine Liste
+<<ListAccessIndex>>=
+lstA[2]
+@
+  \item Mit Komponentennamen
+<<ListAccessName>>=
+lstA["nZahlen"]
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zugriff auf Listenelemente II}
+  \begin{itemize}
+  \item Mit Index und doppelter Klammer, Resultat ist Vektor
+<<ListAccessDoubleBracket>>=
+lstA[[1]]
+@
+  \item Mit \$ und Komponentennamen
+<<ListAccessNameDollar>>=
+lstA$lBool
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Spezielle Listen - Dataframes}
+  \begin{itemize}
+  \item Ein \emph{Dataframe} ist eine Liste von Vektoren, welche alle die gleiche L\"ange haben
+  \item Erzeugung mit Funktion \texttt{data.frame()}
+<<GenerateDataframe>>=
+dfA <- data.frame(nZahl = c(-2,15),
+                  sZeichen = c("Alice","Bob"),
+                  bWahr = c(FALSE,FALSE))
+@
+  \item Zugriff, wie bei Matrix mit Indices oder mit Namen
+<<DataFrameAccessIndex>>=
+dfA[2,1]
+@
+<<DataFrameAccessName>>=
+dfA$nZahl
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Daten in R einlesen}
+  \begin{itemize}
+  \item Eine der wichtigsten Aufgaben ist, dass externe Daten in R eingelesen werden k\"onnen
+  \item Die wichtigste Funktion f\"ur das Einlesen von Daten: \texttt{read.table()}
+  \end{itemize}
+\end{frame}
 
 
 \section{Einf\"uhrung in die Theorie des Selektionsindexes}
