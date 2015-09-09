@@ -961,9 +961,14 @@ abline(coef = coefficients(lmBrGew), col = "red")
 \frame{
 
   \frametitle{Einf\"uhrung in die Theorie des Selektionsindexes}
+  \begin{itemize}
+  \item Allgemeine Tierzucht - Ein kurzer R\"uckblick
+  \item Zuchtziel - verschiedene Formulierungen
+  \item Verschiedene Formen der Selektion
+  \item Index-basierte Selektion
+  \end{itemize}
 
-
-  }
+}
 \note{}
 
 
@@ -971,7 +976,7 @@ abline(coef = coefficients(lmBrGew), col = "red")
 \begin{frame}[fragile]
   \frametitle{Titel}
   \begin{itemize}
-  \item
+  \item Item
   \end{itemize}
 \end{frame}
 
