@@ -889,7 +889,69 @@ dfA$nZahl
   \frametitle{Daten in R einlesen}
   \begin{itemize}
   \item Eine der wichtigsten Aufgaben ist, dass externe Daten in R eingelesen werden k\"onnen
-  \item Die wichtigste Funktion f\"ur das Einlesen von Daten: \texttt{read.table()}
+  \item Die wichtigste Funktion f\"ur das Einlesen von Daten: \texttt{read.table()} oder darauf
+    aufbauende Funktionen, wie z. Bsp \texttt{read.csv2()} zum Einlesen von Daten im CSV-Format
+  \item H\"aufige Prozedur f\"ur den Transfer von Daten aus Excel:
+    \begin{enumerate}
+    \item Speichern als Text(csv)
+    \item Einlesen in R mit \texttt{read.csv2()}
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Daten in R einlesen II}
+  \begin{itemize}
+  \item Messungen von Brustumfang und Gewicht als Excel-Tabelle
+  \item Einlesen dieser Daten in R
+<<GenerateBrustumfangGewichtData, echo=FALSE>>=
+dfBrGew <- data.frame(Brustumfang = c(176,177,178,179,179,180,181,182,183,184),
+                      Gewicht = c(471,463,481,470,496,491,518,511,510,541))
+write.csv2(dfBrGew, file = "br_gew.csv", row.names = FALSE, quote = FALSE)
+@
+<<ReadBrustumfangGewichtData>>=
+dfBrGew <- read.csv2(file = "br_gew.csv")
+dim(dfBrGew)
+head(dfBrGew, 3)
+@
+<<RemoveBrustumfangGewichtData, echo=FALSE>>=
+unlink("br_gew.csv")
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Schreiben von Daten in Dateien}
+  \begin{itemize}
+  \item Dataframes oder Matrizen werden mit der Grundfunktion \texttt{write.table()} in Dateien geschrieben
+  \item Analog zu \texttt{read.csv2()} gibt es \texttt{write.csv2()}
+  \item F\"ur nicht csv-Daten kann \texttt{cat()} verwendet werden
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Diagramme und Plots}
+  \begin{itemize}
+  \item Plots in R sind einfach: Funktion \texttt{plot()}
+<<SimplePlot, fig=TRUE, height=4>>=
+plot(dfBrGew)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Einfaches lineares Modell}
+  \begin{itemize}
+  \item Regressionsmodell von Gewicht auf Brustumfang
+<<SimpleLinReg, fig=TRUE, height=3.8>>=
+lmBrGew <- lm(Gewicht ~ Brustumfang, data = dfBrGew)
+plot(dfBrGew)
+abline(coef = coefficients(lmBrGew), col = "red")
+@
   \end{itemize}
 \end{frame}
 
