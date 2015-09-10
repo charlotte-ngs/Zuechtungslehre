@@ -999,13 +999,20 @@ abline(coef = coefficients(lmBrGew), col = "red")
 
 \begin{frame}[fragile]
   \frametitle{Arten der Selektion}
-  \begin{itemize}
-  \item \emph{Nat\"urliche Selektion} (NS): Umwelt bestimmt, welche Tiere in einer Population \"uberleben (survival of the fittest).
-  \item NS f\"uhrt zu einer Akkumulation von g\"unstigen Eigenschaften (im Bezug auf gewisse Umweltbedingungen), welche \"uber lange Zeit zu neuen Lebensformen f\"uhren (Darwinsche Selektionstheorie)
-  \item \emph{K\"unstliche Selektion} (KS): Mensch bestimmt, welche Tiere sich fortpflanzen und wie lange die Tiere in einer Population verbleiben.
-  \item Durch KS werden (f\"ur Menschen) g\"unstige Eigenschaften (Genotype) gef\"ordert und ung\"unstige verhindert.
-  \item Ersatz von NS durch KS ist ein Charakteristikum der Domestikation und eine Ursache der Entstehung der Haustiere aus den Wildtieren
-  \end{itemize}
+  \begin{tabular}{p{2cm}|p{3.5cm}|p{4.5cm}}
+                 & Nat\"urliche Selektion & K\"unstliche Selektion \\
+                 & NS                     & KS                     \\
+   \hline
+   \"Uberleben   & Umwelt bestimmt, welche Tiere in Population \"uberleben
+                 & Mensch bestimmt, welche Tiere sich fortpflanzen und wie
+                   lange diese in der Population verbleiben         \\
+   \hline
+   Eigenschaften & Akkumulation von g\"unstigen Eigenschaften bezogen auf Umwelt
+                 & Mensch f\"ordert g\"unstige und verhindert ung\"unstige  \\
+  \end{tabular}
+
+  \vspace{2ex}
+  Ersatz von NS durch KS ist ein Charakteristikum der Domestikation und eine Ursache der Entstehung der Haustiere aus den Wildtieren
 \end{frame}
 
 
