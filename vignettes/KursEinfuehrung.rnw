@@ -972,6 +972,53 @@ abline(coef = coefficients(lmBrGew), col = "red")
 \note{}
 
 
+\begin{frame}[fragile]
+  \frametitle{Tierzucht - R\"uckblick}
+  \begin{itemize}
+  \item Voraussetzung: \emph{Zuchtziel}, welches einer Idealvorstellung eines Tieres in verschiedenen Merkmalen entspricht
+  \item \emph{Z\"uchten}: geziehlte Auswahl (Selektion) von Elterntieren mit der Absicht, dass die Nachkommen im Durchschnitt
+    dem Zuchtziel besser entsprechen als der Durchschnitt der Elterngeneration
+  \item Gegensatz zu Zucht steht die \emph{Vermehrung} oder \emph{Produktion}, welche keine gezielte Anpaarung von
+    Elterntieren beinhaltet
+  \item Umsetzung der Erreichung des Zuchtziels in einem \emph{Zuchtprogramm}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Z\"uchtung}
+  \includegraphics[width=\textwidth]{figure/ZuechtungElternNachkommen}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vermehrung}
+  \includegraphics[width=\textwidth]{figure/VermehrungElternNachkommen}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Arten der Selektion}
+  \begin{itemize}
+  \item \emph{Nat\"urliche Selektion} (NS): Umwelt bestimmt, welche Tiere in einer Population \"uberleben (survival of the fittest).
+  \item NS f\"uhrt zu einer Akkumulation von g\"unstigen Eigenschaften (im Bezug auf gewisse Umweltbedingungen), welche \"uber lange Zeit zu neuen Lebensformen f\"uhren (Darwinsche Selektionstheorie)
+  \item \emph{K\"unstliche Selektion} (KS): Mensch bestimmt, welche Tiere sich fortpflanzen und wie lange die Tiere in einer Population verbleiben.
+  \item Durch KS werden (f\"ur Menschen) g\"unstige Eigenschaften (Genotype) gef\"ordert und ung\"unstige verhindert.
+  \item Ersatz von NS durch KS ist ein Charakteristikum der Domestikation und eine Ursache der Entstehung der Haustiere aus den Wildtieren
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Arten der Paarung}
+  \begin{itemize}
+  \item \emph{Zuf\"allige Paarung} (Panmixie): Jedes Tier in der Population hat die gleiche Chance sich zu paaren
+  \item \emph{Gerichtete Paarung} (assortative Paarung): Mensch bestimmt, welche Tiere einer Population sich paaren
+  \item KS und gerichtete Paarung sind wichtige Werkzeuge in der Tierzucht
+  \end{itemize}
+\end{frame}
+
+
 
 \begin{frame}[fragile]
   \frametitle{Titel}
