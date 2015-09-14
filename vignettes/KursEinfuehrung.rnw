@@ -1130,6 +1130,17 @@ abline(coef = coefficients(lmBrGew), col = "red")
 \end{frame}
 
 
+\begin{frame}[fragile]
+  \frametitle{Vergleich von Eltern und Nachkommen}
+  \begin{itemize}
+  \item $NKD > ED$, aber $NKD < RD$
+  \item $s_{NK} < s_{E}$
+  \end{itemize}
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{figure/GerichteteSelektionElternNk}
+  \end{center}
+\end{frame}
+
 %\begin{frame}[fragile]
 %  \frametitle{Titel}
 %  \begin{itemize}
