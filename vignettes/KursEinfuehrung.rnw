@@ -1009,6 +1009,10 @@ abline(coef = coefficients(lmBrGew), col = "red")
    \hline
    Eigenschaften & Akkumulation von g\"unstigen Eigenschaften bezogen auf Umwelt
                  & Mensch f\"ordert g\"unstige und verhindert ung\"unstige  \\
+   \hline
+                 & Wildtiere
+                 & Haustiere \\
+   \hline
   \end{tabular}
 
   \vspace{2ex}
@@ -1019,19 +1023,118 @@ abline(coef = coefficients(lmBrGew), col = "red")
 \begin{frame}[fragile]
   \frametitle{Arten der Paarung}
   \begin{itemize}
-  \item \emph{Zuf\"allige Paarung} (Panmixie): Jedes Tier in der Population hat die gleiche Chance sich zu paaren
-  \item \emph{Gerichtete Paarung} (assortative Paarung): Mensch bestimmt, welche Tiere einer Population sich paaren
+  \item \emph{Zuf\"allige Paarung} (ZP, Panmixie): Jedes Tier in der Population hat die gleiche Chance sich zu paaren
+  \item \emph{Gerichtete Paarung} (GP, assortative Paarung): Mensch bestimmt, welche Tiere einer Population sich paaren
   \item KS und gerichtete Paarung sind wichtige Werkzeuge in der Tierzucht
   \end{itemize}
 \end{frame}
 
 
-
 \begin{frame}[fragile]
-  \frametitle{Titel}
+  \frametitle{Erfassung der Tiere}
   \begin{itemize}
-  \item Item
+  \item Voraussetzung f\"ur die Umsetzung von KS und GP ist eine systematisch Erfassung der Tiere
+  \item Herdeb\"ucher als Datanbasis f\"ur Abstammung und GP
+  \item Z\"uchtervereinigungen zur F\"uhrung der Herdeb\"ucher, Definition von Rassestandards und Entwicklung und Umsetzung von Zuchtprogrammen
   \end{itemize}
 \end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Grundstruktur eines Zuchprogramms}
+  \includegraphics[width=\textwidth]{figure/Zuchtprogramm}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Besamung / Belegung eines weiblichen Tieres}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammBesamung}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Geburt}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammGeburt}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Leistungskontrolle}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammMilchkontrolle}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mutationen und Abg\"ange von Tieren}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammMutation}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Datenfl\"usse in einem Zuchtprogramm}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammKomplett}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Wo fallen Entscheide betreffend}
+  \begin{itemize}
+  \item Gezielter Paarung (GP)
+  \item K\"unstlicher Selektion (KS)
+  \end{itemize}
+  \includegraphics[width=0.75\textwidth]{figure/ZuchtprogrammKomplett}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Entscheide betreffend GP und KS}
+  \includegraphics[width=0.75\textwidth]{figure/ZuchtprogrammGPKS}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Genauere Betrachtung der k\"unstlichen Selektion}
+  \begin{block}{Gezielte Paarung (GP)}
+    \begin{itemize}
+    \item GP wichtig an einem Punkt, bei der Besamung/Belegung
+    \item GP ist einfach zu verstehen
+    \end{itemize}
+  \end{block}
+  \begin{block}{K\"unstliche Selektion (KS)}
+    \begin{itemize}
+    \item KS verdient eine genauere Betrachtung
+    \item KS in Tierzucht definiert als gezielte Auswahl von Tieren (werden als \emph{Zuchttiere} bezeichnet)
+          als Eltern der n\"achsten Generation
+    \item Z\"uchterIn bestimmt, wie lange Tiere als Zuchttiere im Einsatz sind
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Charakteristika der k\"unstlichen Selektion}
+  \begin{itemize}
+  \item \emph{Ziel}: gezielte Ver\"anderung der genetischen Basis der Zuchtpopulation im Sinne des Zuchtziels
+  \item \emph{Effekt}: \"Anderung der Allelfrequenzen, wobei Frequenz von erw\"unschten Allelen erh\"oht und
+    Frequenz von unerw\"unschten Allelen vermindert
+  \item \emph{Wirkung}: Ver\"anderung des Populationsdurchschnitts von einer Elterngeneration zur Nachkommengeneration
+    wird als Mass der Wirkung verwendet
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Selektionsformen}
+  \begin{itemize}
+  \item Gerichtete Selektion: Erh\"ohung (oder Verminderung) des Populationsdurchschnitts im Sinne des Zuchtziels
+  \end{itemize}
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{figure/GerichteteSelektion}
+  \end{center}
+\end{frame}
+
+
+%\begin{frame}[fragile]
+%  \frametitle{Titel}
+%  \begin{itemize}
+%  \item Item
+%  \end{itemize}
+%\end{frame}
 
 \end{document}
