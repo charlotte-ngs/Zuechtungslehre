@@ -616,7 +616,47 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
   \begin{itemize}
   \item Wirtschaftliche Gewichte $\mathbf{v}$ k\"onnen aufgrund von Gewinngleichungen oder aufgrund anderer Methoden berechnet werden(siehe sp\"ater in dieser Veranstaltung)
   \item Wahre Zuchtwerte sind unbekannt und werden aus Beobachtungen gesch\"atzt
-  \item Heute: statistische Verfahren zur Sch\"atzung von Zuchtwerten unter
+  \item Heute: statistische Verfahren zur Sch\"atzung von Zuchtwerten aufgrund von
+    \begin{itemize}
+    \item ph\"anotypischen Leistungen
+    \item Pedigreeinformationen
+    \item Umweltbedingungen
+    \item neu: genomische Informationen
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Geschichte der Indexselektion}
+  \begin{itemize}
+  \item Hazel und Lush (1943): Gewichtung von ph\"anotypischen Informationen von Individuen zu einem Index $\mathbf{I}$, damit die Korrelation $r_{IH}$ zwischen Gesamtzuchtwert $\mathbf{H}$ und Index $\mathbf{I}$ maximal ist
+  \item Index $\mathbf{I}$ sei definiert als
+  \end{itemize}
+  $$\mathbf{I} = \mathbf{b}^T * \mathbf{p}$$
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Herleitung der Indexgewichte}
+  \begin{itemize}
+  \item Aus der Definition von $\mathbf{I}$ und der Bedingung, dass $r_{IH}$ folgt
+  \item $\rightarrow \ \mathbf{Gv} = \mathbf{Pb}$ (Herleitung f\"ur Interessierte)
+  \item $\rightarrow \ \mathbf{b} = \mathbf{P^{-1}Gv}$
+  \item $\mathbf{G}$: genetische Co-Varianz Matrix
+  \item $\mathbf{P}$: ph\"anotypischen Co-Varianz Matrix
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Ausblick}
+  \begin{itemize}
+  \item Anstelle von ph\"anotypischen Eigenleistungen als Informationen kann die Ableitung
+    der Indexgleichung auf andere Informationsquellen erweitert werden.
+  \item Prinzip des Aufstellens der Gleichungen und der Herleitung der Gewichte bleiben gleich.
+  \item Weitere Beispiele f\"ur Selektionsindices werden folgen ...
   \end{itemize}
 \end{frame}
 
