@@ -142,6 +142,10 @@ navigation
     Leistungen von Vorfahren und
     Blutlinien stimmen.''
   \end{block}
+
+  \begin{block}{Zitat 3: Mein Praktikumsbauer}
+  ``Wozu brauche ich Zuchtwerte, mein Z\"uchterauge sieht die guten K\"uhe auch so.''
+  \end{block}
 }
 \note{}
 
@@ -329,11 +333,257 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
   }
 \note{}
 
+\section{Einf\"uhrung in die Theorie des Selektionsindexes}
+
+\frame{
+
+  \frametitle{Einf\"uhrung in die Theorie des Selektionsindexes}
+  \begin{itemize}
+  \item Allgemeine Tierzucht - Ein kurzer R\"uckblick
+  \item Zuchtziel - verschiedene Formulierungen
+  \item Verschiedene Formen der Selektion
+  \item Index-basierte Selektion
+  \end{itemize}
+
+}
+\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Tierzucht - R\"uckblick}
+  \begin{itemize}
+  \item Voraussetzung: \emph{Zuchtziel}, welches einer Idealvorstellung eines Tieres in verschiedenen Merkmalen entspricht
+  \item \emph{Z\"uchten}: geziehlte Auswahl (Selektion) von Elterntieren mit der Absicht, dass die Nachkommen im Durchschnitt
+    dem Zuchtziel besser entsprechen als der Durchschnitt der Elterngeneration
+  \item Gegensatz zu Zucht steht die \emph{Vermehrung} oder \emph{Produktion}, welche keine gezielte Anpaarung von
+    Elterntieren beinhaltet
+  \item Umsetzung der Erreichung des Zuchtziels in einem \emph{Zuchtprogramm}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Z\"uchtung}
+  \includegraphics[width=\textwidth]{figure/ZuechtungElternNachkommen}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vermehrung}
+  \includegraphics[width=\textwidth]{figure/VermehrungElternNachkommen}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Arten der Selektion}
+  \begin{tabular}{p{2cm}|p{3.5cm}|p{4.5cm}}
+                 & Nat\"urliche Selektion & K\"unstliche Selektion \\
+                 & NS                     & KS                     \\
+   \hline
+   \"Uberleben   & Umwelt bestimmt, welche Tiere in Population \"uberleben
+                 & Mensch bestimmt, welche Tiere sich fortpflanzen und wie
+                   lange diese in der Population verbleiben         \\
+   \hline
+   Eigenschaften & Akkumulation von g\"unstigen Eigenschaften bezogen auf Umwelt
+                 & Mensch f\"ordert g\"unstige und verhindert ung\"unstige  \\
+   \hline
+                 & Wildtiere
+                 & Haustiere \\
+   \hline
+  \end{tabular}
+
+  \vspace{2ex}
+  Ersatz von NS durch KS ist ein Charakteristikum der Domestikation und eine Ursache der Entstehung der Haustiere aus den Wildtieren
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Arten der Paarung}
+  \begin{itemize}
+  \item \emph{Zuf\"allige Paarung} (ZP, Panmixie): Jedes Tier in der Population hat die gleiche Chance sich zu paaren
+  \item \emph{Gerichtete Paarung} (GP, assortative Paarung): Mensch bestimmt, welche Tiere einer Population sich paaren
+  \item KS und gerichtete Paarung sind wichtige Werkzeuge in der Tierzucht
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Erfassung der Tiere}
+  \begin{itemize}
+  \item Voraussetzung f\"ur die Umsetzung von KS und GP ist eine systematisch Erfassung der Tiere
+  \item Herdeb\"ucher als Datanbasis f\"ur Abstammung und GP
+  \item Z\"uchtervereinigungen zur F\"uhrung der Herdeb\"ucher, Definition von Rassestandards und Entwicklung und Umsetzung von Zuchtprogrammen
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Grundstruktur eines Zuchprogramms}
+  \includegraphics[width=\textwidth]{figure/Zuchtprogramm}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Besamung / Belegung eines weiblichen Tieres}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammBesamung}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Geburt}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammGeburt}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Leistungskontrolle}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammMilchkontrolle}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mutationen und Abg\"ange von Tieren}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammMutation}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Datenfl\"usse in einem Zuchtprogramm}
+  \includegraphics[width=\textwidth]{figure/ZuchtprogrammKomplett}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Wo fallen Entscheide betreffend}
+  \begin{itemize}
+  \item Gezielter Paarung (GP)
+  \item K\"unstlicher Selektion (KS)
+  \end{itemize}
+  \includegraphics[width=0.75\textwidth]{figure/ZuchtprogrammKomplett}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Entscheide betreffend GP und KS}
+  \includegraphics[width=0.75\textwidth]{figure/ZuchtprogrammGPKS}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Genauere Betrachtung der k\"unstlichen Selektion}
+  \begin{block}{Gezielte Paarung (GP)}
+    \begin{itemize}
+    \item GP wichtig an einem Punkt, bei der Besamung/Belegung
+    \item GP ist einfach zu verstehen
+    \end{itemize}
+  \end{block}
+  \begin{block}{K\"unstliche Selektion (KS)}
+    \begin{itemize}
+    \item KS verdient eine genauere Betrachtung
+    \item KS in Tierzucht definiert als gezielte Auswahl von Tieren (werden als \emph{Zuchttiere} bezeichnet)
+          als Eltern der n\"achsten Generation
+    \item Z\"uchterIn bestimmt, wie lange Tiere als Zuchttiere im Einsatz sind
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Charakteristika der k\"unstlichen Selektion}
+  \begin{itemize}
+  \item \emph{Ziel}: gezielte Ver\"anderung der genetischen Basis der Zuchtpopulation im Sinne des Zuchtziels
+  \item \emph{Effekt}: \"Anderung der Allelfrequenzen, wobei Frequenz von erw\"unschten Allelen erh\"oht und
+    Frequenz von unerw\"unschten Allelen vermindert
+  \item \emph{Wirkung}: Ver\"anderung des Populationsdurchschnitts von einer Elterngeneration zur Nachkommengeneration
+    wird als Mass der Wirkung verwendet
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Selektionsformen - Gerichtete Selektion}
+  \begin{itemize}
+  \item Gerichtete Selektion: Erh\"ohung (oder Verminderung) des Populationsdurchschnitts im Sinne des Zuchtziels
+  \end{itemize}
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{figure/GerichteteSelektion}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vergleich von Eltern und Nachkommen bei gerichteter Selektion}
+  \begin{itemize}
+  \item $NKD > ED$, aber $NKD < RD$
+  \item $s_{NK} < s_{E}$
+  \end{itemize}
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{figure/GerichteteSelektionElternNk}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Selektionsformen - Stabilisierende Selektion}
+  \begin{itemize}
+  \item Stabilisierende Selektion: Populationsdurchschnitts auf bestimmtem Niveau halten
+  \item Beispiel: Optimum-Merkmale wie Intra-Muskul\"arer Fettgehalt
+  \end{itemize}
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{figure/StabilisierendeSelektionElternNk}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Erweiterung der Selektion auf mehrere Merkmale}
+  \begin{itemize}
+  \item Bisher gezeigtes Material, alles nur f\"ur ein Merkmal - wenig relevant f\"ur praktische Anwendung
+  \item Praxis: eine Vielzahl von Merkmalen sind in Zuchtzielen enthalten
+  \item Merkmale in antagonistischer Beziehung, z.Bsp Milchleistung - Fruchtbarkeit
+  \item Wie k\"onnen Informationen von potentiellen Elterntieren kombiniert und verglichen werden?
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vergleich zweier Tiere mit eigener Leistung}
+   \begin{tabular}{p{3cm}|p{3cm}|p{3cm}}
+                       & Kuh Hilda & Kuh Frieda \\
+   \hline
+   Milchleistung (kg)  & 9000      & 6000       \\
+   \hline
+   Milchfett (\%)      & 3.5       & 4.5        \\
+   \hline
+   Milcheiweiss (\%)   & 3.2       & 3.5        \\
+   \hline
+   \end{tabular}
+   \begin{itemize}
+   \item Welche Kuh ist besser geeinget als Mutter?
+   \item Wie kann das genetische Potential der beiden K\"uhe abgesch\"atzt werden?
+   \item Welcher Massstab soll verwendet werden f\"ur die Beurteilung?
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Festlegung einer Zielgr\"osse - Wirtschaftlichkeit}
+  \begin{itemize}
+  \item Definition des Zuchtziels so, dass potentielle Eltern die Wirtschaftlichkeit der Nachkommengeneration verbessern
+  \item Wie kann ich Wirtschaftlichkeit absch\"atzen?
+  \item $\rightarrow$ Ver\"anderung des Gewinns bei marginaler Ver\"anderung eines Merkmals
+  \item $\rightarrow$ \emph{Wirtschaftliches Gewicht}
+  \end{itemize}
+\end{frame}
+
+
+%\begin{frame}[fragile]
+%  \frametitle{Titel}
+%  \begin{itemize}
+%  \item Item
+%  \end{itemize}
+%\end{frame}
 
 \section{Einf\"uhrung in R}
 
 \frame{
-  \frametitle{Wieso R}
+  \frametitle{Einf\"uhrung in R - Wieso R}
   \begin{itemize}
   \item Interpretierte Sprache, d.h. ein Programm - der sogenannte Interpreter - wartet auf Eingaben
   \item Einfache Installation: Download und Installation, analog zu anderen Programmen
@@ -350,7 +600,7 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 
 
 \frame{
-  \frametitle{Einf\"uhrung in R - Installation}
+  \frametitle{Installation}
   %\begin{block}
 
     \begin{itemize}
@@ -956,196 +1206,5 @@ abline(coef = coefficients(lmBrGew), col = "red")
 \end{frame}
 
 
-\section{Einf\"uhrung in die Theorie des Selektionsindexes}
-
-\frame{
-
-  \frametitle{Einf\"uhrung in die Theorie des Selektionsindexes}
-  \begin{itemize}
-  \item Allgemeine Tierzucht - Ein kurzer R\"uckblick
-  \item Zuchtziel - verschiedene Formulierungen
-  \item Verschiedene Formen der Selektion
-  \item Index-basierte Selektion
-  \end{itemize}
-
-}
-\note{}
-
-
-\begin{frame}[fragile]
-  \frametitle{Tierzucht - R\"uckblick}
-  \begin{itemize}
-  \item Voraussetzung: \emph{Zuchtziel}, welches einer Idealvorstellung eines Tieres in verschiedenen Merkmalen entspricht
-  \item \emph{Z\"uchten}: geziehlte Auswahl (Selektion) von Elterntieren mit der Absicht, dass die Nachkommen im Durchschnitt
-    dem Zuchtziel besser entsprechen als der Durchschnitt der Elterngeneration
-  \item Gegensatz zu Zucht steht die \emph{Vermehrung} oder \emph{Produktion}, welche keine gezielte Anpaarung von
-    Elterntieren beinhaltet
-  \item Umsetzung der Erreichung des Zuchtziels in einem \emph{Zuchtprogramm}
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Z\"uchtung}
-  \includegraphics[width=\textwidth]{figure/ZuechtungElternNachkommen}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Vermehrung}
-  \includegraphics[width=\textwidth]{figure/VermehrungElternNachkommen}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Arten der Selektion}
-  \begin{tabular}{p{2cm}|p{3.5cm}|p{4.5cm}}
-                 & Nat\"urliche Selektion & K\"unstliche Selektion \\
-                 & NS                     & KS                     \\
-   \hline
-   \"Uberleben   & Umwelt bestimmt, welche Tiere in Population \"uberleben
-                 & Mensch bestimmt, welche Tiere sich fortpflanzen und wie
-                   lange diese in der Population verbleiben         \\
-   \hline
-   Eigenschaften & Akkumulation von g\"unstigen Eigenschaften bezogen auf Umwelt
-                 & Mensch f\"ordert g\"unstige und verhindert ung\"unstige  \\
-   \hline
-                 & Wildtiere
-                 & Haustiere \\
-   \hline
-  \end{tabular}
-
-  \vspace{2ex}
-  Ersatz von NS durch KS ist ein Charakteristikum der Domestikation und eine Ursache der Entstehung der Haustiere aus den Wildtieren
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Arten der Paarung}
-  \begin{itemize}
-  \item \emph{Zuf\"allige Paarung} (ZP, Panmixie): Jedes Tier in der Population hat die gleiche Chance sich zu paaren
-  \item \emph{Gerichtete Paarung} (GP, assortative Paarung): Mensch bestimmt, welche Tiere einer Population sich paaren
-  \item KS und gerichtete Paarung sind wichtige Werkzeuge in der Tierzucht
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Erfassung der Tiere}
-  \begin{itemize}
-  \item Voraussetzung f\"ur die Umsetzung von KS und GP ist eine systematisch Erfassung der Tiere
-  \item Herdeb\"ucher als Datanbasis f\"ur Abstammung und GP
-  \item Z\"uchtervereinigungen zur F\"uhrung der Herdeb\"ucher, Definition von Rassestandards und Entwicklung und Umsetzung von Zuchtprogrammen
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Grundstruktur eines Zuchprogramms}
-  \includegraphics[width=\textwidth]{figure/Zuchtprogramm}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Besamung / Belegung eines weiblichen Tieres}
-  \includegraphics[width=\textwidth]{figure/ZuchtprogrammBesamung}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Geburt}
-  \includegraphics[width=\textwidth]{figure/ZuchtprogrammGeburt}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Leistungskontrolle}
-  \includegraphics[width=\textwidth]{figure/ZuchtprogrammMilchkontrolle}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Mutationen und Abg\"ange von Tieren}
-  \includegraphics[width=\textwidth]{figure/ZuchtprogrammMutation}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Datenfl\"usse in einem Zuchtprogramm}
-  \includegraphics[width=\textwidth]{figure/ZuchtprogrammKomplett}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Wo fallen Entscheide betreffend}
-  \begin{itemize}
-  \item Gezielter Paarung (GP)
-  \item K\"unstlicher Selektion (KS)
-  \end{itemize}
-  \includegraphics[width=0.75\textwidth]{figure/ZuchtprogrammKomplett}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Entscheide betreffend GP und KS}
-  \includegraphics[width=0.75\textwidth]{figure/ZuchtprogrammGPKS}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Genauere Betrachtung der k\"unstlichen Selektion}
-  \begin{block}{Gezielte Paarung (GP)}
-    \begin{itemize}
-    \item GP wichtig an einem Punkt, bei der Besamung/Belegung
-    \item GP ist einfach zu verstehen
-    \end{itemize}
-  \end{block}
-  \begin{block}{K\"unstliche Selektion (KS)}
-    \begin{itemize}
-    \item KS verdient eine genauere Betrachtung
-    \item KS in Tierzucht definiert als gezielte Auswahl von Tieren (werden als \emph{Zuchttiere} bezeichnet)
-          als Eltern der n\"achsten Generation
-    \item Z\"uchterIn bestimmt, wie lange Tiere als Zuchttiere im Einsatz sind
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Charakteristika der k\"unstlichen Selektion}
-  \begin{itemize}
-  \item \emph{Ziel}: gezielte Ver\"anderung der genetischen Basis der Zuchtpopulation im Sinne des Zuchtziels
-  \item \emph{Effekt}: \"Anderung der Allelfrequenzen, wobei Frequenz von erw\"unschten Allelen erh\"oht und
-    Frequenz von unerw\"unschten Allelen vermindert
-  \item \emph{Wirkung}: Ver\"anderung des Populationsdurchschnitts von einer Elterngeneration zur Nachkommengeneration
-    wird als Mass der Wirkung verwendet
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Selektionsformen}
-  \begin{itemize}
-  \item Gerichtete Selektion: Erh\"ohung (oder Verminderung) des Populationsdurchschnitts im Sinne des Zuchtziels
-  \end{itemize}
-  \begin{center}
-  \includegraphics[width=0.8\textwidth]{figure/GerichteteSelektion}
-  \end{center}
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Vergleich von Eltern und Nachkommen}
-  \begin{itemize}
-  \item $NKD > ED$, aber $NKD < RD$
-  \item $s_{NK} < s_{E}$
-  \end{itemize}
-  \begin{center}
-  \includegraphics[width=0.8\textwidth]{figure/GerichteteSelektionElternNk}
-  \end{center}
-\end{frame}
-
-%\begin{frame}[fragile]
-%  \frametitle{Titel}
-%  \begin{itemize}
-%  \item Item
-%  \end{itemize}
-%\end{frame}
 
 \end{document}
