@@ -573,6 +573,54 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 \end{frame}
 
 
+\begin{frame}[fragile]
+  \frametitle{Genetisches Potential - Gesamtzuchtwert}
+  \begin{itemize}
+  \item Quantifizierung der \"Anderung von Eltern zu Nachkommen
+  \item $\rightarrow$ Zuchtwert (siehe Quantitative Genetik)
+  \item Kombination aus wirtschaftlichen Gewichten und Zuchtwerten f\"uhrt zum \emph{Gesamtzuchtwert}
+  \item \textbf{Wichtig}: Gesamtzuchtwert entspricht der mathematischen Formulierung des Zuchtziels
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Berechnung Gesamtzuchtwert}
+  \begin{itemize}
+  \item Mathematisch ist der Gesamtzuchtwert $\mathbf{H}$ als gewichtetes Mittel aus wirtschaftlichen Gewichten $\mathbf{v}$ und Zuchtwerten $\mathbf{g}$ definiert
+  \item In Vektorschreibweise heisst das:
+  \end{itemize}
+  $$\mathbf{H} = \mathbf{v}^T * \mathbf{g}$$
+
+  \begin{itemize}
+  \item Zur\"uck zu unserem Beispiel
+  \end{itemize}
+   \begin{tabular}{p{3cm}|p{2.5cm}|p{2.5cm}|p{1.5cm}}
+                       & Hilda ($\mathbf{g}$) & Frieda ($\mathbf{g}$) & $\mathbf{v}$(Fr/Einheit)\\
+   \hline
+   Milchleistung (kg)  & 9000 ($+50$)     & 6000   ($+150$)     & $+0.05$ \\
+   \hline
+   Milchfett (\%)      & 3.5  ($-0.1$)    & 4.5    ($+0.05$)    & $-0.01$ \\
+   \hline
+   Milcheiweiss (\%)   & 3.2  ($+0.1$)    & 3.5    ($+0.1$)     & $+0.005$\\
+   \hline
+   $\mathbf{H}$ (Fr)   &                  &                     & \\
+   \hline
+   \end{tabular}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Woher kommen die Zahlen?}
+  \begin{itemize}
+  \item Wirtschaftliche Gewichte $\mathbf{v}$ k\"onnen aufgrund von Gewinngleichungen oder aufgrund anderer Methoden berechnet werden(siehe sp\"ater in dieser Veranstaltung)
+  \item Wahre Zuchtwerte sind unbekannt und werden aus Beobachtungen gesch\"atzt
+  \item Heute: statistische Verfahren zur Sch\"atzung von Zuchtwerten unter
+  \end{itemize}
+\end{frame}
+
+
 %\begin{frame}[fragile]
 %  \frametitle{Titel}
 %  \begin{itemize}
