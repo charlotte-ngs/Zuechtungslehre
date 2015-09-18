@@ -98,6 +98,7 @@ navigation
 
   \frametitle{Who Is Who}
   \begin{block}{Dozierende}
+  \includegraphics[width=0.1\textwidth]{figure/BildBirgitGredler}
     \begin{itemize}
     \item Birgit Gredler
     \item Peter von Rohr
