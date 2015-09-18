@@ -1,0 +1,154 @@
+\documentclass{article}
+\usepackage{mathptmx}
+\usepackage{anyfontsize}
+\usepackage{t1enc}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\pagestyle{empty}
+\thispagestyle{empty}
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont Peter von Rohr}
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont Gilli	Felix}
+\end{center}
+
+\clearpage
+\pagebreak
+
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+\clearpage
+\pagebreak
+
+\vspace*{15cm}
+
+\begin{center}
+{\fontsize{50}{60}\selectfont }
+\end{center}
+
+
+\end{document}

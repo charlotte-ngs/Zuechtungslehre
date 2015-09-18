@@ -4,6 +4,7 @@
 %  Chair of Systems Design, ETH Zurich
 %  Weinbergstrasse 56/58 CH-8092 Zurich
 %
+\pdfminorversion=4
 \documentclass[
 %aspectratio=169,
 first,
@@ -27,8 +28,9 @@ navigation
 {\footnotesize %\tiny
 \insertnote}}
 
-\setbeameroption{hide notes}
-%\setbeameroption{show notes}
+%\setbeameroption{hide notes}
+\setbeameroption{show notes}
+%\setbeameroption{handoutversion}
 
 \setbeamertemplate{navigation symbols}{} % suppresses all navigation symbols:
 % \setbeamertemplate{navigation symbols}[horizontal] % Organizes the navigation symbols horizontally.
@@ -81,7 +83,9 @@ navigation
 \frame{
 \maketitle
 }
-\note{}
+\note{Ich begr\"usse sie ganz herzlich zu dieser Vorlesung in Z\"uchtungskunde. Falls sie nicht beabsichtigt haben
+diese Vorlesung zu besuchen und aus Versehen hier sind, dann ist das jetzt die letzte Gelegenheit noch heil
+davon zu kommen. Falls dem nicht so ist, dann wollen wir gleich loslegen.}
 
 
 \section{Einf\"uhrung in die Vorlesung}
@@ -91,7 +95,13 @@ navigation
   \frametitle{Inhalt}
     \tableofcontents %[currentsection]
 }
-\note{}
+\note{Die heutigen drei Lektionen habe sollen grob in drei Teilen verlaufen.
+\begin{enumerate}
+  \item Zuerst m\"ussen wir ein paar administrative Dinge kl\"aren, das kennen sie sicher von anderen Vorlesungen.
+  \item Dann starten wir mit einer Einf\"uhrung in die Theorie des Selektionsindexes
+  \item und im dritten Teil geht es um eine Einf\"uhrung in ein Werkzeug, genannt R, welches wir hier verwenden werden.
+\end{enumerate}
+}
 
 
 \frame{
@@ -104,7 +114,7 @@ navigation
     \end{itemize}
   \end{block}
 
-  \begin{block}{Studierende}
+  \begin{block}{Studentierende}
       \begin{itemize}
       \item Studiengang
       \item Erfahrungen mit Tierzucht
@@ -113,8 +123,22 @@ navigation
   \end{block}
 
 }
-\note{}
+\note{Als erstes finde ich es wichtig, dass wir einander kennen lernen, denn es hilft mir, wenn etwas \"uber ihren beruflichen Hintergrund weiss, bei der Gestaltung der Vorlesung. Da ich dieses Fach zum ersten Mal unterrichte bin ich um so mehr auch auf ihr Feedback angewiesen.
 
+Deshalb schlage ich vor, dass wir eine kurze Vorstellrunde machen. Wenn das ok ist, dann beginne ich gleich, so haben sie noch etwas Zeit, falls sie noch \"uberlegen m\"ochten, was sich nachher \"uber sich sagen m\"ochten.
+
+Wir werden diese Vorlesung zu zweit bestreiten. Leider ist meine Kollegin Birgit Gredler heute verhindert und kann deshalb nicht hier sein. Sie wird dann ab November bis zum Ende des Semesters den zweiten Teil \"ubernehmen.
+
+Mein Name ist Peter von Rohr und ich arbeite bei der Firma Qualitas AG in Zug. Qualitas ist eine Tochterfirma von Braunvieh Schweiz und von Swissherdbook. Wir sind f\"ur die Speicherung und die Auswertung der Daten aller grosser Zuchtorganisationen bei den Rindern und bei den Kleinwiederk\"auern zust\"andig.}
+
+\frame{
+
+}
+\note{
+Mein Werdegang sieht so aus, dass ich auch einmal Agronomie studiert habe. Das war aber noch vor Bologna. Ich habe dann f\"ur l\"angere Zeit in der Forschung gearbeitet. Zuerst in der Tierzucht, dann in Statistischer Genetik und Bioinformatik. Nach einer Weile entschied ich mich dann mich weiterzubilden und habe einen Bachelor in Informatik gemacht. Anschliessend arbeitete ich in einem ETH-Spin-Off als Bioinformatiker und Systementwickler. Nach einem Abstecher in einer Computersupportfirma bin ich dann bei Qualitas AG gelandet. Dort arbeite ich als Softwareentickler f\"ur Datenbanken.
+
+So nun habe ich lange genug geredet jetzt sind sie dran
+}
 
 \frame{
   \frametitle{Ziele der Vorlesung}
@@ -124,7 +148,11 @@ navigation
   \item Beurteilung von Aussagen (siehe folgende Zitate)
   \end{itemize}
 }
-\note{}
+\note{
+Die offiziellen Ziele dieser Vorlesung stehen im Vorlesungsverzeichnis. Dar\"uber hinaus ist es mir wichtig, dass sie ein Verst\"andnis f\"ur die Grundlagen in diesem Fach entwickeln. Auf der n\"achsten Folie werden wir drei Zitate aus der Praxis anschauen, welche zeigen, welche Meinungen und welches Verst\"andnis zu gewissen Konzepten herrscht.
+
+Des weiteren finde ich es auch gut, wenn sie von dieser Vorlesung noch gewisse Sachen mitnehmen k\"onnen, welche sie sp\"ater brauchen k\"onnen. Vielleicht schaffen wir es, dass sie bei der Masterarbeit etwas weniger Horror vor der statistischen Auswertung oder vor R haben. Dann w\"are das sehr fein.
+}
 
 
 \frame{
@@ -147,7 +175,11 @@ navigation
   ``Wozu brauche ich Zuchtwerte, mein Z\"uchterauge sieht die guten K\"uhe auch so.''
   \end{block}
 }
-\note{}
+\note{
+Also jetzt zu diesen drei Zitaten. Zwei davon habe ich aus landwirtschaftlichen Zeitschriften und eines hat mein Praktikumsbauer gemacht. Es geht darum immer um Konzepte oder um Theme, welche wir hier auch behandeln werden.
+
+Mir ist es einfach ein Anliegen, dass sie am Ende dieses Semesters sich dazu eine Meinung bilden k\"onnen. Falls ihnen diese Aussagen jetzt nichts bedeuten oder sie diese nicht einordnen k\"onnen, dann ist das ok so. Aber falls sie am Ende des Semesters immer noch Fragen haben dazu, dann kommen sie zu mir und wir k\"onnen das kl\"aren.
+}
 
 
 \frame{
@@ -411,7 +443,7 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
   \frametitle{Erfassung der Tiere}
   \begin{itemize}
   \item Voraussetzung f\"ur die Umsetzung von KS und GP ist eine systematisch Erfassung der Tiere
-  \item Herdeb\"ucher als Datenbasis f\"ur Abstammung und GP
+  \item Herdeb\"ucher als Datanbasis f\"ur Abstammung und GP
   \item Z\"uchtervereinigungen zur F\"uhrung der Herdeb\"ucher, Definition von Rassestandards und Entwicklung und Umsetzung von Zuchtprogrammen
   \end{itemize}
 \end{frame}
@@ -640,7 +672,7 @@ $14$ & 18.12  & Pr\"ufung                                   & BG, PvR \\
 \begin{frame}[fragile]
   \frametitle{Herleitung der Indexgewichte}
   \begin{itemize}
-  \item Aus der Definition von $\mathbf{I}$ und der Bedingung, dass $r_{IH}$ maximal ist, folgt
+  \item Aus der Definition von $\mathbf{I}$ und der Bedingung, dass $r_{IH}$ folgt
   \item $\rightarrow \ \mathbf{Gv} = \mathbf{Pb}$ (Herleitung f\"ur Interessierte)
   \item $\rightarrow \ \mathbf{b} = \mathbf{P^{-1}Gv}$
   \item $\mathbf{G}$: genetische Co-Varianz Matrix
