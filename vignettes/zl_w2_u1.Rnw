@@ -74,8 +74,22 @@ Nr  &  Beobachtungswert\\
 \hline
 \end{tabular}
 
-Die Standardabweichung wurde dann wie folgt berechnet
+\vspace*{1cm}
+\noindent Die Standardabweichung wurde dann wie folgt berechnet
 
 $$s = \sqrt{((15-28.4)^2 + (9-28.4)^2 + (8-28.4)^2 + (34-28.4)^2 + (76-28.4)^2)/4}$$
+
+Auf Folie 56 wurde die Standardabweichung mit einer alternativen Formel
+
+$$s = \sqrt{\frac{1}{n-1}\left(\sum_{i=1}^n x_i^2 - {1\over n}\left(\sum_{i=1}^n x_i \right)^2 \right)} $$
+
+Zeigen Sie, dass die beiden Formeln das gleiche berechnen.
+
+\subsection*{Hinweise}
+\begin{itemize}
+\item Vereinfachung: Gleichheit der Formeln kann auch f\"ur die empirische Varianz $s^2$ gezeigt werden.
+\item Mittelwert: $\bar{x} = {1\over n}\sum_{i=1}^n x_i$, f\"ur unser Beispiel heisst das:\\ $\bar{x} = {1\over 5} ( 15 + 9 + 8 + 34 + 76)$
+\item Binomische Formel: $(a - b)^2 = a^2 -2ab + b^2$
+\end{itemize}
 
 \end{document}
