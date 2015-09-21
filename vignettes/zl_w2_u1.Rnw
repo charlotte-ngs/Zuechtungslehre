@@ -1,0 +1,81 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uclearchtungslehre - \"Ubung 1}
+\author{Peter von Rohr}
+\maketitle
+
+\section*{Aufgabe 1}
+\label{sec:Aufgabe1}
+Falls Sie das nicht schon gemacht haben, dann installieren Sie bitte R und RStudio auf ihrem Rechner. Ich schlage vor, dass Sie wie folgt vorgehen.
+
+\begin{itemize}
+\item[Schritt 1:] Herunterladen der Installationsdatei \"uber die Webseite von R unter https://www.r-project.org (dann Download $>$ CRAN und einen Mirror ausw\"ahlen) oder direkt von der ETH-Mirror-Seite unter https://stat.ethz.ch/CRAN/
+\item[Schritt 2:] Installation durch Doppelclick auf die heruntergeladenen Installationsdatei
+\item[Schritt 3:] Herunterladen von RStudio von https://www.rstudio.com/products/rstudio/download/
+\item[Schritt 4:] Installation von RStudio durch Doppelclick auf die heruntergeladene Installationsdatei
+\end{itemize}
+
+Als Kontrolle geben Sie im Fenster, welches mit ``Console'' angeschrieben ist, folgenden Befehl ein
+
+<<RVersionString, eval=FALSE>>=
+R.Version()$version.string
+@
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figure/w2/zl_w2_u1_console_window}
+\end{center}
+
+\noindent Dann sollte folgendes Resultat erscheinen
+
+<<RVersionStringOut, echo=FALSE>>=
+<<RVersionString>>
+@
+
+\section*{Aufgabe 2}
+\label{sec:Aufgabe2}
+In der Schweinezucht spielt die Fleischfarbe eine wichtige Rolle. Angenommen, im Zuchtziel wird eine
+typische Rosaf\"arbung angestrebt, also nicht so weiss wie Kalbfleisch, aber auch nicht so dunkelrot,
+wie Rindfleisch.
+
+\begin{enumerate}
+\item[a] In der Vorlesung wurden zwei Arten der k\"unstlichen Selektion vorgestellt. Wie lauten diese Selektionsarten
+\item[b] Welche der beiden Arten w\"urden Sie f\"ur das genannte Beispiel mit der Farbe beim Schweinefleisch anwenden
+\item[c] \emph{Zusatzaufgabe}: In einer f\"ur die Population repr\"asentatitven Stichprobe wurde die Farbe beim Fleisch
+  gemessen. Das Resultat dieser Messung ergab f\"ur die aktuelle Zuchtpopulation einen Durchschnitt von $112$ Einheiten
+  mit einer Standardabweichung von $10.75$ (Annahme Normalverteilung). Angenommen Sie m\"ochten aus der ganzen Zuchtpopulation
+  $68\%$ der Tiere als Elterntiere der kommenden Nachkommengeneration selektieren, bei welchen Werten der Fleischfarbe
+  liegen dann allf\"allige Selektionsgrenzen?
+\end{enumerate}
+
+
+\section*{Aufgabe 3}
+\label{sec:Aufgabe3}
+Die empirische Standardabweichung von Beobachtungswerten einer Zufallsvariablen $X$ l\"asst sich einerseits aus der klassischen
+Definition
+
+$$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n(x_i - \bar{x})^2} $$
+\noindent wobei $\bar{x}$ dem Mittelwert der Beobachtungswerte entspricht.
+
+Auf Folie 49 der Vorlesung der letzten Woche wurde die Standardabweichung so in R berechnet. Die Beobachtungswerte
+in diesem Beispiel lauteten
+
+\begin{tabular}{|p{1cm}|p{3cm}|}
+\hline
+Nr  &  Beobachtungswert\\
+\hline
+1   &  15\\
+2   &  9\\
+3   &  8\\
+4   &  34\\
+5   &  76\\
+\hline
+\end{tabular}
+
+Die Standardabweichung wurde dann wie folgt berechnet
+
+$$s = \sqrt{((15-28.4)^2 + (9-28.4)^2 + (8-28.4)^2 + (34-28.4)^2 + (76-28.4)^2)/4}$$
+
+\end{document}

@@ -4,6 +4,7 @@
 %  Chair of Systems Design, ETH Zurich
 %  Weinbergstrasse 56/58 CH-8092 Zurich
 %
+\pdfminorversion=4
 \documentclass[
 %aspectratio=169,
 first,
