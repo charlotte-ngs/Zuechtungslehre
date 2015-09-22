@@ -168,11 +168,21 @@ navigation
   \frametitle{Vektoraddition}
   \includegraphics[width=\textwidth]{figure/w2/zl_w2_v2_VektorAddition}
 }
+\note{}
 
 
 \frame{
   \frametitle{Rechnen mit Vektoren - Vektoroperationen II}
-  \begin{block}{Skalarprodukt zweier Vektoren}
+  \begin{block}{L\"ange eines Vektors}
+    \begin{itemize}
+    \item Nach Satz von Pythagorras
+      %\begin{center}
+      \includegraphics[width=0.3\textwidth]{figure/w2/zl_w2_v2_VektorLaenge}
+      %\end{center}
+    \item Definition $||\textbf{v}|| = \sqrt{v_x^2 + v_y^2}$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Verschiedene Arten von Vektoren}
     \begin{itemize}
     \item Unterscheidung der Vektoren in Zeilenvektoren
       $\mathbf{v}^T = \left[
@@ -187,6 +197,84 @@ navigation
     \end{itemize}
   \end{block}
 }
+\note{}
+
+
+\frame{
+  \frametitle{Rechnen mit Vektoren - Vektoroperationen III}
+  \begin{block}{Skalarprodukt zweier Vektoren - ergibt eine Zahl}
+    \begin{itemize}
+    \item Skalarprodukt der Vektoren $\textbf{v}^T$ und $\textbf{w}$ entspricht dem Produkt
+      der L\"angen der Vektoren mal dem Cosinus des Zwischenwinkels
+    \item Berechnung: $\textbf{v}^T * \textbf{w} = v_x * w_x + v_y * w_y$
+    \item Bedeutung: $cos(\alpha) = \frac{\textbf{v}^T * \textbf{w}}{||\textbf{v}||*||\textbf{w}||}$
+    \end{itemize}
+  \end{block}
+
+  \begin{center}
+  \includegraphics[width=0.5\textwidth]{figure/w2/zl_w2_v2_VektorSkalarprodukt}
+  \end{center}
+}
+\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Rechnen mit Vektoren in R}
+  \begin{block}{Erzeugung von Vektoren in R}
+    \begin{itemize}
+    \item Erzeugung von Vektoren mit Funktion \texttt{vector()}
+    \item Beispiel
+<<VectorNumericGenerate>>=
+vecNum <- vector(mode = "numeric", length = 2)
+@
+    \end{itemize}
+  \end{block}
+  \begin{block}{Zuweisung von Werten zu Vektoren}
+<<VectorNumericAssign>>=
+vecNum[1] <- 5
+vecNum[2] <- -7
+print(vecNum)
+@
+  \end{block}
+\end{frame}
+\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Rechnen mit Vektoren in R II}
+  \begin{block}{Erzeugung und Zuweisung in einem Schritt mit \texttt{c()}}
+<<VectorNumericConc>>=
+vecNum <- c(5, -7)
+print(vecNum)
+@
+  \end{block}
+  \begin{block}{Addition}
+<<VectorNumericAddition>>=
+vecA <- c(12, -4)
+vecB <- c(-3, 43)
+vecA + vecB
+@
+  \end{block}
+\end{frame}
+\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Skalarprodukt auf zwei Arten}
+  \begin{block}{Funktion \texttt{crossprod()}}
+<<VectorNumericCrossprod>>=
+vecA <- c(12, -4)
+vecB <- c(-3, 43)
+crossprod(vecA, vecB)
+@
+  \end{block}
+  \begin{block}{Matrix-Multiplikation}
+<<VectorNumericMatMult>>=
+t(vecA) %*% vecB
+@
+  \end{block}
+\end{frame}
+\note{}
 
 
 \section{Selektionsindex mit mehreren Merkmalen}
