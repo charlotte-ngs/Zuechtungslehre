@@ -7,7 +7,10 @@
 \author{Peter von Rohr}
 \maketitle
 
-\section*{Aufgabe 1}
+In Klammern hinter der Aufgabennummer ist der Schwierigkeitsgrad der Aufgabe auf einer Skala von $1$ bis $10$ deklariert. Aufgaben mit Schwierigkeitsgrad $(1)$ sollten einfach zu l\"osen sein und Aufgaben mit Schwierigkeitsgrad $(10)$ sind eher schwer zu l\"osen.
+
+
+\section*{Aufgabe 1 (2)}
 \label{sec:Aufgabe1}
 Falls Sie das nicht schon gemacht haben, dann installieren Sie bitte R und RStudio auf ihrem Rechner. Ich schlage vor, dass Sie wie folgt vorgehen.
 
@@ -34,7 +37,7 @@ R.Version()$version.string
 <<RVersionString>>
 @
 
-\section*{Aufgabe 2}
+\section*{Aufgabe 2 (5)}
 \label{sec:Aufgabe2}
 In der Schweinezucht spielt die Fleischfarbe eine wichtige Rolle. Angenommen, im Zuchtziel wird eine
 typische Rosaf\"arbung angestrebt, also nicht so weiss wie Kalbfleisch, aber auch nicht so dunkelrot,
@@ -51,7 +54,7 @@ wie Rindfleisch.
 \end{enumerate}
 
 
-\section*{Aufgabe 3}
+\section*{Aufgabe 3 (10)}
 \label{sec:Aufgabe3}
 Die empirische Standardabweichung von Beobachtungswerten einer Zufallsvariablen $X$ l\"asst sich einerseits aus der klassischen
 Definition

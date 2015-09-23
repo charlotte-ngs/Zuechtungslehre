@@ -277,6 +277,160 @@ t(vecA) %*% vecB
 \note{}
 
 
+\frame{
+  \frametitle{Einf\"uhrung in Matrizen}
+  \begin{block}{Was ist eine Matrix}
+    \begin{itemize}
+    \item Mehrere Kolonnenvektoren gleicher L\"ange nebeneinander
+    \item Beispiel: $\textbf{v} = \left[ \begin{array}{c} v_x\\ v_y \end{array}\right]$,
+      $\textbf{w} = \left[ \begin{array}{c} w_x\\ w_y \end{array}\right]$,
+      $\textbf{A} = \left[ \begin{array}{cc}\textbf{v} & \textbf{w} \end{array}\right]
+                  = \left[ \begin{array}{cc} v_x & w_x\\ v_y & w_y \end{array}\right]$
+    \item Mehrere Zeilenvektoren gleicher L\"ange untereinander
+    \item Beispiel: $\textbf{v}^T = \left[ \begin{array}{cc} v_x & v_y \end{array}\right]$,
+      $\textbf{w}^T = \left[ \begin{array}{cc} w_x & w_y \end{array}\right]$
+
+      \vspace{1ex} $\textbf{B} = \left[ \begin{array}{c} \textbf{v}^T\\ \textbf{w}^T \end{array}\right]
+                  = \left[ \begin{array}{cc} v_x & v_y \\ w_x & w_y \end{array}\right]$
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Rechnen mit Matrizen}
+  \begin{block}{Eigenschaft von Matrizen}
+    \begin{itemize}
+    \item Dimension: Anzahl Zeilen und Anzahl Kolonnen
+    \item Bespiel: $\textbf{A} = \left[ \begin{array}{ccc} 3 & 2 & -3\\ 54 & -9 & 1\end{array}\right]$,
+      $dim(\textbf{A}) = 2 \times 3$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Addition von Matrizen}
+    \begin{itemize}
+    \item Matrizen werden komponenten-weise addiert
+    \item nur Matrizen gleicher Dimension k\"onnen addiert werden
+    \item Reihenfolge der Summanden spielt keine Rolle (kommutativ)
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Rechnen mit Matrizen II}
+  \begin{block}{Summe der Matrizen}
+    \begin{itemize}
+    \item Beispiel: $\textbf{A} = \left[ \begin{array}{cc} a_{11} & a_{12}\\ a_{21} & a_{22}\end{array}\right],
+      \textbf{B} = \left[ \begin{array}{cc} b_{11} & b_{12}\\ b_{21} & b_{22}\end{array}\right]$
+    \item $\textbf{C} = \textbf{A} + \textbf{B}
+        = \left[ \begin{array}{cc} a_{11} + b_{11} & a_{12} + b_{12}\\ a_{21} + b_{21} & a_{22} + b_{22}\end{array}\right]$
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Rechnen mit Matrizen III}
+  \begin{block}{Matrix Multiplikation}
+    \begin{itemize}
+    \item ``Zeilen Mal Kolonnen''
+    \item Dimensionen der beiden Matrizen m\"ussen stimmen.
+    \item $m\times n$ kann nur mit $n\times q$ Matrix multipliziert werden
+    \item Resultat ist eine Matrix mit Dimension $m\times q$
+    \item Reihenfolge der Faktoren ist wichtig, kann nicht vertauscht werden (nicht kommutativ)
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Matrix Multiplikation}
+  \includegraphics[width=\textwidth]{figure/w2/zl_w2_v2_MatrixMultiplikation}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Bedeutung der Matrix $*$ Vektor Multiplikation}
+  \includegraphics[width=0.8\textwidth]{figure/w2/zl_w2_v2_MatrixMalVektor}
+
+  Multiplikation von Matrix $\mathbf{A}$ mal Vektor $\mathbf{v}$ kann als
+  Transformation von $\mathbf{v}$ in neuen Vektor $\mathbf{w}$
+  betrachtet werden.
+}
+\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Matrizen in R}
+  \begin{itemize}
+  \item Konstruktion mit Funktion \texttt{matrix()}
+  \item Beispiel
+<<MatrixKonstruktion>>=
+(matA <- matrix(c(3,1,0,1), ncol = 2))
+@
+  \item Matrixelemente als Vektor, Anzahl Kolonnen als Argument \texttt{ncol}
+  \item Matrixelemente werden per-default Kolonnen-weise abgef\"ullt
+  \item Zeilen-weises Abf\"ullen mit Argument \texttt{byrow = TRUE}
+  \end{itemize}
+\end{frame}
+\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Matrizen in R II}
+  \begin{itemize}
+  \item Beispiel f\"ur Zeilen-weises Abf\"ullen der Matrix
+<<MatrixByColumn>>=
+(matB <- matrix(c(3,1,0,1), ncol = 2, byrow = TRUE))
+@
+  \item Dimension einer Matrix mit Funktion \texttt{dim()}
+<<MatrixDimension>>=
+dim(matB)
+@
+  \item Transponieren einer Matrix - Vertausch von Zeilen und Kolonnen
+<<MatrixTranspose>>=
+t(matB)
+@
+  \end{itemize}
+\end{frame}
+\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Determinante, Spur und Matrix-Addition in R}
+  \begin{itemize}
+  \item Determinante einer Matrix mit Funktion \texttt{det()}
+<<MatrixDet>>=
+det(matB)
+@
+ \item Spur einer Matrix
+<<MatrixTrace>>=
+sum(diag(matB))
+@
+  \item Matrix Addition
+<<MatrixAddition>>=
+matA + matB
+@
+  \end{itemize}
+\end{frame}
+\note{}
+
+
+\begin{frame}[fragile]
+  \frametitle{Matrix Multiplikation in R}
+  \begin{itemize}
+  \item gew\"ohnliche Multiplikation mit $*$ multipliziert Komponenten
+
+  \end{itemize}
+\end{frame}
+\note{}
+
+
 \section{Selektionsindex mit mehreren Merkmalen}
 
 \begin{frame}[fragile]
