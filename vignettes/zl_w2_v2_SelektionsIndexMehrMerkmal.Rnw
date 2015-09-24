@@ -365,6 +365,18 @@ t(vecA) %*% vecB
 \note{}
 
 
+\frame{
+  \frametitle{Matrizen und Vektoren zur L\"osung von Gleichungssytemen}
+  \begin{block}{2 Gleichungen mit 2 Unbekannten}
+    \begin{eqnarray}
+    3 * x - 5 * y & = & 4\\
+    2 * x + y     & = & 7
+    \end{eqnarray}
+  \end{block}
+}
+\note{}
+
+
 \begin{frame}[fragile]
   \frametitle{Matrizen in R}
   \begin{itemize}
@@ -425,7 +437,15 @@ matA + matB
   \frametitle{Matrix Multiplikation in R}
   \begin{itemize}
   \item gew\"ohnliche Multiplikation mit $*$ multipliziert Komponenten
-
+  \item Matrixmultiplikation mit \%$*$\%
+  \item Beispiel
+<<MatrixMult>>=
+matA %*% matB
+@
+<<MatrixVecMult>>=
+vecV <- c(1,2)
+matA %*% vecV
+@
   \end{itemize}
 \end{frame}
 \note{}
@@ -434,14 +454,15 @@ matA + matB
 \section{Selektionsindex mit mehreren Merkmalen}
 
 \begin{frame}[fragile]
-  \frametitle{Erweiterung der Selektion auf mehrere Merkmale}
+  \frametitle{Selektion mit mehrere Merkmale}
   \begin{itemize}
-  \item Bisher gezeigtes Material, alles nur f\"ur ein Merkmal - wenig relevant f\"ur praktische Anwendung
+  \item Beispiele von letzter Woche, alle nur f\"ur ein Merkmal - wenig relevant f\"ur praktische Anwendung
   \item Praxis: eine Vielzahl von Merkmalen sind in Zuchtzielen enthalten
-  \item Merkmale in antagonistischer Beziehung, z.Bsp Milchleistung - Fruchtbarkeit
+  \item Merkmale in antagonistischer Beziehung, z.Bsp Milchleistung - Fruchtbarkeit - Nutzungsdauer
   \item Wie k\"onnen Informationen von potentiellen Elterntieren kombiniert und verglichen werden?
   \end{itemize}
 \end{frame}
+\note{}
 
 
 \begin{frame}[fragile]
@@ -462,6 +483,7 @@ matA + matB
    \item Welcher Massstab soll verwendet werden f\"ur die Beurteilung?
    \end{itemize}
 \end{frame}
+\note{}
 
 
 \begin{frame}[fragile]
@@ -473,6 +495,90 @@ matA + matB
   \item $\rightarrow$ \emph{Wirtschaftliches Gewicht}
   \end{itemize}
 \end{frame}
+\note{}
+
+
+\frame{
+  \frametitle{Einfache Berechnung von wirtschaftlichen Gewichten}
+  \begin{block}{Einfaches Produktionssystem}
+    \begin{itemize}
+    \item Annahme: hypothetischer reiner Produktionsbetrieb
+    \item Zukauf von Futter
+    \item Remontierung \"uber zugekaufte Tiere
+    \item Erfassung von Erl\"os und Kosten und Berechnung des Gewinns
+    \end{itemize}
+  \end{block}
+  \begin{block}{Ver\"anderung der Produktion um eine kleine Einheit}
+    \begin{itemize}
+    \item Erfassung der Ver\"anderung von Erl\"os, Kosten und Gewinn
+    \item Ver\"anderung des Gewinns pro Ver\"anderung der Produktion ergibt wirtschaftliches Gewicht
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Rechenbeispiel}
+  \begin{block}{Milchleistung - aktuelle Generation}
+    \begin{itemize}
+    \item Herde von $50$ K\"uhen mit einem Schnitt von $7000$kg
+    \item Milchpreis sei $0.55$ Fr$/$kg
+    \item Kosten (Arbeit, Futter, Stallplatz)  $0.45$ Fr$/$kg
+    \item Gewinn $0.1$ Fr$/$kg
+    \end{itemize}
+  \end{block}
+  \begin{block}{N\"achste Generation}
+    \begin{itemize}
+    \item Durchschnittliche Leistung $7001$kg aufgrund genetischer Verbesserung
+    \item Rest ist gleich
+    \item Ver\"anderung des Gewinns: ?
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Zusammenfassung der Ergebnisse}
+  Bitte vervollst\"andigen Sie die folgende Tabelle mit den wirtschaftlichen Kennzahlen der fiktiven Herde mit $50$ K\"uhen \"uber zwei Generationen in Fr$/$Jahr
+
+  \vspace{1ex}
+  {\renewcommand{\arraystretch}{1.7}
+   \renewcommand{\tabcolsep}{0.2cm}
+  \begin{tabular}{|p{3.5cm}|p{2cm}|p{2cm}|p{2cm}|}
+  \hline
+     &  Erl\"os  &  Kosten  &  Gewinn \\
+  \hline
+   Aktuelle Generation   &  &  & \\
+  \hline
+   N\"achste Generation  &  &  & \\
+  \hline
+   Ver\"anderung         &  &  & \\
+  \hline
+  \end{tabular}}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Berechnung des wirtschaftlichen Gewichts}
+  Das wirtschaftliche Gewicht f\"ur das Merkmal Milchleistung entspricht der Ver\"anderung des Gewinns in Fr$/$kg
+
+  \vspace{1ex}
+  {\renewcommand{\arraystretch}{1.7}
+   \renewcommand{\tabcolsep}{0.2cm}
+  \begin{tabular}{|p{4.5cm}|p{2cm}|}
+  \hline
+    Ver\"anderung des Gewinns  &  \\
+  \hline
+    Ver\"anderung der Menge    &  \\
+  \hline
+    Wirtschaftliches Gewicht   &  \\
+  \hline
+  \end{tabular}}
+}
 
 
 \begin{frame}[fragile]
@@ -484,6 +590,7 @@ matA + matB
   \item \textbf{Wichtig}: Gesamtzuchtwert entspricht der mathematischen Formulierung des Zuchtziels
   \end{itemize}
 \end{frame}
+\note{}
 
 
 \begin{frame}[fragile]
