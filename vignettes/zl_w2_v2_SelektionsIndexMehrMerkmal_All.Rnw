@@ -764,5 +764,381 @@ solve(matAlhs, vecWrhs)
 }
 \note{}
 
+%%% % stuff below here was already shown last week
+
+\begin{frame}[fragile]
+  \frametitle{Vektoren}
+  \begin{itemize}
+  \item Ein Vektor ist eine Sequenz von Datenelementen vom gleichen Basistyp
+  \item Datenelemente in einem Vektor werden als Komponenten bezeichnet
+  \item In R werden Vektoren mit der Funktion \texttt{vector()} erzeugt und mit
+    Funktion \texttt{c()} erweitert.
+  \item Beispiel:
+<<VectorNumeric>>=
+vecNum <- vector(mode = "numeric", length = 2)
+vecNum[1] <- 5
+vecNum[2] <- -1
+print(vecNum)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vektoren II}
+  \begin{itemize}
+  \item ... oder in einem Schritt mit \texttt{c()}
+<<cVectorNumeric>>=
+vecNum <- c(5,-1)
+print(vecNum)
+@
+  \item Erweiterung bestehender Vektoren mit
+<<cVectorExtend>>=
+vecChar <- c("aa","bb","da")
+vecChar <- c(vecNum, vecChar)
+print(vecChar)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Eigenschaften von Vektoren}
+  \begin{itemize}
+  \item Anzahl Komponenten in einem Vektor
+<<LengthVector>>=
+length(vecChar)
+@
+  \item Test ob ein Vektor leer ist, also keine Elemente enth\"alt
+<<EmptyVectorChar>>=
+length(vecChar) == 0
+@
+<<EmptyVectorLogical>>=
+vecLogical <- vector(mode = "logical", length = 0)
+length(vecLogical) == 0
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Logische Operationen mit Vektoren}
+  \begin{itemize}
+  \item Logische oder Boolsche Operationen (gr\"osser, kleiner, gleich) auf Vektoren
+    werden elementweise ausgef\"uhrt
+  \item Resultat entspricht einem Vektor der gleichen L\"ange wie der urspr\"ungliche
+    Vektor mit TRUE und FALSE Werten
+  \item Beispiel:
+<<VectorLogicalOp>>=
+a <- c(33,5,7,13,-1)
+a > 5
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vektorarithmetik - Plus, Minus}
+  \begin{itemize}
+  \item Arithmetische Operationen mit Vektoren (plus, minus, mal, durch)
+    werden elementweise ausgef\"uhrt
+  \item Beispiel
+<<VectorPlus>>=
+x <- c(3,5,13,-2)
+y <- c(2,6,-3,19)
+x+y
+@
+<<VectorMinus>>=
+x-y
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Vektorarithmetik - Mal, Durch}
+  \begin{itemize}
+  \item Elementweise Ausf\"uhrung analog zu Plus, Minus
+<<VectorMal>>=
+x*y
+@
+<<VectorDurch>>=
+x/y
+@
+  \item Skalarprodukt zwischen zwei Vektoren mit
+<<CrossProduct>>=
+crossprod(x,y)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zugriff auf Komponenten im Vektor}
+  \begin{itemize}
+  \item Numerischer Index
+<<VectorIndex>>=
+x[2]
+@
+  \item Negativem Indices schliessen Komponenten aus
+<<VectorNegIndex>>=
+x[-3]
+@
+  \item Bereiche von Indices
+<<VectorIndexRange>>=
+x[3:4]
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Matrix}
+  \begin{itemize}
+  \item Matrix $=$ Stapel von mehreren Vektoren gleicher L\"ange,
+      d.h. Matrizen sind zweidimensionale Objekte, welche in Kolonnen und Spalten organisiert sind
+  \item Komponenten von Matrizen sind vom gleichen Typ
+  \item Beispiel:
+<<MatrixExample>>=
+matA <- matrix(c(5,3,4,-6,3,76), nrow = 2, ncol = 3,
+               byrow = TRUE)
+print(matA)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Dimension einer Matrix}
+    \begin{itemize}
+    \item Eine grundlegende Eigenschaft einer Matrix ist ihre Dimension
+    \item Dimension = Anzahl Zeilen und Anzahl Kolonnen
+    \item Darstellung als Vektor der L\"ange zwei
+    \item Beispiel
+<<MatrixDimension>>=
+dim(matA)
+@
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zugriff auf Matrix Elemente}
+  \begin{itemize}
+  \item Per numerischem Index
+<<MatrixAccessElement>>=
+matA[2,1]
+@
+  \item Zugriff auf ganze Zeile
+<<MatrixAccessRow>>=
+matA[1,]
+@
+  \item Zugriff auf ganze Spalte
+<<MatrixAccessCol>>=
+matA[,2]
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zeilenweise Erweiterung einer Matrix}
+<<MatrixExtRow>>=
+matB <- matrix(c(3,-1,90,1,1,4), nrow = 2, ncol = 3,
+               byrow = TRUE)
+rbind(matA, matB)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Kolonnenweise Erweiterung einer Matrix}
+<<MatrixExtCol>>=
+cbind(matA, matB)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Matrix Operationen}
+  \begin{itemize}
+  \item Transponieren: Zeilen werden Kolonnen und Kolonnen werden Zeilen
+<<MatrixTranspose>>=
+t(matA)
+@
+  \item Transponierte der Transponierten gibt urspr\"ungliche Matrix
+<<MatrixTransposeTranspose>>=
+t(t(matA))
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Addition und Subtraktion}
+  \begin{itemize}
+  \item Addition und Subtraktion werden element-weise ausgef\"uhrt
+<<MatrixAddition>>=
+matA + matB
+@
+<<MatrixSubtraktion>>=
+matA - matB
+@
+
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Matrix Multiplikation}
+  \begin{itemize}
+  \item Regel: Zeile mal Kolonne
+  \item Dimensionen m\"ussen stimmen
+<<MatrixMultiplikation>>=
+matA %*% t(matB)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Liste}
+  \begin{itemize}
+  \item Eine Liste fasst eine Sammlung von Objekten zusammen.
+  \item Einzelne Objekte heissen \emph{Komponenten}
+  \item Komponenten innerhalb der Liste haben eine fixe Reihenfolge
+  \item Komponenten m\"ussen nicht vom selben Typ sein
+  \item Beispiel
+<<ListExample>>=
+lstA <- list(nZahlen = c(5,-2,7),
+             sNamen = c("Fred","Mary"),
+             lBool = c(FALSE,TRUE))
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zugriff auf Listenelemente}
+  \begin{itemize}
+  \item Mit Index und einfacher Klammerung, Resultat ist wieder eine Liste
+<<ListAccessIndex>>=
+lstA[2]
+@
+  \item Mit Komponentennamen
+<<ListAccessName>>=
+lstA["nZahlen"]
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zugriff auf Listenelemente II}
+  \begin{itemize}
+  \item Mit Index und doppelter Klammer, Resultat ist Vektor
+<<ListAccessDoubleBracket>>=
+lstA[[1]]
+@
+  \item Mit \$ und Komponentennamen
+<<ListAccessNameDollar>>=
+lstA$lBool
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Spezielle Listen - Dataframes}
+  \begin{itemize}
+  \item Ein \emph{Dataframe} ist eine Liste von Vektoren, welche alle die gleiche L\"ange haben
+  \item Erzeugung mit Funktion \texttt{data.frame()}
+<<GenerateDataframe>>=
+dfA <- data.frame(nZahl = c(-2,15),
+                  sZeichen = c("Alice","Bob"),
+                  bWahr = c(FALSE,FALSE))
+@
+  \item Zugriff, wie bei Matrix mit Indices oder mit Namen
+<<DataFrameAccessIndex>>=
+dfA[2,1]
+@
+<<DataFrameAccessName>>=
+dfA$nZahl
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Daten in R einlesen}
+  \begin{itemize}
+  \item Eine der wichtigsten Aufgaben ist, dass externe Daten in R eingelesen werden k\"onnen
+  \item Die wichtigste Funktion f\"ur das Einlesen von Daten: \texttt{read.table()} oder darauf
+    aufbauende Funktionen, wie z. Bsp \texttt{read.csv2()} zum Einlesen von Daten im CSV-Format
+  \item H\"aufige Prozedur f\"ur den Transfer von Daten aus Excel:
+    \begin{enumerate}
+    \item Speichern als Text(csv)
+    \item Einlesen in R mit \texttt{read.csv2()}
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Daten in R einlesen II}
+  \begin{itemize}
+  \item Messungen von Brustumfang und Gewicht als Excel-Tabelle
+  \item Einlesen dieser Daten in R
+<<GenerateBrustumfangGewichtData, echo=FALSE>>=
+dfBrGew <- data.frame(Brustumfang = c(176,177,178,179,179,180,181,182,183,184),
+                      Gewicht = c(471,463,481,470,496,491,518,511,510,541))
+write.csv2(dfBrGew, file = "br_gew.csv", row.names = FALSE, quote = FALSE)
+@
+<<ReadBrustumfangGewichtData>>=
+dfBrGew <- read.csv2(file = "br_gew.csv")
+dim(dfBrGew)
+head(dfBrGew, 3)
+@
+<<RemoveBrustumfangGewichtData, echo=FALSE>>=
+unlink("br_gew.csv")
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Schreiben von Daten in Dateien}
+  \begin{itemize}
+  \item Dataframes oder Matrizen werden mit der Grundfunktion \texttt{write.table()} in Dateien geschrieben
+  \item Analog zu \texttt{read.csv2()} gibt es \texttt{write.csv2()}
+  \item F\"ur nicht csv-Daten kann \texttt{cat()} verwendet werden
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Diagramme und Plots}
+  \begin{itemize}
+  \item Plots in R sind einfach: Funktion \texttt{plot()}
+<<SimplePlot, fig=TRUE, height=4>>=
+plot(dfBrGew)
+@
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Einfaches lineares Modell}
+  \begin{itemize}
+  \item Regressionsmodell von Gewicht auf Brustumfang
+<<SimpleLinReg, fig=TRUE, height=3.8>>=
+lmBrGew <- lm(Gewicht ~ Brustumfang, data = dfBrGew)
+plot(dfBrGew)
+abline(coef = coefficients(lmBrGew), col = "red")
+@
+  \end{itemize}
+\end{frame}
+
+
 
 \end{document}
