@@ -3,7 +3,7 @@
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 
-\title{Z\"uclearchtungslehre - \"Ubung 1}
+\title{Z\"uchtungslehre - \"Ubung 1}
 \author{Peter von Rohr}
 \maketitle
 
