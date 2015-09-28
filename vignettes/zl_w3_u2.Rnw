@@ -8,8 +8,29 @@
 \maketitle
 
 
-\section*{Aufgabe 1 ()}
+\section*{Aufgabe 1 (7)}
 \label{sec:Aufgabe1}
+
+
+
+An individual wants to use milk and orange juice to increase the amount of calcium
+and vitamin A in her daily diet. An ounce of milk contains 38 milligrams of
+calcium and 56 micrograms* of vitamin A. An ounce of orange juice contains 5
+milligrams of calcium and 60 micrograms of vitamin A. How many ounces of milk
+and orange juice should she drink each day to provide exactly 550 milligrams of
+calcium and 1,200 micrograms of vitamin A?
+Solution First we define the relevant variables:
+Next we summarize the given information in a table. It is convenient to organize
+the tables so that the quantities represented by the variables correspond to columns
+in the table (rather than to rows), as shown.
+Orange Total
+
+Milk Juice Needed
+Calcium 38 05 0,550
+Vitamin A 56 60 1,200
+
+29.5735296 ml
+ 28,349 Gramm
 
 
 \section*{Aufgabe 2 ()}
