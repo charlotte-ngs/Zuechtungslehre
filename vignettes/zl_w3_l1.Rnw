@@ -1,0 +1,134 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uchtungslehre - L\"osung 1}
+\author{Peter von Rohr}
+\maketitle
+
+
+
+\section*{Aufgabe 1 (2)}
+\label{sec:Aufgabe1}
+Falls bei der Installation von R und/oder RStudio Proble aufgetreten sind, dann bitte bei mir melden.
+
+
+\section*{Aufgabe 2 (5)}
+\label{sec:Aufgabe2}
+
+\begin{enumerate}
+\item[a] Die zwei Arten der k\"unstlichen Selektion lauten \emph{gerichtete Selektion} und \emph{stabilisierende Selektion}
+\item[b] Da es sich laut Aufgabenstellung um ein Merkmal mit einem Optimum (Optimum-Merkmal) handelt, ist \emph{stabilisierende Selektion} zu empfehlen
+\item[c] \emph{Zusatzaufgabe}: Da bei der Normalverteilung rund 68\% der Fl\"ache unter der Kurve im Bereich von plus und minus eine Standardabweichung um den Mittelwert liegen, w\"are eine erste m\"ogliche Antwort:
+\end{enumerate}
+
+
+<<SelektionsGrenzenEinfach>>=
+nMittelWert <- 112
+nStdAbw <- 10.75
+cat("Untere Selektionsgrenze: ", nMittelWert - nStdAbw, "\n")
+cat("Obere Selektionsgrenze:  ", nMittelWert + nStdAbw, "\n")
+@
+
+Eine weitere L\"osungsm\"oglichkeit besteht in der Verwendung der Funktion \texttt{qnorm(p, mean, sd)} in R. Dabei steht \texttt{p} f\"ur den gew\"unschten Fl\"achen Anteil unter der Normalverteilung vom linken Ende an gerechnet und \texttt{mean} und \texttt{sd} stehen f\"ur Mittelwert und Standardabweichung.
+
+Der gew\"unschte Anteil der Fl\"ache unter der Normalverteilung verteilt sich aus Symmetriegr\"unden je zur H\"alfte auf die vom Mittelpunkt linke und rechte Seite der Glockenkurve. Also entspricht die untere Selektionsgrenze dem Quantil bei einem Fl\"achenanteil von $0.5 - 0.34 = 0.16$. Dieses Quantil wird dann in R wie folgt berechnet.
+
+<<LowerSelectionQuantile>>=
+qnorm(0.16, mean = 112, sd = 10.75)
+@
+
+Analog dazu die obere Selektionsgrenze entspricht dem Quantil bei einem Fl\"achenanteil von $0.5 + 0.34 = 0.84$.
+
+<<UpperSelectionQuantile>>=
+qnorm(0.84, mean = 112, sd = 10.75)
+@
+
+Die beiden Antworten sind nicht gleich, da der Fl\"achenanteil unter der Normalverteilung im Bereich plus- / minus- eine Standardabweichung etwas mehr als $68\%$ ist. Exakt berechnet, betr\"agt der Anteil
+
+<<ProbPlusMinusOneSd>>=
+pnorm(112+10.75, mean = 112, sd = 10.75) - pnorm(112-10.75, mean = 112, sd = 10.75)
+@
+
+\section*{Aufgabe 3 (10)}
+\label{sec:Aufgabe3}
+Gem\"ass dem Hinweis werden wir zeigen, dass die erste Formel zur Berechnung der empirischen Varianz $s^2$ in die zweite Formel verwandelt werden kann und die beiden Formeln somit \"aquivalent sind.
+
+\begin{eqnarray}
+s^2 & = & \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar{x})^2
+\label{eq:EmpVarForm1}
+\end{eqnarray}
+
+Als weitere Vereinfachung multiplizieren wir beide Seiten der Gleichung mit dem Faktor $n-1$.
+
+\begin{eqnarray}
+(n-1) s^2 & = & \sum_{i=1}^n(x_i - \bar{x})^2
+\label{eq:EmpVarForm1Simple}
+\end{eqnarray}
+
+
+\begin{eqnarray}
+    & = & \sum_{i=1}^n(x_i^2 - 2x_i\bar{x} + \bar{x}^2)
+\label{eq:EmpVarBinom}
+\end{eqnarray}
+
+Der Schritt von Gleichung (\ref{eq:EmpVarForm1Simple}) zu Gleichung (\ref{eq:EmpVarBinom}) erfolgt aufgrund des Hinweises zur binomischen Formel. Das Summenzeichen kann jetzt zu den einzelnen Summanden hereingezogen werden.
+
+\begin{eqnarray}
+    & = & \sum_{i=1}^n x_i^2 - \sum_{i=1}^n 2x_i\bar{x} + \sum_{i=1}^n \bar{x}^2
+\label{eq:EmpVarDistributeSum}
+\end{eqnarray}
+
+Alle Terme in einer Summe, welche nicht den Subskript $i$ haben, sind konstant und k\"onnen vor die jeweiligen Summen herausfaktorisiert werden.
+
+\begin{eqnarray}
+    & = & \sum_{i=1}^n x_i^2 - 2\bar{x}\sum_{i=1}^n x_i + n \bar{x}^2
+\label{eq:EmpVarFactoredSum}
+\end{eqnarray}
+
+Nun setzen wir f\"ur den Mittelwert die Definition $\bar{x} = {1 \over n}\sum_{i=1}^n x_i$ ein.
+
+\begin{eqnarray}
+    & = & \sum_{i=1}^n x_i^2 - 2\left({1 \over n}\sum_{i=1}^n x_i \right)\sum_{i=1}^n x_i + n \left({1 \over n}\sum_{i=1}^n x_i \right)^2
+\label{eq:EmpVarMeanDef}
+\end{eqnarray}
+
+Der zweite und der dritte Term von Gleichung (\ref{eq:EmpVarMeanDef}) k\"onnen vereinfacht werden zu
+
+\begin{eqnarray}
+    & = & \sum_{i=1}^n x_i^2 - {2 \over n}\left(\sum_{i=1}^n x_i \right)^2 + {n  \over n^2}\left(\sum_{i=1}^n x_i \right)^2
+\label{eq:EmpVarMeanDefSimple}
+\end{eqnarray}
+
+\begin{eqnarray}
+    & = & \sum_{i=1}^n x_i^2 - {2 \over n}\left(\sum_{i=1}^n x_i \right)^2 + {1  \over n}\left(\sum_{i=1}^n x_i \right)^2
+\label{eq:EmpVarMeanDefSimple2}
+\end{eqnarray}
+
+Der zweite Term ohne Vorzeichen ist das doppelte des dritten Terms, somit lassen diese sich zusammen verrechnen zu
+
+\begin{eqnarray}
+    & = & \sum_{i=1}^n x_i^2 - {1 \over n}\left(\sum_{i=1}^n x_i \right)^2
+\label{eq:EmpVarMeanDefSimple3}
+\end{eqnarray}
+
+Machen wir jetzt die erste Vereinfachung mit dem Faktor $n-1$ wieder r\"uckg\"angig, so k\"onnen wir nun die Formel f\"ur die empirische Varianz und die empirische Standardabweichung aufschreiben als
+
+\begin{eqnarray}
+    (n-1) s^2 & = & \sum_{i=1}^n x_i^2 - {1 \over n}\left(\sum_{i=1}^n x_i \right)^2
+\label{eq:EmpVarMeanDefSimple4}
+\end{eqnarray}
+
+\begin{eqnarray}
+     s^2 & = & \frac{1}{n-1} \left(\sum_{i=1}^n x_i^2 - {1 \over n}\left(\sum_{i=1}^n x_i \right)^2 \right)
+\label{eq:EmpVarFinal}
+\end{eqnarray}
+
+\begin{eqnarray}
+     s & = & \sqrt{\frac{1}{n-1} \left(\sum_{i=1}^n x_i^2 - {1 \over n}\left(\sum_{i=1}^n x_i \right)^2 \right)}
+\label{eq:EmpVarFinalSd}
+\end{eqnarray}
+
+
+\end{document}
