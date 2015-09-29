@@ -8,35 +8,71 @@
 \maketitle
 
 
-\section*{Aufgabe 1 (7)}
+\section*{Aufgabe 1 (6)}
 \label{sec:Aufgabe1}
+In einer Ern\"ahrungsempfehlung sollen der t\"agliche Bedarf an Calcium und an
+Vitamin A \"uber den Konsum von Milch und Orangensaft abgedeckt werden.
 
+Ein Liter Milch enth\"alt $1.285$ g Calcium und $1.894$ mg Vitamin A. Ein Liter
+Orangensaft enth\"alt $0.169$ g Calcium und $2.029$ mg Vitamin A.
 
+Wie hoch soll der t\"agliche Konsum an Milch und Orangensaft sein, falls pro Tag $0.550$ g
+an Calcium und $1.2$ mg an Vitamin A aufgenommen werden sollen.
 
-An individual wants to use milk and orange juice to increase the amount of calcium
-and vitamin A in her daily diet. An ounce of milk contains 38 milligrams of
-calcium and 56 micrograms* of vitamin A. An ounce of orange juice contains 5
-milligrams of calcium and 60 micrograms of vitamin A. How many ounces of milk
-and orange juice should she drink each day to provide exactly 550 milligrams of
-calcium and 1,200 micrograms of vitamin A?
-Solution First we define the relevant variables:
-Next we summarize the given information in a table. It is convenient to organize
-the tables so that the quantities represented by the variables correspond to columns
-in the table (rather than to rows), as shown.
-Orange Total
+\vspace*{2ex}
+\noindent Hier nochmals die Werte in einer Tabelle zusammengefasst.
 
-Milk Juice Needed
-Calcium 38 05 0,550
-Vitamin A 56 60 1,200
+\vspace*{2ex}\noindent
+\begin{tabular}{|p{3.5cm}|p{2cm}|p{2cm}|p{4cm}|}
+\hline
+                  &  Milch    &  Orangensaft  &  Totaler Konsum \\
+                  &  (mg/l)   &  (mg/l)       &  (mg/Tag)       \\
+\hline
+Calcium           & $1285$    &  $169$        &  $550$\\
+\hline
+Vitamin A         & $1.89$    & $2.03$        &  $1.2$\\
+\hline
+\end{tabular}
 
-29.5735296 ml
- 28,349 Gramm
+\vspace*{2ex}\noindent
+Stellen Sie zwei Gleichungen mit den zwei Unbekannten $x$ (konsumierte Milchmenge in l/Tag)
+und $y$ (konsumierte Menge an Orangensaft in l/Tag) und l\"osen sie diese Gleichungen nach
+den beiden Unbekannten auf.
 
-
-\section*{Aufgabe 2 ()}
+\section*{Aufgabe 2 (8)}
 \label{sec:Aufgabe2}
+<<GenerateBrustumfangGewichtData, echo=FALSE, eval=FALSE>>=
+dfBrGew <- data.frame(Brustumfang = c(176,177,178,179,179,180,181,182,183,184),
+                      Stockmass = c(158,163,164,158,163,166,168,168,171,171),
+                      Gewicht = c(471,463,481,470,496,491,518,511,510,541))
+write.csv2(dfBrGew, file = "../data/br_st_gew.csv", row.names = FALSE, quote = FALSE)
+@
 
-\section*{Aufgabe 3 ()}
-\label{sec:Aufgabe3}
+Am Ende der ersten Vorlesung hatten wir gesehen, wie wir Daten aus einer csv-Datei in R einlesen.
+Wir hatten dazu die Funktion \texttt{read.csv2()} verwendet. Der gleiche Datensatz wurde jetzt noch
+um die Variable ``Stockmass'' erg\"anzt. Die folgende Tabelle gibt eine \"Ubersicht \"uber den neuen
+Datensatz.
 
+\vspace*{2ex}\noindent
+\begin{tabular}{|c|c|c|}
+\hline
+Brustumfang  &  Stockmass  &  Gewicht\\
+\hline
+176 & 158 & 471\\
+177 & 163 & 463\\
+178 & 164 & 481\\
+179 & 158 & 470\\
+179 & 163 & 496\\
+180 & 166 & 491\\
+181 & 168 & 518\\
+182 & 168 & 511\\
+183 & 171 & 510\\
+184 & 171 & 541\\
+\hline
+\end{tabular}
+
+\vspace*{2ex}\noindent
+Der Datensatz kann als csv-Datei von der Vorlesungswebseite heruntergeladen werden. Sie k\"onnen entweder die csv-Datei
+zuerst auf Ihren Rechner herunterladen und dann mit \texttt{read.csv2()} in R einlesen, oder Sie k\"onnen direkt die Adresse
+des Links als Argument f\"ur \texttt{read.csv2()} verwenden.
 \end{document}
