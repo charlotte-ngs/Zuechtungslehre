@@ -91,16 +91,105 @@ navigation
   \frametitle{Zusammenfassung Zuchtwert aus Quantitativer Genetik}
   \begin{block}{Modell der ph\"anotypischen Beobachtung}
     \begin{itemize}
-    \item Zerlegung der gemessenen ph\"anotypischen Beobachung
-    \item Komponenten sind \emph{genotypischer Wert} und \emph{Umweltabweichung}
+    \item Zerlegung der gemessenen ph\"anotypischen Wertes (Beobachung) ($p$)
+    \item Komponenten sind \emph{genotypischer Wert} ($g$) und \emph{Umweltabweichung} ($e$)
     \item $p = g + e$
     \item Erwartungswerte: Im Schnitt \"uber eine Population werden die Umweltabweichungen $e$ als Null angenommen
     \item $E\left[ e\right] = 0$ und somit $E\left[p \right] = E\left[ g\right]$
     \end{itemize}
   \end{block}
 }
+\note{}
 
 
+\frame{
+  \frametitle{Genotypischer Wert (GW)}
+  \begin{itemize}
+  \item GW erfasst den genetisch bedingten Teil des ph\"anotypischen Wertes
+  \item Annahme: 1 Genort, 2 Allele, Population im Hardy-Weinberg Gleichgewicht
+  \item F\"ur bestimmten Genotypen $G_iG_j$ ist der genotypische Wert $V_{ij}$
+    definiert als der mittlere Wert aller Individuen in der gleichen Umwelt mit
+    Genotyp $G_iG_j$
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Genotypischer Wert (GW) II}
+  \begin{itemize}
+  \item Nullpunkt der Skala in Mitte zwischen Homozygoten $G_1G_1$ und $G_2G_2$
+  \item Wahl des Nullpunkts beliebig, so am einfachsten
+  \end{itemize}
+  \includegraphics[width=\textwidth]{figure/w3/GenotypischerWert}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Zusammenfassung Genotypische Werte}
+  \begin{center}
+   {\renewcommand{\arraystretch}{1.7}
+   \renewcommand{\tabcolsep}{0.2cm}
+   \begin{tabular}{|l|c|}
+  \hline
+  Genotyp  &  genotypischer Wert\\
+  \hline
+  $G_1G_1$  &  $V_{11} = a$\\
+  \hline
+  $G_1G_2$  &  $V_{12} = d$\\
+  \hline
+  $G_2G_2$  &  $V_{22} = -a$\\
+  \hline
+  \end{tabular}}
+  \end{center}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Populationsmittel}
+  \begin{itemize}
+  \item Populationsmittel $\mu$ als gewichtetes Mittel der genotypischen Werte
+  \item Gewichtung der genotypischen Werte aufgrund der Vorkommensh\"aufigkeit
+  \item $\mu = {1\over n_{Pop}}\left(\#(G_1G_1) * a +  \#(G_1G_2) * d + \#(G_2G_2)*(-a)\right)$\\
+
+    \vspace*{1ex} wobei $n_{Pop}$: totale Populationsgr\"osse und \\
+    $\#(G_iG_j)$: Anzahl Tiere mit Genotyp $G_iG_j$
+
+  \item Mit $p$ und $q$ als Frequenzen der Allele $G_1$ und $G_2$
+  \end{itemize}
+
+  \begin{tabular}{|l|c|}
+  \hline
+  Genotyp  &  Frequenzen\\
+  \hline
+  $G_1G_1$  &  $p*p = p^2$\\
+  \hline
+  $G_1G_2$  &  $p*q+q*p = 2pq$\\
+  \hline
+  $G_2G_2$  &  $q*q = q^2$\\
+  \hline
+  \end{tabular}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Populationsmittel unter Hardy-Weinberg}
+  Aufgrund der Genotypfrequenzen und dem Hardy-Weinberg-Gleichgewicht folgt
+
+  \begin{eqnarray}
+    \mu &=& p^2 * a + 2pq*d - q^2*a\\
+        &=& (p^2 - q^2)a + 2pq*d \nonumber \\
+        &=& (p+q)(p - q)a + 2pq*d \nonumber \\
+        &=& (p - q)a + 2pq*d \nonumber
+  \end{eqnarray}
+
+  Das Populationsmittel ist somit abh\"angig von den Allelfrequenzen und somit von der Selektion
+}
+\note{}
 
 
 \end{document}
