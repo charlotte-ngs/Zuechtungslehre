@@ -182,14 +182,172 @@ navigation
 
   \begin{eqnarray}
     \mu &=& p^2 * a + 2pq*d - q^2*a\\
-        &=& (p^2 - q^2)a + 2pq*d \nonumber \\
-        &=& (p+q)(p - q)a + 2pq*d \nonumber \\
-        &=& (p - q)a + 2pq*d \nonumber
+        &=& (p^2 - q^2)a + 2pqd \nonumber \\
+        &=& (p+q)(p - q)a + 2pqd \nonumber \\
+        &=& (p - q)a + 2pqd \nonumber
   \end{eqnarray}
 
-  Das Populationsmittel ist somit abh\"angig von den Allelfrequenzen und somit von der Selektion
+  $\rightarrow$ Das Populationsmittel ist somit abh\"angig von den Allelfrequenzen und somit von der Selektion
 }
 \note{}
+
+
+\frame{
+  \frametitle{Zuchtwert}
+  \begin{itemize}
+  \item Bei Zucht interessiert, welche genetischen Anlagen von Eltern an Nachkommen weitergegeben werden
+  \item Eltern geben nicht Genotypen sondern zuf\"allige Stichprobe der Allele an Nachkommen weiter
+  \item $\rightarrow$ Frage, welche Leistung kann von Nachkommen eines bestimmten Elterngenotyps erwartet werden
+  \item Zuchtwert wird verwendet als Mass f\"ur die mittlere Leistung von Nachkommen eines bestimmten Tieres im Vergleich zum Populationsmittel
+  \item Definition \textbf{Zuchtwert}: entspricht der doppelten Abweichung des erwarteten Mittelwertes von Nachkommen vom Populationsmittel
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Herleitung des Zuchtwertes f\"ur Genotyp $G_1G_1$}
+  \begin{itemize}
+  \item Frequenz der Nachkommen
+    \begin{tabular}{|c|c|c|}
+      \hline
+                   & \multicolumn{2}{|c|}{Vater} \\
+      \hline
+                   & $f(G_1) = p$       &  $f(G_2) = q$   \\
+      \hline
+      Mutter       &                    &                 \\
+      \hline
+      $f(G_1) = 1$ &  $f(G_1G_1) = p$   &  $f(G_1G_2) = q$\\
+      \hline
+    \end{tabular}
+  \item Erwarteter mittlerer genotypischer Wert $\mu_{11}$ der Nachkommen einer Mutter mit Genotyp $G_1G_1$
+  $$\mu_{11} = pa + qd$$
+  \item Gem\"ass Definition, entspricht der Zuchtwert $ZW_{11}$ der Mutter mit Genotyp $G_1G_1$ der doppelten
+    Abweichung des mittleren genotypischen Wertes $\mu_{11}$ der Nachkommen vom Populationsmittel $\mu$
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Zuchtwert $ZW_{11}$ f\"ur Genotyp $G_1G_1$}
+  \begin{itemize}
+  \item Doppelte Abweichung der Nachkommen vom Populationsmittel
+  \item Einsetzen der berechneten Gr\"ossen f\"ur $\mu_{11}$ und $\mu$
+  \end{itemize}
+  \begin{eqnarray}
+  ZW_{11} &=& 2*(\mu_{11} - \mu) \\
+          &=& 2\left(pa + qd - \left[(p - q)a + 2pqd \right] \right) \nonumber\\
+          &=& 2\left(pa + qd - (p - q)a - 2pqd \right) \nonumber\\
+          &=& 2\left(qd + qa - 2pqd\right) \nonumber \\
+          &=& 2\left(qa + qd(1 - 2p)\right) \nonumber \\
+          &=& 2q\left(a + d(1 - 2p)\right) \nonumber \\
+          &=& 2q\left(a + (q-p)d\right) \nonumber
+  \end{eqnarray}
+
+  \vspace*{1ex}\noindent
+  Falls Locus $G$ rein additiv $\rightarrow d = 0$, somit ist $ZW_{11} = 2qa$
+}
+\note{}
+
+
+\frame{
+  \frametitle{Zuchtwert $ZW_{22}$ f\"ur Genotyp $G_2G_2$}
+  \begin{itemize}
+  \item Frequenz der Nachkommen
+
+    \begin{tabular}{|c|c|c|}
+      \hline
+                   & \multicolumn{2}{|c|}{Vater} \\
+      \hline
+                   & $f(G_1) = p$       &  $f(G_2) = q$   \\
+      \hline
+      Mutter       &                    &                 \\
+      \hline
+      $f(G_2) = 1$ &                    &                 \\
+      \hline
+    \end{tabular}
+
+  \vspace*{1ex}
+  \item Erwarteter mittlerer genotypischer Wert $\mu_{22} = $
+
+  \vspace*{3ex}
+  \item Zuchtwert $ZW_{22} = $
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Zuchtwert $ZW_{12}$ f\"ur Genotyp $G_1G_2$}
+  \begin{itemize}
+  \item Frequenz der Nachkommen
+
+    \begin{tabular}{|c|c|c|}
+      \hline
+                     & \multicolumn{2}{|c|}{Vater} \\
+      \hline
+                     & $f(G_1) = p$       &  $f(G_2) = q$   \\
+      \hline
+      Mutter         &                    &                 \\
+      \hline
+      $f(G_1) = 0.5$ &                    &                 \\
+      \hline
+      $f(G_2) = 0.5$ &                    &                 \\
+      \hline
+    \end{tabular}
+
+  \vspace*{1ex}
+  \item Erwarteter mittlerer genotypischer Wert $\mu_{12} = $
+
+  \vspace*{3ex}
+  \item Zuchtwert $ZW_{12} = $
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Allelsubstitution}
+  \begin{itemize}
+  \item Bei allen Zuchtwerten kommt der Term $a + (q-p)d$ vor. Dieser wird mit $\alpha$ bezeichnet
+  \item Zuchtwerte als Funktion von $\alpha$
+  \end{itemize}
+
+  \vspace*{1ex}
+  \begin{center}
+  \begin{tabular}{|c|c|}
+  \hline
+  Genotyp  &  Zuchtwert\\
+  \hline
+  $G_1G_1$  &  $2q\alpha$\\
+  \hline
+  $G_1G_2$  &  $(q-p)\alpha$\\
+  \hline
+  $G_2G_2$  &  $-2p\alpha$\\
+  \hline
+  \end{tabular}
+  \end{center}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Allelsubstitution II}
+  \begin{itemize}
+  \item Vergleicht man einen $G_2G_2$ Genotyp mit einem $G_1G_2$ Genotyp, dann wurde ein $G_2$-Allel durch ein $G_1$-Allel ersetzt
+  \item Die Zuchtwerte \"andern sich von $ZW_{22}$ zu $ZW_{12}$
+  \item \"Anderung der Zuchtwerte:
+  \end{itemize}
+
+  \begin{eqnarray}
+  ZW_{12} - ZW_{22} & = & (q-p)\alpha - \left( -2p\alpha \right)
+  \end{eqnarray}
+
+}
+\note{}
+
 
 
 \end{document}
