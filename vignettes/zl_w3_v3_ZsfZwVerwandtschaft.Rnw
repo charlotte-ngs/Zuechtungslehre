@@ -342,12 +342,109 @@ navigation
   \end{itemize}
 
   \begin{eqnarray}
-  ZW_{12} - ZW_{22} & = & (q-p)\alpha - \left( -2p\alpha \right)
+    ZW_{12} - ZW_{22} & = & (q-p)\alpha - \left( -2p\alpha \right) \\
+                      & = & (q-p)\alpha + 2p\alpha \nonumber \\
+                      & = & (q-p+2p)\alpha \nonumber \\
+                      & = & (q+p)\alpha \nonumber \\
+                      & = & \alpha \nonumber
   \end{eqnarray}
 
 }
 \note{}
 
+
+\frame{
+  \frametitle{Allelsubstitution III}
+  \begin{itemize}
+  \item Analoger Vergleich zwischen Genotypen $G_1G_2$ und $G_1G_1$ f\"uhrt zu
+  \end{itemize}
+
+  \begin{eqnarray}
+    ZW_{11} - ZW_{12} & = & 2q\alpha - (q-p)\alpha \\
+                      & = & \left(2q - (q-p)\right)\alpha \nonumber\\
+                      & = & \alpha \nonumber
+  \end{eqnarray}
+  \begin{itemize}
+  \item Zuchtwerte sind von den Allelfrequenzen abh\"angig
+  \item Differenzen zwischen Zuchtwerten sind additiv
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Dominanzabweichung}
+  \begin{itemize}
+  \item Zuchtwert definiert als doppelte Abweichung des erwarteten mittleren Wertes der Nachkommen vom Populationsmittel
+  \item Somit wird f\"ur einen bestimmten Genotypen $G_iG_j$ der genotypische Wert $V_{ij}$ vom Zuchtwert $ZW_{ij}$ abweichen.
+  \item F\"ur die Genotypen $G_1G_1$, $G_1G_2$ und $G_2G_2$ sehen die Abweichungen wie folgt aus
+  \end{itemize}
+
+  \begin{eqnarray}
+  V_{11} - ZW_{11} & = & a - 2q \alpha \\
+                   & = & a - 2q \left[ a + (q-p)d \right] \nonumber \\
+                   & = & a - 2qa -2q(q-p)d \nonumber \\
+                   & = & a(1-2q) - 2q^2d + 2pqd \nonumber \\
+                   & = & \left[(p - q)a + 2pqd\right] - 2q^2d \nonumber \\
+                   & = & \mu + D_{11} \nonumber
+  \end{eqnarray}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Dominanzabweichung II}
+  \begin{itemize}
+  \item F\"ur Genotyp $G_1G_2$
+  \end{itemize}
+
+  \begin{eqnarray}
+  V_{12} - ZW_{12} & = & d - (q-p)\alpha \\
+                   & = & d - (q-p)\left[ a + (q-p)d \right] \nonumber \\
+                   & = & \left[(p-q)a + 2pqd\right] + 2pqd \nonumber \\
+                   & = & \mu + D_{12} \nonumber
+  \end{eqnarray}
+
+  \begin{itemize}
+  \item F\"ur Genotyp $G_sG_2$
+  \end{itemize}
+
+  \begin{eqnarray}
+  V_{22} - ZW_{22} & = & -a - (-2p\alpha) \\
+                   & = & -a + 2p\left[ a + (q-p)d \right] \nonumber \\
+                   & = & \left[(p-q)a + 2pqd\right] - 2p^2d \nonumber \\
+                   & = & \mu + D_{22} \nonumber
+
+  \end{eqnarray}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Zusammenfassung Dominanzabweichung}
+  {\renewcommand{\arraystretch}{1.7}
+   \renewcommand{\tabcolsep}{0.2cm}
+   \begin{tabular}{|c|c|c|c|}
+   \hline
+   Genotyp  &  genotypischer Wert  &  Zuchtwert     &  Dominanzabweichung\\
+   $G_iG_j$ &  $V_{ij}$            &  $ZW_{ij}$     &  $D_{ij}$           \\
+   \hline
+   $G_1G_1$ &  $a$                 &  $2q\alpha$    &  $-2q^2d$          \\
+   \hline
+   $G_1G_2$ &  $d$                 &  $(q-p)\alpha$ & $2pqd$             \\
+   \hline
+   $G_2G_2$ &  $-a$                &  $-2p\alpha$   & $-2p^2d$           \\
+   \hline
+   \end{tabular}}
+
+   \begin{itemize}
+   \item Die genotypischen Werte k\"onnen mit folgendem Modell beschrieben werden
+   \end{itemize}
+
+   $$V_{ij} = \mu + ZW_{ij} + D_{ij}$$
+
+}
+\note{}
 
 
 \end{document}
