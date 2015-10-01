@@ -150,26 +150,31 @@ navigation
 \frame{
   \frametitle{Populationsmittel - Erwartungswert}
   \begin{itemize}
-  \item Populationsmittel $\mu$ als Erwartungswert $E\left[g\right]$ der genotypischen Werte
+  \item Populationsmittel $\mu$ als Erwartungswert $E\left[V\right]$ der genotypischen Werte
   \item Allgemeine Definition des Erwartungswertes einer diskreten Zufallsvariablen $X$
-  $$E\left[X\right] = \sum_{x\in \mathcal{X}} x* f(x)$$
-
-  wobei $\mathcal{X}$: Menge aller m\"oglichen x-Werte
   \end{itemize}
+
+  $$E\left[X\right] = \sum_{x_i\in \mathcal{X}} x_i* f(x_i)$$
+
+  \vspace*{1ex}
+  \begin{tabular}{p{1cm}p{1cm}p{6cm}}
+  wobei & $\mathcal{X}$: &  Menge aller m\"oglichen $x$-Werte\\
+        & $f(x_i)$         &  Wahrscheinlichkeit dass $x$ den Wert $x_i$ annimmt
+  \end{tabular}
+
 }
 \note{}
 
 
 \frame{
-  \frametitle{Populationsmittel Genotypfrequenzen}
+  \frametitle{Erwartungswert der genotypischen Werte}
+
+  \noindent F\"ur unser Beispiel mit den genotypischen Werten
+
   \begin{itemize}
-  \item Gewichtung der genotypischen Werte aufgrund der Vorkommensh\"aufigkeit
-  \item $\mu = {1\over n_{Pop}}\left(\#(G_1G_1) * a +  \#(G_1G_2) * d + \#(G_2G_2)*(-a)\right)$\\
-
-    \vspace*{1ex} wobei $n_{Pop}$: totale Populationsgr\"osse und \\
-    $\#(G_iG_j)$: Anzahl Tiere mit Genotyp $G_iG_j$
-
-  \item Mit $p$ und $q$ als Frequenzen der Allele $G_1$ und $G_2$
+  \item Menge an m\"oglichen Werten $\mathcal{X} = \{V_{11}, V_{12}, V_{22} \}$
+  \item Frequenzen der genotypischen Werte entspricht Frequenz der Genotypen
+  \item Mit Allelfrequenzen $f(G_1) = p$ und $f(G_2) = q = 1-p$ folgen die Genotypfrequenzen
   \end{itemize}
 
   \begin{tabular}{|l|c|}
@@ -184,13 +189,28 @@ navigation
   \hline
   \end{tabular}
 
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Populationsmittel als Erwartungswert}
+  \begin{itemize}
+  \item Einsetzen der genotypischen Werte und der Genotypfrequenzen in Definition des Erwartungswertes
+  \end{itemize}
+
+  \begin{eqnarray}
+  \mu & = & E\left[V\right]\\
+      & = & f(G_1G_1)*V_{11} + f(G_1G_2) * V_{12} + f(G_2G_2) * V_{22} \nonumber
+  \end{eqnarray}
 }
 \note{}
 
 
 \frame{
   \frametitle{Populationsmittel unter Hardy-Weinberg}
-  Aufgrund der Genotypfrequenzen und dem Hardy-Weinberg-Gleichgewicht folgt
+  Aufgrund der Genotypfrequenzen folgt
 
   \begin{eqnarray}
     \mu &=& p^2 * a + 2pq*d - q^2*a\\
@@ -461,9 +481,142 @@ navigation
 \frame{
   \frametitle{Varianzen}
   \begin{itemize}
-  \item Populationsmittel ($\mu = E(g)$) gibt Informationen zur Lage einer Population
-  \item Varianz gibt an, wie gross Streuung um Populationsmittel
+  \item Populationsmittel der genotypischen Werte ($\mu = E(V)$) gibt Informationen zur Lage einer Population
+  \item Varianz $\sigma_G^2 = Var\left[V\right]$ gibt an, wie gross Streuung um Populationsmittel
+  \item Definition der Varianz f\"ur diskrete Zufallsvariable $X$
   \end{itemize}
+
+  $$Var\left[X\right] = \sum_{x_i \in \mathcal{X}} (x_i - \mu_X)^2 * f(x_i)$$
+
+  \vspace*{1ex}
+  \begin{tabular}{p{1cm}p{1cm}p{6cm}}
+  wobei & $\mathcal{X}$: &  Menge aller m\"oglichen $x$-Werte\\
+        & $f(x_i)$       &  Wahrscheinlichkeit dass $x$ den Wert $x_i$ annimmt \\
+        & $\mu_X $       &  Erwartungswert $E\left[X\right]$ von $X$
+  \end{tabular}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Varianzen der genotypischen Werte}
+  Einsetzen der Frequenzen und der genotypischen Werte in die Definition der Varianz
+
+  \begin{eqnarray}
+  \sigma_G^2 = Var\left[V\right] &=&   (V_{11} - \mu)^2 * f(G_1G_1)           \\
+                                 & & + (V_{12} - \mu)^2 * f(G_1G_2) \nonumber \\
+                                 & & + (V_{22} - \mu)^2 * f(G_2G_2) \nonumber \\
+                                 &=&   (a      - \mu)^2 * p^2       \nonumber \\
+                                 & & + (d      - \mu)^2 * 2pq       \nonumber \\
+                                 & & + (-a     - \mu)^2 * q^2       \nonumber
+  \end{eqnarray}
+
+  wobei $\mu = (p - q)a + 2pqd$ das Populationsmittel
+}
+\note{}
+
+
+\frame{
+  \frametitle{Herleitung der Varianz}
+  Zur Herleitung der Varianz $\sigma_G^2$ verwenden wir, dass $V_{ij} = \mu + ZW_{ij} + D_{ij}$ und somit
+
+    \begin{eqnarray}
+  \sigma_G^2  &=&   (ZW_{11} + D_{11})^2 * p^2                \\
+              & & + (ZW_{12} + D_{12})^2 * 2pq      \nonumber \\
+              & & + (ZW_{22} + D_{22})^2 * q^2      \nonumber \\
+              &=&   (2q\alpha    - 2q^2d)^2 * p^2   \nonumber \\
+              & & + ((q-p)\alpha + 2pqd)^2 * 2pq    \nonumber \\
+              & & + (-2p\alpha   - 2p^2d)^2 * q^2   \nonumber \\
+              & & ...                               \nonumber \\
+              &=& 2pq\alpha^2 + (2pqd)^2            \nonumber
+  \end{eqnarray}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Aufteilung der Varianz}
+  \begin{itemize}
+  \item Aufteilung von $\sigma_G^2 = 2pq\alpha^2 + (2pqd)^2$ in die zwei Terme
+  \item Term $2pq\alpha^2$ heisst \textbf{genetisch additive Varianz} und wird mit $\sigma_A^2$ bezeichnet
+  \item Term $(2pqd)^2$ heisst \textbf{Dominanzvarianz} und wird mit $\sigma_D^2$ bezeichnet.
+  \item Somit ist $\sigma_G^2 = \sigma_A^2 + \sigma_D^2$
+  \end{itemize}
+}
+\note{}
+
+
+\section{Verwandtschaft}
+
+\frame{
+  \frametitle{Verwandtschaft}
+  \begin{itemize}
+  \item Bei k\"unstlicher Selektion sollen Tiere mit g\"unstigen Eigenschaften ausgew\"ahlt werden
+  \item Ausgew\"ahlte Elterntiere sind in wichtigen Eigenschaften \"ahnlich
+  \item Herkunft der \"Ahnlichkeit ist entscheidend
+  \item Es wird unterschieden zwischen \textbf{zustandsgleich} (identical by state - IBS) und \textbf{herkunftsgleich} (identical by descent - IBD)
+  \end{itemize}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{IBD vs. IBS}
+  \includegraphics[width=\textwidth]{figure/w3/ibd_ibs}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Definition Verwandtschaft}
+  \begin{itemize}
+  \item Zwei Tiere $x$ und $y$ sind verwandt, wenn die Wahrscheinlichkeit, dass sie an einem beliebigen Locus herkunftsgleiche Allele (IBD) aufweisen, $>0$ ist.
+  \item \textbf{Verwandtschaftsgrad} $a_{xy}$ beschreibt die mittlere Wahrscheinlichkeit \"uber alle Loci, dass diese IBD sind
+  \item Allgemeine Berechnung des Verwandtschaftsgrades $a_{xy}$ zwischen Tieren $x$ und $y$
+  \end{itemize}
+
+  $$a_{xy} = \sum_{Pfade} \left({1\over 2}\right)^{t_1+t_2}(1+F_Z)$$
+
+  wobei $\sum_{Pfade}$ die Summe \"uber alle Pfade im Pedigree meint, $t_1$ und $t_2$ die Anzahl Generationen von $x$ und $y$ zum gemeinsamen Ahnen $Z$ und $F_Z$ den Inzuchtgrad von $Z$
+}
+\note{}
+
+
+\frame{
+  \frametitle{Inzucht}
+  \begin{itemize}
+  \item Tier $x$ ist ingez\"uchtet, falls seine Eltern $M_x$ und $V_x$ verwandt sind miteinander
+  \item Inzucht beschreibt, ob in einem Tier $x$ an einem beliebigen Locus herkunftsgleiche Allele vorliegen
+  \item Sind Allele IBD, dann m\"ussen sie Kopien vom gleichen Ahnenallel sein.
+  \item Berechnung des Inzuchtgrades f\"ur das Tier $x$
+  \end{itemize}
+
+  $$F_x = {1\over 2}a_{M_x,V_x} = \sum_{Pfade} \left({1\over 2}\right)^{t_1+t_2}(1+F_Z)$$
+}
+\note{}
+
+
+\frame{
+  \frametitle{Matrixmethode}
+  Zur Berechnung der Verwandtschaftsgrade und der Inzuchtgrade wurde folgende Methode entwickelt
+  \begin{itemize}
+  \item Tiere dem Alter nach von links nach rechts in einer symmetrischen Matrix anordnen
+  \item Oberhalb jedes Tieres werden Eltern angef\"ugt
+  \item Ausf\"ullen der Matrix getrennt nach Diagonalelementen und anderen
+    \begin{enumerate}
+    \item Diagonalelemente: $1+F_x$
+    \item Off-Diagonal Elemente: $a_{xy} = {1\over 2}(a_{x,M_y} + a_{x,V_y})$
+    \end{enumerate}
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Beispielpedigree}
+  \includegraphics[width=\textwidth]{figure/w3/MatMethPedigree}
 }
 \note{}
 
