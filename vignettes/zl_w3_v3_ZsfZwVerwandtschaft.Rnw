@@ -148,9 +148,21 @@ navigation
 
 
 \frame{
-  \frametitle{Populationsmittel}
+  \frametitle{Populationsmittel - Erwartungswert}
   \begin{itemize}
-  \item Populationsmittel $\mu$ als gewichtetes Mittel der genotypischen Werte
+  \item Populationsmittel $\mu$ als Erwartungswert $E\left[g\right]$ der genotypischen Werte
+  \item Allgemeine Definition des Erwartungswertes einer diskreten Zufallsvariablen $X$
+  $$E\left[X\right] = \sum_{x\in \mathcal{X}} x* f(x)$$
+
+  wobei $\mathcal{X}$: Menge aller m\"oglichen x-Werte
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Populationsmittel Genotypfrequenzen}
+  \begin{itemize}
   \item Gewichtung der genotypischen Werte aufgrund der Vorkommensh\"aufigkeit
   \item $\mu = {1\over n_{Pop}}\left(\#(G_1G_1) * a +  \#(G_1G_2) * d + \#(G_2G_2)*(-a)\right)$\\
 
@@ -406,7 +418,7 @@ navigation
   \end{eqnarray}
 
   \begin{itemize}
-  \item F\"ur Genotyp $G_sG_2$
+  \item F\"ur Genotyp $G_2G_2$
   \end{itemize}
 
   \begin{eqnarray}
@@ -414,7 +426,6 @@ navigation
                    & = & -a + 2p\left[ a + (q-p)d \right] \nonumber \\
                    & = & \left[(p-q)a + 2pqd\right] - 2p^2d \nonumber \\
                    & = & \mu + D_{22} \nonumber
-
   \end{eqnarray}
 }
 \note{}
@@ -443,6 +454,16 @@ navigation
 
    $$V_{ij} = \mu + ZW_{ij} + D_{ij}$$
 
+}
+\note{}
+
+
+\frame{
+  \frametitle{Varianzen}
+  \begin{itemize}
+  \item Populationsmittel ($\mu = E(g)$) gibt Informationen zur Lage einer Population
+  \item Varianz gibt an, wie gross Streuung um Populationsmittel
+  \end{itemize}
 }
 \note{}
 
