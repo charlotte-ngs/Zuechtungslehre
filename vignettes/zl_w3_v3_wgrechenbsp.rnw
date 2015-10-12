@@ -1,0 +1,44 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Rechenbeispiel Wirtschaftliche Gewichte}
+\author{Peter von Rohr}
+\maketitle
+
+\section*{Annahmen von den Folien}
+
+Folgende Annahmen wurden gemacht
+
+    \begin{itemize}
+    \item Herde von $50$ K\"uhen mit einem Schnitt von $7000$kg
+    \item Milchpreis sei $0.55$ Fr$/$kg
+    \item Kosten (Arbeit, Futter, Stallplatz)  $0.45$ Fr$/$kg
+    \item Gewinn $0.1$ Fr$/$kg
+    \end{itemize}
+
+    \begin{itemize}
+    \item Durchschnittliche Leistung $7001$kg aufgrund genetischer Verbesserung
+    \item Rest ist gleich
+    \item Ver\"anderung des Gewinns: ?
+    \end{itemize}
+
+{\renewcommand{\arraystretch}{1.7}
+ \renewcommand{\tabcolsep}{0.2cm}
+  \begin{tabular}{|p{3.5cm}|p{2cm}|p{2cm}|p{2cm}|}
+  \hline
+     &  Umsatz  &  Kosten  &  Gewinn \\
+  \hline
+   Aktuelle Generation   &  &  & \\
+  \hline
+   N\"achste Generation  &  &  & \\
+  \hline
+   Ver\"anderung         &  &  & \\
+  \hline
+  \end{tabular}
+}
+
+
+
+\end{document}

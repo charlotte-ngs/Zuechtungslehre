@@ -1,0 +1,172 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uchtungslehre - L\"osung 2}
+\author{Peter von Rohr}
+\maketitle
+
+
+\section*{Aufgabe 1 (6)}
+\label{sec:Aufgabe1}
+
+Gem\"ass Aufgabenstellung sind die beiden Unbekannten $x$ (konsumierte Milchmenge in l/Tag)
+und $y$ (konsumierte Menge an Orangensaft in l/Tag). F\"ur den Bedarf an Calcium und Vitamin A
+kann je eine Gleichung aufgeschrieben werden. Die Koeffizienten der unbekannten und die rechte
+Handseite der Gleichungen k\"onnen folgender Tabelle aus der Aufgabenstellung entnommen werden.
+
+<<CoeffRhs, echo=FALSE>>=
+nCaMilk <- 1285
+nCaOJuce <- 169
+nVitAMilk <- 1.89
+nVitAOJuce <- 2.03
+nCaTotReq <- 550
+nVitATotReq <- 1.2
+@
+\vspace*{2ex}\noindent
+\begin{tabular}{|p{3.5cm}|p{2cm}|p{2cm}|p{4cm}|}
+\hline
+                  &  Milch               &  Orangensaft           &  Totaler Konsum \\
+                  &  (mg/l)              &  (mg/l)                &  (mg/Tag)       \\
+\hline
+Calcium           & $\Sexpr{nCaMilk}$    &  $\Sexpr{nCaOJuce}$    &  $\Sexpr{nCaTotReq}$\\
+\hline
+Vitamin A         & $\Sexpr{nVitAMilk}$  &  $\Sexpr{nVitAOJuce}$  &  $\Sexpr{nVitATotReq}$\\
+\hline
+\end{tabular}
+
+\vspace*{2ex}\noindent
+Die Gleichungen in skalarer Schreibweise sehen wie folgt aus.
+
+\begin{eqnarray}
+\Sexpr{nCaMilk} * x + \Sexpr{nCaOJuce} *y &=& \Sexpr{nCaTotReq} \\
+\Sexpr{nVitAMilk} * x + \Sexpr{nVitAOJuce}*y &=& \Sexpr{nVitATotReq} \nonumber
+\end{eqnarray}
+
+\noindent In Matrix-Vektor-Schreibweise definieren wir die folgende Matrix
+
+$$\mathbf{A} = \left[\begin{array}{cc}
+               \Sexpr{nCaMilk}    &  \Sexpr{nCaOJuce}   \\
+               \Sexpr{nVitAMilk}  &  \Sexpr{nVitAOJuce} \\
+               \end{array}\right] $$
+
+\noindent und die Vektoren
+
+$$\mathbf{b} = \left[\begin{array}{c}
+               x\\
+               y
+               \end{array}\right]$$
+
+\noindent und
+
+$$\mathbf{r} = \left[\begin{array}{c}
+               \Sexpr{nCaTotReq}\\
+               \Sexpr{nVitATotReq}
+               \end{array}\right]$$
+
+\noindent Die Gleichung sieht dann wie folgt aus
+
+\begin{eqnarray}
+\mathbf{A} * \mathbf{b} &=& \mathbf{r}
+\label{eq:BasicEq}
+\end{eqnarray}
+
+Die L\"osung f\"ur den Vektor $\mathbf{b}$ kann berechnet werden durch Multiplizieren beider Seiten der Gleichung (\ref{eq:BasicEq}) von links mit der Inversen von $\mathbf{A}$, welche wir als $\mathbf{A}^{-1}$ bezeichnen. Daraus erhalten wir folgende Gleichung f\"ur den Vektor $\mathbf{b}$
+
+\begin{eqnarray}
+\mathbf{b} &=& \mathbf{A}^{-1} * \mathbf{r}
+\label{eq:SolVecB}
+\end{eqnarray}
+
+In R erhalten wir die Zahlenwerte f\"ur die Komponenten des Vektors $\mathbf{b}$ mit der Funktion \texttt{solve()}. Die Inputdaten aus der Tabelle der Aufgabenstellung werden zuerst einzelnen Objekten zugeordnet, woraus dann die Matrix $\mathbf{A}$ und der Vektor $\mathbf{r}$ zusammengestellt werden.
+
+<<ConstructMatAVecR>>=
+<<CoeffRhs>>
+(matA <- matrix(data = c(nCaMilk, nCaOJuce, nVitAMilk, nVitAOJuce),
+                ncol = 2,
+                byrow = TRUE))
+(vecR <- c(nCaTotReq, nVitATotReq))
+@
+
+\noindent Den L\"osungsvektor erhalten wir dann mit
+
+<<CompSolVecB>>=
+(vecSolB <- solve(matA, vecR))
+@
+
+\noindent Das heisst also, dass der Bedarf an Calcium und Vitamin A durch den Konsum von $\Sexpr{round(vecSolB[1], digits = 2)}$ Liter Milch pro Tag und von $\Sexpr{round(vecSolB[2], digits = 2)}$ Liter Orangensaft pro Tag gedeckt werden kann.
+
+\pagebreak
+\newpage
+
+\section*{Aufgabe 2 (10)}
+\label{sec:Aufgabe2}
+<<GenerateBrustumfangGewichtData, echo=FALSE, eval=FALSE>>=
+dfBrStGew <- data.frame(Brustumfang = c(176,177,178,179,179,180,181,182,183,184),
+                        Stockmass   = c(158,163,164,158,163,166,168,168,171,171),
+                        Gewicht     = c(471,463,481,470,496,491,518,511,510,541))
+write.csv2(dfBrStGew, file = "../data/br_st_gew.csv", row.names = FALSE, quote = FALSE)
+@
+
+In der folgenden Tabelle ist der Datensatz aus der Aufgabenstellung noch einmal dargestellt.
+
+\vspace*{2ex}\noindent
+<<TableDataSetBrStGew, echo = FALSE, results=tex>>=
+dfBrStGew <- data.frame(Brustumfang = c(176,177,178,179,179,180,181,182,183,184),
+                        Stockmass   = c(158,163,164,158,163,166,168,168,171,171),
+                        Gewicht     = c(471,463,481,470,496,491,518,511,510,541))
+xtBrStGew <- xtable::xtable(dfBrStGew, align = "|r|c|c|c|", digits = 0)
+print(xtBrStGew, include.rownames = FALSE)
+@
+
+%\begin{tabular}{|c|c|c|}
+%\hline
+%Brustumfang  &  Stockmass  &  Gewicht\\
+%\hline
+%176 & 158 & 471\\
+%177 & 163 & 463\\
+%178 & 164 & 481\\
+%179 & 158 & 470\\
+%179 & 163 & 496\\
+%180 & 166 & 491\\
+%181 & 168 & 518\\
+%182 & 168 & 511\\
+%183 & 171 & 510\\
+%184 & 171 & 541\\
+%\hline
+%\end{tabular}
+
+\vspace*{2ex}\noindent
+Den Datensatz k\"onnen wir direkt von der Vorlesungswebseite einlesen. Dazu verwenden wir die R-Funktion \texttt{read.csv2()}
+
+<<BrustStockGewData, eval=FALSE>>=
+dfBrStGew <- read.csv2(file =
+  "http://charlotte-ngs.github.io/LivestockBreedingAndGenomics/w3/br_st_gew.csv")
+@
+
+\noindent Als Kontrolle empfielt es sich immer, die Dimension des eingelesenen Datensatzes zu \"uberpr\"ufen.
+<<CheckDimBrStGew>>=
+dim(dfBrStGew)
+@
+
+Mit dem Befehl \texttt{dim()} k\"onnen Sie die Anzahl Zeilen und die Anzahl Kolonnen des eingelesenen Datensatzes \"uberpr\"ufen.
+
+\begin{enumerate}
+\item Legen Sie eine Regressionsgerade zwischen den Variablen ``Gewicht'' (y-Variable) und der Variablen ``Brustumfang'' (x-Variable) analog zur ersten Vorlesung.
+\item Legen Sie eine Regressionsgerade zwischen den Variablen ``Gewicht'' (y-Variable) und der Variablen ``Stockmass'' (x-Variable).
+\item Die beiden x-Variablen ``Brustumfang'' und ``Stockmass'' sollen nun zu einer multiplen linearen Regression kombiniert werden.
+\end{enumerate}
+
+Vergleichen Sie die Resultate der drei Regressionsmodelle.
+
+\subsection*{Hinweise}
+\begin{itemize}
+\item F\"ur das Rechnen der Regressionen k\"onnen Sie die Funktion \texttt{lm()} verwenden.
+\item Die Funktion \texttt{lm()} hat im wesentlichen zwei Argumente. Das erste Argument definiert ein Modell und das zweite Argument spezifiziert den Datensatz.
+\item Die Ergebnisse der Regression k\"onnen Sie mit der Funktion \texttt{summary()} anschauen.
+\item Mehrere x-Variablen in einem Modell werden durch $+$ verbunden
+\item Abh\"angigkeiten zwischen Variablen k\"onnen mit der Funktion \texttt{pairs()} dargestellt werden.
+\end{itemize}
+
+\end{document}
