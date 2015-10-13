@@ -1,0 +1,27 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uchtungslehre - \"Ubung 3}
+\author{Peter von Rohr}
+\maketitle
+
+
+\section*{Aufgabe 1 (5)}
+\label{sec:Aufgabe1}
+Im Gegensatz zu Aufgabe 2 aus \"Ubung 2 betrachten wir in dieser Aufgabe eine multiple Regression, in welcher die enthaltenen Variablen alle einen Beitrag leisten zur Erkl\"arung der abh\"angigen $y-$ Variablen.
+
+Mit dieser Aufgabe soll demonstriert werden, dass multiple Regression nicht durch mehrere Regressionen einzelner Variablen ersetzt werden darf. Das mag logisch erscheinen, aber fr\"uhe Paper auf dem Gebiet der genomischen Selektion wollten das Problem der vielen Regressionsvariablen durch eine Kombination von mehreren Regressionen mit wenigen Variablen l\"osen. Simulationsstudien zeigten aber klar, dass diese Methode nicht funktionieren kann.
+
+In einem einfach Beispiel mit simulierten Daten wollen wir den gleichen Effekt auch demonstrieren.
+
+
+\section*{Aufgabe 2 ()}
+\label{sec:Aufgabe2}
+
+
+\section*{Aufgabe 3 ()}
+\label{sec:Aufgabe3}
+
+\end{document}

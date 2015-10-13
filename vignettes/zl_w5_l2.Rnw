@@ -150,23 +150,50 @@ dfBrStGew <- read.csv2(file =
 dim(dfBrStGew)
 @
 
-Mit dem Befehl \texttt{dim()} k\"onnen Sie die Anzahl Zeilen und die Anzahl Kolonnen des eingelesenen Datensatzes \"uberpr\"ufen.
 
 \begin{enumerate}
-\item Legen Sie eine Regressionsgerade zwischen den Variablen ``Gewicht'' (y-Variable) und der Variablen ``Brustumfang'' (x-Variable) analog zur ersten Vorlesung.
-\item Legen Sie eine Regressionsgerade zwischen den Variablen ``Gewicht'' (y-Variable) und der Variablen ``Stockmass'' (x-Variable).
-\item Die beiden x-Variablen ``Brustumfang'' und ``Stockmass'' sollen nun zu einer multiplen linearen Regression kombiniert werden.
+\item Die Regression der Variablen ``Gewicht'' auf die Variable ``Brustumfang'' wird mit der Funktion \texttt{lm()} gerechnet. Mit der Funktion \texttt{summary()} werden die Resultate angezeigt.
+
+<<RegGewOnBr>>=
+fitBr <- lm(Gewicht ~ Brustumfang, data = dfBrStGew)
+summary(fitBr)
+@
+
+Der Plot der Punkte und die Regressionsgeraden werden mit den Funktionen \texttt{plot()} und \texttt{abline()} erzeugt. Damit der Punkteplot des Gewichts auf den Brustumfang erscheint, so wie in der Vorlesung gezeigt, ist es in diesem Beispiel wichtig die $x-$ und die $y-$ Achse explizit als Argumente f\"ur den Plotbefehl anzugeben. Da in der Vorlesung der Dataframe nur zwei Kolonnen aufwies, konnten wir die \texttt{plot()} Funktion mit dem Dataframe als einziges Argument aufrufen.
+
+<<PlotAblineGewOnBr, fig=TRUE>>=
+plot(dfBrStGew$Brustumfang, dfBrStGew$Gewicht)
+abline(coefficients(fitBr))
+@
+
+\item Analog mit der Regression der Variablen ``Gewicht'' auf die Variable ``Stockmass''.
+
+<<RegGewOnStm, fig=TRUE>>=
+fitStm <- lm(Gewicht ~ Stockmass, data = dfBrStGew)
+summary(fitStm)
+plot(dfBrStGew$Stockmass, dfBrStGew$Gewicht)
+abline(coefficients(fitStm))
+@
+
+\item Die multiple linear Regression wird wieder mit der Funktion \texttt{lm()} gerechnet. Die beiden x-Variablen ``Brustumfang'' und ``Stockmass'' werden \"uber ein Plus verkn\"upft.
+
+<<MultRegGew>>=
+fitMultReg <- lm(Gewicht ~ Brustumfang + Stockmass, data = dfBrStGew)
+summary(fitMultReg)
+@
 \end{enumerate}
 
-Vergleichen Sie die Resultate der drei Regressionsmodelle.
+\noindent Aufgrund des Resultats der multiplen Regression sehen wir, dass die Variable ``Stockmass'' einen hohen $p$ - Wert hat und somit nur sehr wenig zur Erkl\"arung des Gewichts beitr\"agt. Durch den hohen $p$-Wert kann diese Variable ``Stockmass'' aus dem Modell weggelassen werden. Der Grund daf\"ur ist aus dem sogenannten \texttt{pairs()} Plot ersichtlich. Der \texttt{pairs()} Plot kann mit der Funktion \texttt{pairs()} oder mit der Funktion \texttt{plot()} erzeugt werden.
 
-\subsection*{Hinweise}
-\begin{itemize}
-\item F\"ur das Rechnen der Regressionen k\"onnen Sie die Funktion \texttt{lm()} verwenden.
-\item Die Funktion \texttt{lm()} hat im wesentlichen zwei Argumente. Das erste Argument definiert ein Modell und das zweite Argument spezifiziert den Datensatz.
-\item Die Ergebnisse der Regression k\"onnen Sie mit der Funktion \texttt{summary()} anschauen.
-\item Mehrere x-Variablen in einem Modell werden durch $+$ verbunden
-\item Abh\"angigkeiten zwischen Variablen k\"onnen mit der Funktion \texttt{pairs()} dargestellt werden.
-\end{itemize}
+<<PairsPlot, fig=TRUE>>=
+pairs(dfBrStGew)
+@
+
+\noindent Der \texttt{pairs()} Plot zeigt den engen Zusammenhang zwischen den Variablen ``Stockmass'' und ``Brustumfang''. Dieser Zusammenhang kann durch die Korrelation zwischen ``Stockmass'' und ``Brustumfang'' quantifiziert werden. Diese Korrelation betr\"agt
+
+<<CorBrStm>>=
+cor(dfBrStGew$Brustumfang, dfBrStGew$Stockmass)
+@
+
 
 \end{document}
