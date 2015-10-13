@@ -12,16 +12,78 @@
 \label{sec:Aufgabe1}
 Im Gegensatz zu Aufgabe 2 aus \"Ubung 2 betrachten wir in dieser Aufgabe eine multiple Regression, in welcher die enthaltenen Variablen alle einen Beitrag leisten zur Erkl\"arung der abh\"angigen $y-$ Variablen.
 
-Mit dieser Aufgabe soll demonstriert werden, dass multiple Regression nicht durch mehrere Regressionen einzelner Variablen ersetzt werden darf. Das mag logisch erscheinen, aber fr\"uhe Paper auf dem Gebiet der genomischen Selektion wollten das Problem der vielen Regressionsvariablen durch eine Kombination von mehreren Regressionen mit wenigen Variablen l\"osen. Simulationsstudien zeigten aber klar, dass diese Methode nicht funktionieren kann.
+Mit dieser Aufgabe soll demonstriert werden, dass multiple Regression nicht durch mehrere Regressionen einzelner Variablen ersetzt werden darf. Das mag logisch erscheinen, aber fr\"uhe Paper auf dem Gebiet der genomischen Selektion, so zum Beispiel Meuwissen et al. \cite{mhg2001}, wollten das Problem der vielen Regressionsvariablen durch eine Kombination von mehreren Regressionen mit wenigen Variablen l\"osen. Simulationsstudien unter anderem in Meuwissen et al. \cite{mhg2001} zeigten aber klar, dass diese Methode nicht funktioniert.
 
 In einem einfach Beispiel mit simulierten Daten wollen wir den gleichen Effekt auch demonstrieren.
+
+<<SimGenoData, echo=FALSE>>=
+### # lesen der urspruenglichen Genotypen
+dfOrgGeno <- read.csv2(file = "inst/extdata/w5/original_genotypen.csv", as.is = TRUE)
+### # liste zu recodieren der Genotypen auf Anzahl A-Allele
+lRecodeMap <- list(AA = 2, AB=1, BB=0)
+### # Umkodierung
+locus1 <- unlist(lapply(dfOrgGeno$x1, function(x) lRecodeMap[[x]]))
+locus2 <- unlist(lapply(dfOrgGeno$x2, function(x) lRecodeMap[[x]]))
+locus3 <- unlist(lapply(dfOrgGeno$x3, function(x) lRecodeMap[[x]]))
+### # simualtion der Beobachtungen
+vecBetaTrue <- c(-10.76, 5, 3, 1.5)   ### # vektor der wahren Effekte
+matX <- matrix(data = cbind(rep(1, length(locus1)),locus1,locus2,locus3), ncol = 4)
+y <- matX %*% vecBetaTrue + rnorm(n=length(locus1), mean = 2, sd=5.5)
+### # Zusammenstellung des neuen Dataframes
+id <- dfOrgGeno$id
+dfGenoPhenData <- data.frame(id, locus1, locus2, locus3, y, stringsAsFactors = FALSE)
+fitMultReg <- lm( y ~ locus1 + locus2, data=dfGenoPhenData)
+summary(fitMultReg)
+@
 
 
 \section*{Aufgabe 2 ()}
 \label{sec:Aufgabe2}
 
 
-\section*{Aufgabe 3 ()}
+\section*{Aufgabe 3 (7)}
 \label{sec:Aufgabe3}
+Funktionen sind die wahrscheinlich wichtigsten Werkzeuge in R. Wir haben schon ein paar interne Funktionen, wie \texttt{lm()}, \texttt{plot()}, \texttt{sqrt()}, usw. kennen gelernt. Eine der grossen St\"arken von R liegt darin, dass wir als Benutzer selber Funktionen erzeugen k\"onnen und diese dann auch einsetzen k\"onnen. Unsere eigenen Funktionen k\"onnen wir auch mit anderen Benutzern austauschen. Also, falls wir ein Problem l\"osen m\"ochten, dann lohnt es sich immer zuerst ein Suche nach schon bekannten L\"osungen zu starten.
+
+Das Ziel dieser Aufgabe soll es sein selber eine Funktion in R zu schreiben. Da wir das in der Vorlesung noch nicht behandelt haben, hier zuerst ein kleines Beispiel einer Funktion. Dieses soll zeigen, wie wir als Benutzer selber Funktionen erschaffen k\"onnen. Angenommen wir m\"ochten eine Funktion, welche uns f\"ur eine beliebe Zahl $n$ das Quadrat $m = n^2$ der Zahl $n$ berechnet. Als erstes brauchen wir einen Namen f\"ur unsere neue Funktion. Wir nennen unsere Funktion einfach ``quadratzahl''. Als Input f\"ur unsere Funktion dient unsere Zahl $n$, welche wir quadrieren wollen. Jetzt k\"onnen wir unsere Funktion wie folgt definierten
+
+<<FunDefQuadratZahl>>=
+quadratzahl <- function(n){
+  resultat <- n * n
+  return(resultat)
+}
+@
+
+Unsere Funktion ist erst richtig n\"utzlich, wenn wir sie auch gebrauchen k\"onnen. Dies passiert mit einem Funktionsaufruf, der wie folgt aussieht
+
+<<FunCallQuadratZahl>>=
+quadratzahl(n = 3)
+quadratzahl(n = 14)
+@
+
+Was beim Aufruf genau passiert, kann aufgrund des folgenden Diagrams gezeigt werden.
+
+\includegraphics[width=\textwidth]{figure/w5/zl_w5_u3_function_schema}
+
+
+\clearpage
+\pagebreak
+
+
+\subsection*{Ihre eigene Funktion}
+Ihre Aufgabe wird es nun sein eine eigene Funktion zu schreiben. Diese soll als Input (d.h. als Funktionsargument) einen Temperaturwert in Grad Celsius \"ubernehmen und als Ausgabe oder als Resultat soll die Temperatur in Grad Fahrenheit zurueckgeben werden.
+
+\subsection*{Hinweis}
+Die Formel zur Verwandlung von Grad Celsius ($c$) in Fahrenheit ($f$) lautet
+
+$$f = 32 + (9/5) * c $$
+
+
+\clearpage
+\pagebreak
+
+\begin{thebibliography}{99}
+\bibitem{mhg2001} T. H. E. Meuwissen, B. J. Hayes  and M. E. Goddard  2001. Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps. Genetics 157: 1819–1829.
+\end{thebibliography}
 
 \end{document}
