@@ -19,20 +19,28 @@ In einem einfach Beispiel mit simulierten Daten wollen wir den gleichen Effekt a
 <<SimGenoData, echo=FALSE>>=
 ### # lesen der urspruenglichen Genotypen
 dfOrgGeno <- read.csv2(file = "inst/extdata/w5/original_genotypen.csv", as.is = TRUE)
-### # liste zu recodieren der Genotypen auf Anzahl A-Allele
-lRecodeMap <- list(AA = 2, AB=1, BB=0)
+### # liste zu recodieren der Genotypen auf  A-Substitutionseffekte
+lRecodeMap <- list(AA = 1, AB = 0, BB = -1)
 ### # Umkodierung
 locus1 <- unlist(lapply(dfOrgGeno$x1, function(x) lRecodeMap[[x]]))
 locus2 <- unlist(lapply(dfOrgGeno$x2, function(x) lRecodeMap[[x]]))
 locus3 <- unlist(lapply(dfOrgGeno$x3, function(x) lRecodeMap[[x]]))
 ### # simualtion der Beobachtungen
-vecBetaTrue <- c(-10.76, 5, 3, 1.5)   ### # vektor der wahren Effekte
-matX <- matrix(data = cbind(rep(1, length(locus1)),locus1,locus2,locus3), ncol = 4)
-y <- matX %*% vecBetaTrue + rnorm(n=length(locus1), mean = 2, sd=5.5)
+nResMean <- 0
+nResSd <- 2.5
+nIntercept <- -10.76
+nSubsEffALocus1 <- 5
+nSubsEffALocus2 <- 3
+nSubsEffALocus3 <- 1.5
+### # vektor der wahren Effekte
+vecBetaTrue <- c(nIntercept, nSubsEffALocus1, nSubsEffALocus2, nSubsEffALocus3)
+matX <- matrix(data = cbind(rep(1, length(locus1)),locus1,locus2,locus3), ncol = length(vecBetaTrue))
+y <- matX %*% vecBetaTrue + rnorm(n=length(locus1), mean = nResMean, sd = nResSd)
 ### # Zusammenstellung des neuen Dataframes
 id <- dfOrgGeno$id
 dfGenoPhenData <- data.frame(id, locus1, locus2, locus3, y, stringsAsFactors = FALSE)
-fitMultReg <- lm( y ~ locus1 + locus2, data=dfGenoPhenData)
+### # re-check by computing the fit
+fitMultReg <- lm( y ~ locus1 + locus2, data = dfGenoPhenData)
 summary(fitMultReg)
 @
 
