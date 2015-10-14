@@ -8,48 +8,74 @@
 \maketitle
 
 
-\section*{Aufgabe 1 (5)}
+\section*{Aufgabe 1 (8)}
 \label{sec:Aufgabe1}
+<<SimGenoData, echo=FALSE, eval=FALSE>>=
+### # simulation der Daten in inst/extdata/generateOriginalGenotypeData.R
+@
+
 Im Gegensatz zu Aufgabe 2 aus \"Ubung 2 betrachten wir in dieser Aufgabe eine multiple Regression, in welcher die enthaltenen Variablen alle einen Beitrag leisten zur Erkl\"arung der abh\"angigen $y-$ Variablen.
 
 Mit dieser Aufgabe soll demonstriert werden, dass multiple Regression nicht durch mehrere Regressionen einzelner Variablen ersetzt werden darf. Das mag logisch erscheinen, aber fr\"uhe Paper auf dem Gebiet der genomischen Selektion, so zum Beispiel Meuwissen et al. \cite{mhg2001}, wollten das Problem der vielen Regressionsvariablen durch eine Kombination von mehreren Regressionen mit wenigen Variablen l\"osen. Simulationsstudien unter anderem in Meuwissen et al. \cite{mhg2001} zeigten aber klar, dass diese Methode nicht funktioniert.
 
-In einem einfach Beispiel mit simulierten Daten wollen wir den gleichen Effekt auch demonstrieren.
+In einem einfach Beispiel mit simulierten Daten wollen wir den gleichen Effekt auch demonstrieren. Die Datei mit den simulierten Daten sind auf der Vorlesungswebseite unter \\
+\texttt{http://charlotte-ngs.github.io/LivestockBreedingAndGenomics/w5/simgenphen.csv} verf\"ugbar. Der Datensatz kann mit
 
-<<SimGenoData, echo=FALSE>>=
-### # lesen der urspruenglichen Genotypen
-dfOrgGeno <- read.csv2(file = "inst/extdata/w5/original_genotypen.csv", as.is = TRUE)
-### # liste zu recodieren der Genotypen auf  A-Substitutionseffekte
-lRecodeMap <- list(AA = 1, AB = 0, BB = -1)
-### # Umkodierung
-locus1 <- unlist(lapply(dfOrgGeno$x1, function(x) lRecodeMap[[x]]))
-locus2 <- unlist(lapply(dfOrgGeno$x2, function(x) lRecodeMap[[x]]))
-locus3 <- unlist(lapply(dfOrgGeno$x3, function(x) lRecodeMap[[x]]))
-### # simualtion der Beobachtungen
-nResMean <- 0
-nResSd <- 2.5
-nIntercept <- -10.76
-nSubsEffALocus1 <- 5
-nSubsEffALocus2 <- 3
-nSubsEffALocus3 <- 1.5
-### # vektor der wahren Effekte
-vecBetaTrue <- c(nIntercept, nSubsEffALocus1, nSubsEffALocus2, nSubsEffALocus3)
-matX <- matrix(data = cbind(rep(1, length(locus1)),locus1,locus2,locus3), ncol = length(vecBetaTrue))
-y <- matX %*% vecBetaTrue + rnorm(n=length(locus1), mean = nResMean, sd = nResSd)
-### # Zusammenstellung des neuen Dataframes
-id <- dfOrgGeno$id
-dfGenoPhenData <- data.frame(id, locus1, locus2, locus3, y, stringsAsFactors = FALSE)
-### # re-check by computing the fit
-fitMultReg <- lm( y ~ locus1 + locus2, data = dfGenoPhenData)
-summary(fitMultReg)
+<<ReadSimData>>=
+dfSimGenPhenDat <- read.csv2(file =
+  "http://charlotte-ngs.github.io/LivestockBreedingAndGenomics/w5/simgenphen.csv",
+                            as.is = TRUE)
 @
 
+\noindent in R eingelesen werden. Der Befehl
 
-\section*{Aufgabe 2 ()}
-\label{sec:Aufgabe2}
+<<NamesSimDat>>=
+names(dfSimGenPhenDat)
+@
+
+\noindent zeigt die Kolonnen\"uberschriften im Datensatz. Die Kolonne ``id'' enth\"alt die Nummern der Tiere im Datensatz und werden in der Auswertung nicht gebraucht. Die Kolonnen ``locus1'' bis ``locus3'' enthalten Genotypen der Tiere an drei verschiedenen Orten im Genom. Die Genotypen sind wie folgt kodiert.
+
+\vspace*{2ex}
+\begin{tabular}{|c|c|}
+\hline
+Genotyp  &  Wert \\
+\hline
+$A_2A_2$  &  $-1$ \\
+\hline
+$A_1A_2$  &  $0$ \\
+\hline
+$A_1A_1$  &  $1$ \\
+\hline
+\end{tabular}
+
+\vspace*{2ex}
+\noindent Dabei nehmen wir an, dass an allen drei Loci $A_1$ das favorisierte Allel ist. Die Kolonne ``y'' enth\"alt die Merkmalswerte.
+
+\subsection*{Vergleich multiple und einfache Regression}
+Ihre Aufgabe ist es jetzt die multiple Regression von Merkmal ``y'' auf die drei x-Variablen ``locus1'' bis ``locus3'' zu vergleichen mit den drei einfach Regressionen von ``y'' auf die drei x-Variablen ``locus1'' bis ``locus3''. Den Vergleich machen Sie am besten anhand des Output der Funktion \texttt{summary()} f\"ur die gefitteten Regressionsmodelle.
+
+\subsection*{Vergleich der Resultate zu den Simulationsparameter}
+Folgende Parameter wurden zur Simulation der Daten verwendet. Diese sollten mit den Resultaten der multiplen Regression recht gut \"ubereinstimmen. Allf\"allige tiefe Signifikanzwerte k\"onnen durch die geringe Anzahl an Tieren im Datensatz begr\"undet werden.
 
 
-\section*{Aufgabe 3 (7)}
+\vspace*{2ex}
+\begin{tabular}{|c|c|}
+\hline
+Locus  &  additiver genotypischer Wert ($a$) \\
+\hline
+1      &  $10$ \\
+\hline
+2      &  $5$ \\
+\hline
+3      &  $2$ \\
+\hline
+\end{tabular}
+
+\vspace*{2ex}
+\noindent Als Intercept wurde ein Wert von $-10.76$ angenommen. Die Standardabweichung der Fehler betrug $2.5$.
+
+
+\section*{Aufgabe 2 (5)}
 \label{sec:Aufgabe3}
 Funktionen sind die wahrscheinlich wichtigsten Werkzeuge in R. Wir haben schon ein paar interne Funktionen, wie \texttt{lm()}, \texttt{plot()}, \texttt{sqrt()}, usw. kennen gelernt. Eine der grossen St\"arken von R liegt darin, dass wir als Benutzer selber Funktionen erzeugen k\"onnen und diese dann auch einsetzen k\"onnen. Unsere eigenen Funktionen k\"onnen wir auch mit anderen Benutzern austauschen. Also, falls wir ein Problem l\"osen m\"ochten, dann lohnt es sich immer zuerst ein Suche nach schon bekannten L\"osungen zu starten.
 
@@ -87,8 +113,6 @@ Die Formel zur Verwandlung von Grad Celsius ($c$) in Fahrenheit ($f$) lautet
 $$f = 32 + (9/5) * c $$
 
 
-\clearpage
-\pagebreak
 
 \begin{thebibliography}{99}
 \bibitem{mhg2001} T. H. E. Meuwissen, B. J. Hayes  and M. E. Goddard  2001. Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps. Genetics 157: 1819–1829.
