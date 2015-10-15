@@ -125,12 +125,13 @@ navigation
 \frame{
   \frametitle{Matrixmethode - Tiere anordnen}
   \begin{center}
-  \begin{tabular}{l|l|l|l|l|l|l|l|l|l|l|}
+  \begin{tabular}{l|l|l|l|l|l|l|l|l|l|l|l|}
  % \hline
   &  &  &  &  &  &  &  &  &  &  \\
   %\hline
-  & A & B & C & D & E & F & G & H & I & J \\
+  & NA & A & B & C & D & E & F & G & H & I & J \\
    \hline
+  NA &
   A &  &  &  &  &  &  &  &  &  &  \\
    \hline
   B &  &  &  &  &  &  &  &  &  &  \\
@@ -201,11 +202,94 @@ navigation
     Inzuchtgrad von Tier $X$. Hat Tier $X$ unbekannte Eltern, dann ist $F_X = 0$
   \item \textbf{Nicht-Diagonalelementen} zwischen Tier $X$ und Tier $Y$ steht im
     Feld der Zeile f\"ur Tier $X$ und in der Kolonne f\"ur Tier $Y$. Wird berechnet
-    als $a_{X,Y} = {1\over 2}\left( a_{X,m(Y)} + a_{X,f(Y)} \right)$, wobei
-    $m(Y)$ die Mutter von $Y$ ist und $f(Y)$ der Vater von $Y$ ist
+    als
+    $$a_{X,Y} = {1\over 2}\left( a_{X,m(Y)} + a_{X,v(Y)} \right)$$
+    wobei $m(Y)$ die Mutter von $Y$ ist und $v(Y)$ der Vater von $Y$ ist
+  \item Sind Eltern von $Y$ unbekannt $\rightarrow a_{X,m(Y)} = a_{X,v(Y)} = 0$
   \end{itemize}
 }
 \note{}
 
+
+\frame{
+  \frametitle{Matrixmethode - Erste Zeile, unbekannte Eltern}
+  \begin{itemize}
+  \item Erstes Element ist ein Diagonalelement $\rightarrow a_{A,A} = 1 + F_A = 1$
+  \item Zweites Element ist ein Nicht-Diagonalelement $\rightarrow$
+    $$a_{A,B} = {1\over 2}\left( a_{A,m(B)} + a_{A,v(B)}\right) = 0$$
+  \item Analog f\"ur $a_{A,C}$ und $a_{A,D}$
+  \end{itemize}
+  \begin{center}
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
+        &   &   &   &   & A B  & B C & C D  & E F  & F G  & H I \\
+        & A & B & C & D & E    & F   & G    & H    & I    & J \\
+      \hline
+      A & 1 & 0 & 0 & 0 &  &  &  &  &  &  \\
+      \hline
+      B &  &  &  &  &  &  &  &  &  &  \\
+    \end{tabular}
+  \end{center}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Matrixmethode - Erste Zeile, bekannte Eltern}
+  \begin{itemize}
+  \item Additiv genetischer Verwandtschaftsgrad zwischen A und E
+  $$a_{A,E} = {1\over 2}\left( a_{A,m(E)} + a_{A,v(E)}\right)
+    = {1\over 2}\left( a_{A,B} + a_{A,A}\right)
+    = {1\over 2}\left( 0 + 1\right) = 0.5$$
+  \item Analog f\"ur F bis J
+  \end{itemize}
+  \begin{center}
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
+        &   &   &   &   & A B  & B C & C D  & E F  & F G  & H I \\
+        & A & B & C & D & E    & F   & G    & H    & I    & J \\
+      \hline
+      A & 1 & 0 & 0 & 0 & 0.5 &  &  &  &  &  \\
+      \hline
+      B &  &  &  &  &  &  &  &  &  &  \\
+    \end{tabular}
+  \end{center}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Matrixmethode - \"Ubertragen}
+
+  \begin{center}
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
+        &   &   &   &   & A B  & B C & C D  & E F  & F G  & H I \\
+        & A & B & C & D & E    & F   & G    & H    & I    & J \\
+      \hline
+      A & 1 & 0 & 0 & 0 & 0.5 & 0 & 0 & 0.25 & 0  & 0.125 \\
+      \hline
+      B & 0 &  &  &  &  &  &  &  &  &  \\
+      \hline
+      C & 0 &  &  &  &  &  &  &  &  &  \\
+      \hline
+      D & 0 &  &  &  &  &  &  &  &  &  \\
+      \hline
+      E & 0.5 &  &  &  &  &  &  &  &  &  \\
+      \hline
+      F & 0 &  &  &  &  &  &  &  &  &  \\
+      \hline
+      G & 0 &  &  &  &  &  &  &  &  &  \\
+      \hline
+      H & 0.25 &  &  &  &  &  &  &  &  &  \\
+      \hline
+      I & 0 &  &  &  &  &  &  &  &  &  \\
+      \hline
+      J & 0.125 &  &  &  &  &  &  &  &  &  \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+}
+\note{}
 
 \end{document}
