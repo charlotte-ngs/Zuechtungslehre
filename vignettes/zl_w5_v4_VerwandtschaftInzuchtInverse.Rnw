@@ -124,33 +124,34 @@ navigation
 
 \frame{
   \frametitle{Matrixmethode - Tiere anordnen}
+  \noindent NA (Not Available) ist ein Platzhalter f\"ur das unbekannte Tier
+
   \begin{center}
   \begin{tabular}{l|l|l|l|l|l|l|l|l|l|l|l|}
- % \hline
-  &  &  &  &  &  &  &  &  &  &  \\
-  %\hline
-  & NA & A & B & C & D & E & F & G & H & I & J \\
+     &    &   &   &   &   &   &   &   &   &   &   \\
+     & NA & A & B & C & D & E & F & G & H & I & J \\
    \hline
-  NA &
-  A &  &  &  &  &  &  &  &  &  &  \\
+  NA &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
-  B &  &  &  &  &  &  &  &  &  &  \\
+  A  &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
-  C &  &  &  &  &  &  &  &  &  &  \\
+  B &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
-  D &  &  &  &  &  &  &  &  &  &  \\
+  C &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
-  E &  &  &  &  &  &  &  &  &  &  \\
+  D &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
-  F &  &  &  &  &  &  &  &  &  &  \\
+  E &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
-  G &  &  &  &  &  &  &  &  &  &  \\
+  F &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
-  H &  &  &  &  &  &  &  &  &  &  \\
+  G &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
-  I &  &  &  &  &  &  &  &  &  &  \\
+  H &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
-  J &  &  &  &  &  &  &  &  &  &  \\
+  I &    &   &   &   &   &   &   &   &   &   &   \\
+   \hline
+  J &    &   &   &   &   &   &   &   &   &   &   \\
    \hline
   \end{tabular}
   \end{center}
@@ -160,32 +161,72 @@ navigation
 
 \frame{
   \frametitle{Matrixmethode - Eltern eintragen}
+  \noindent Fehlen die Eltern, soll NA verwendet werden
   \begin{center}
-  \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
- % \hline
-  &   &   &   &   & A B  & B C & C D  & E F  & F G  & H I \\
-  %\hline
-  & A & B & C & D & E    & F   & G    & H    & I    & J \\
+  \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|}
+
+     &        &        &        &        &        & A B  & B C & C D  & E F  & F G  & H I \\
+
+     & NA     & A      & B      & C      & D      & E    & F   & G    & H    & I    & J \\
    \hline
-  A &  &  &  &  &  &  &  &  &  &  \\
+  NA &        &        &        &        &        &      &     &      &      &      &   \\
    \hline
-  B &  &  &  &  &  &  &  &  &  &  \\
+   A &        &        &        &        &        &      &     &      &      &      &   \\
    \hline
-  C &  &  &  &  &  &  &  &  &  &  \\
+   B &        &        &        &        &        &      &     &      &      &      &   \\
    \hline
-  D &  &  &  &  &  &  &  &  &  &  \\
+   C &        &        &        &        &        &      &     &      &      &      &   \\
    \hline
-  E &  &  &  &  &  &  &  &  &  &  \\
+   D &        &        &        &        &        &      &     &      &      &      &   \\
    \hline
-  F &  &  &  &  &  &  &  &  &  &  \\
+   E &        &        &        &        &        &      &     &      &      &      &   \\
    \hline
-  G &  &  &  &  &  &  &  &  &  &  \\
+   F &        &        &        &        &        &      &     &      &      &      &   \\
    \hline
-  H &  &  &  &  &  &  &  &  &  &  \\
+   G &        &        &        &        &        &      &     &      &      &      &   \\
    \hline
-  I &  &  &  &  &  &  &  &  &  &  \\
+   H &        &        &        &        &        &      &     &      &      &      &   \\
    \hline
-  J &  &  &  &  &  &  &  &  &  &  \\
+   I &        &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   J &        &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+  \end{tabular}
+  \end{center}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Matrixmethode - Initialisierung}
+  \noindent Zeile und Kolonne f\"ur NA auf $0$ setzen
+  \begin{center}
+  \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|}
+     &        &        &        &        &        & A B  & B C & C D  & E F  & F G  & H I \\
+
+     & NA     & A      & B      & C      & D      & E    & F   & G    & H    & I    & J \\
+   \hline
+  NA & 0      & 0      &  0     & 0      & 0      & 0    &  0  &  0   & 0    &  0   & 0 \\
+   \hline
+   A &  0     &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   B &  0     &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   C &  0     &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   D &  0     &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   E &  0     &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   F &  0     &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   G &  0     &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   H &  0     &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   I &  0     &        &        &        &        &      &     &      &      &      &   \\
+   \hline
+   J &  0     &        &        &        &        &      &     &      &      &      &   \\
    \hline
   \end{tabular}
   \end{center}
@@ -212,7 +253,7 @@ navigation
 
 
 \frame{
-  \frametitle{Matrixmethode - Erste Zeile, unbekannte Eltern}
+  \frametitle{Matrixmethode - Zweite Zeile, unbekannte Eltern}
   \begin{itemize}
   \item Erstes Element ist ein Diagonalelement $\rightarrow a_{A,A} = 1 + F_A = 1$
   \item Zweites Element ist ein Nicht-Diagonalelement $\rightarrow$
@@ -220,13 +261,16 @@ navigation
   \item Analog f\"ur $a_{A,C}$ und $a_{A,D}$
   \end{itemize}
   \begin{center}
-    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
-        &   &   &   &   & A B  & B C & C D  & E F  & F G  & H I \\
-        & A & B & C & D & E    & F   & G    & H    & I    & J \\
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|}
+     &        &        &       &        &        & A B  & B C & C D  & E F  & F G  & H I \\
+
+     & NA     & A      & B     & C      & D      & E    & F   & G    & H    & I    & J \\
+   \hline
+  NA & 0      & 0      & 0     & 0      & 0      & 0    &  0  &  0   & 0    &  0   & 0 \\
+   \hline
+   A & 0      & 1      & 0     & 0      & 0      &      &     &      &      &      &   \\
       \hline
-      A & 1 & 0 & 0 & 0 &  &  &  &  &  &  \\
-      \hline
-      B &  &  &  &  &  &  &  &  &  &  \\
+   B & 0      &        &       &        &        &      &     &      &      &      &   \\
     \end{tabular}
   \end{center}
 
@@ -235,7 +279,7 @@ navigation
 
 
 \frame{
-  \frametitle{Matrixmethode - Erste Zeile, bekannte Eltern}
+  \frametitle{Matrixmethode - Zweite Zeile, bekannte Eltern}
   \begin{itemize}
   \item Additiv genetischer Verwandtschaftsgrad zwischen A und E
   $$a_{A,E} = {1\over 2}\left( a_{A,m(E)} + a_{A,v(E)}\right)
@@ -244,13 +288,16 @@ navigation
   \item Analog f\"ur F bis J
   \end{itemize}
   \begin{center}
-    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
-        &   &   &   &   & A B  & B C & C D  & E F  & F G  & H I \\
-        & A & B & C & D & E    & F   & G    & H    & I    & J \\
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|}
+     &        &        &       &        &        & A B  & B C & C D  & E F  & F G  & H I \\
+
+     & NA     & A      & B     & C      & D      & E    & F   & G    & H    & I    & J \\
+   \hline
+  NA & 0      & 0      & 0     & 0      & 0      & 0    &  0  &  0   & 0    &  0   & 0 \\
+   \hline
+   A & 0      & 1      & 0     & 0      & 0      & 0.5 &  &  &  &  &  \\
       \hline
-      A & 1 & 0 & 0 & 0 & 0.5 &  &  &  &  &  \\
-      \hline
-      B &  &  &  &  &  &  &  &  &  &  \\
+   B & 0      &        &       &        &        &      &     &      &      &      &   \\
     \end{tabular}
   \end{center}
 
@@ -262,33 +309,114 @@ navigation
   \frametitle{Matrixmethode - \"Ubertragen}
 
   \begin{center}
-    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
-        &   &   &   &   & A B  & B C & C D  & E F  & F G  & H I \\
-        & A & B & C & D & E    & F   & G    & H    & I    & J \\
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|}
+     &        &        &       &        &        & A B  & B C & C D  & E F  & F G  & H I \\
+
+     & NA     & A      & B     & C      & D      & E    & F   & G    & H    & I    & J \\
+   \hline
+  NA & 0      & 0      & 0     & 0      & 0      & 0    & 0   & 0    & 0    & 0    & 0 \\
       \hline
-      A & 1 & 0 & 0 & 0 & 0.5 & 0 & 0 & 0.25 & 0  & 0.125 \\
+   A & 0      & 1      & 0     & 0      & 0      & 0.5  & 0   & 0    & 0.25 & 0    & 0.125 \\
       \hline
-      B & 0 &  &  &  &  &  &  &  &  &  \\
+   B & 0      & 0      &  &  &  &  &  &  &  &  &  \\
       \hline
-      C & 0 &  &  &  &  &  &  &  &  &  \\
+   C & 0      & 0      &  &  &  &  &  &  &  &  &  \\
       \hline
-      D & 0 &  &  &  &  &  &  &  &  &  \\
+   D & 0      & 0      &  &  &  &  &  &  &  &  &  \\
       \hline
-      E & 0.5 &  &  &  &  &  &  &  &  &  \\
+   E & 0      & 0.5    &  &  &  &  &  &  &  &  &  \\
       \hline
-      F & 0 &  &  &  &  &  &  &  &  &  \\
+   F & 0      & 0      & &  &  &  &  &  &  &  &  \\
       \hline
-      G & 0 &  &  &  &  &  &  &  &  &  \\
+   G & 0      & 0      &  &  &  &  &  &  &  &  &  \\
       \hline
-      H & 0.25 &  &  &  &  &  &  &  &  &  \\
+   H & 0      & 0.25   &  &  &  &  &  &  &  &  &  \\
       \hline
-      I & 0 &  &  &  &  &  &  &  &  &  \\
+   I & 0      & 0 &    &  &  &  &  &  &  &  &  \\
       \hline
-      J & 0.125 &  &  &  &  &  &  &  &  &  \\
+   J & 0      & 0.125  &  &  &  &  &  &  &  &  &  \\
       \hline
     \end{tabular}
   \end{center}
 
+}
+\note{}
+
+
+\frame{
+  \frametitle{Matrixmethode}
+  \begin{itemize}
+  \item Schritte ``Berechnung'' - ``\"Ubertragen'' wiederholen bis alle Felder der Matrix gef\"ullt sind
+  \item erste Zeile und erste Kolonne, welche zu NA geh\"oren wieder streichen
+  \item Resultat entspricht der additiv genetischen Verwandtschaftsmatrix
+  \item Bedeutung der Werte in den Feldern - mittlere Wahrscheinlich f\"ur IBD
+  \item Visualisierung mit Heatmap
+  \end{itemize}
+}
+\note{}
+
+
+\begin{frame}
+  \frametitle{Heatmap}
+<<AddGenVwMat, echo=FALSE, fig=TRUE, height=5>>=
+nNrInd <- 10
+matAddGen <- matrix(data = c(1    ,0    ,0    ,0    ,0.5  ,0    ,0    ,0.25 ,0    ,0.125,
+                             0    ,1    ,0    ,0    ,0.5  ,0.5  ,0    ,0.5  ,0.25 ,0.375,
+                             0    ,0    ,1    ,0    ,0    ,0.5  ,0.5  ,0.25 ,0.5  ,0.375,
+                             0    ,0    ,0    ,1    ,0    ,0    ,0.5  ,0    ,0.25 ,0.125,
+                             0.5  ,0.5  ,0    ,0    ,1    ,0.25 ,0    ,0.625,0.125,0.375,
+                             0    ,0.5  ,0.5  ,0    ,0.25 ,1    ,0.25 ,0.625,0.625,0.625,
+                             0    ,0    ,0.5  ,0.5  ,0    ,0    ,1    ,0.125,0.625,0.375,
+                             0.25 ,0.5  ,0.25 ,0    ,0.625,0.25 ,0.125,1.125,0.375,0.75 ,
+                             0    ,0.25 ,0.5  ,0.25 ,0.125,0.625,0.625,0.375,1.125,0.75 ,
+                             0.125,0.375,0.375,0.125,0.375,0.625,0.375,0.75 ,0.75 ,1.1875),
+                    nrow = nNrInd,
+                    ncol= nNrInd,
+                    byrow = TRUE,
+                    dimnames = list(LETTERS[1:nNrInd], LETTERS[1:nNrInd]))
+#hmAddGen <- heatmap(matAddGen, Rowv = NA, Colv = NA,
+#                    col = heat.colors(256),
+#                    scale = "column",
+#                    margins = c(5,10))
+# bsp von http://www.shizukalab.com/toolkits/heat-map
+library(lattice)
+new.palette=colorRampPalette(c("black","red","yellow","white"),space="rgb")
+levelplot(matAddGen[1:ncol(matAddGen),ncol(matAddGen):1],col.regions=new.palette(20))
+@
+
+\end{frame}
+\note{}
+
+
+\frame{
+  \frametitle{Verwandtschaftsmatrix und ihre Inverse}
+  \begin{itemize}
+  \item Covarianz-Matrix der additiv-genetischen Effekte zwischen Tieren:
+    $Var(\mathbf{g}) = \mathbf{A} * \sigma_g$, wobei $\mathbf{A}$ die additive genetische
+    Verwandtschaftsmatrix
+  \item In BLUP Zuchtwertsch\"atzung (siehe sp\"ater) wird Inverse von $\mathbf{A}$ gebraucht
+  \item Aufstellen von $\mathbf{A}$ und anschliessendes Invertieren funktioniert nicht
+  \item F\"ur grosse Datens\"atze muss Inverse direkt aufgestellt werden
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Direktes Aufstellen der Inversen}
+  Einige Fakten aus der Matrix Algebra
+  \begin{itemize}
+  \item Eine symmetrische Matrix $\mathbf{A}$ l\"asst sich als Produkt
+    $$\mathbf{A} = \mathbf{T}\mathbf{D}\mathbf{T}^T$$
+    schreiben
+  \item $\mathbf{T}$ ist eine untere Dreiecksmatrix
+  \item $\mathbf{D}$ ist eine Diagnoalmatrix
+  \item F\"ur die Inverse gilt
+    $$\mathbf{A}^{-1} = \left(\mathbf{T}\mathbf{D}\mathbf{T}^T\right)^{-1}
+      = \left(\mathbf{T}^T\right)^{-1} \mathbf{D}^{-1} \mathbf{T}^{-1}
+      = \left(\mathbf{T}^{-1}\right)^T \mathbf{D}^{-1} \mathbf{T}^{-1}$$
+  \item Matrizen $\mathbf{D}$ und $\mathbf{T}$ sind einfacher zu invertieren
+  \end{itemize}
 }
 \note{}
 
