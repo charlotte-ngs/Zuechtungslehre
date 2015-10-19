@@ -25,11 +25,13 @@ nHeaderLineIdx <- 1
 sColSplit <- "[ ]+"
 ### # constants for simulation
 nInterceptTrue <- -10.76
-nSubsEffLocus1 <- 1
-nSubsEffLocus2 <- 0.5
-nSubsEffLocus3 <- 0.2
+nSubsEffLocus1 <- 1   # 2.9 #
+nSubsEffLocus2 <- 0.5 # 1.1 #
+nSubsEffLocus3 <- 0.37 # 0.5 #
 nMeanRes <- 0
 nSdRes   <- 2.5
+
+set.seed(1239)
 
 ##############################
 ### # functions
@@ -73,8 +75,12 @@ matDesignX[,1] <- rep(1, nrow(matGenoDat))
 ### # check rank of design matrix
 qr(matDesignX)$rank
 ### # make adjustments to get full column rank
+#matDesignX[2,3] <- 10
+#matDesignX[17,1] <- -10
 matDesignX[19,4] <- -10
-matDesignX[19,4] <- 0
+#matDesignX[20,4] <- 0
+#matDesignX[23,1] <- 10
+#matDesignX[26,2] <- 10
 qr(matDesignX)$rank
 
 ### # true beta vector

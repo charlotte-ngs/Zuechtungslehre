@@ -593,7 +593,9 @@ navigation
   \item Berechnung des Inzuchtgrades f\"ur das Tier $x$
   \end{itemize}
 
-  $$F_x = {1\over 2}a_{M_x,V_x} = \sum_{Pfade} \left({1\over 2}\right)^{t_1+t_2}(1+F_Z)$$
+  $$F_x = {1\over 2}a_{M_x,V_x}
+        = {1\over 2} \sum_{Pfade} \left({1\over 2}\right)^{t_1+t_2}(1+F_Z)
+        = \sum_{Pfade} \left({1\over 2}\right)^{t_1+t_2+1}(1+F_Z)$$
 }
 \note{}
 

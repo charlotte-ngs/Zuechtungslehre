@@ -1,0 +1,98 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uchtungslehre - L\"osung 3}
+\author{Peter von Rohr}
+\maketitle
+
+
+\section*{Aufgabe 1 (8)}
+<<SimDataCharacteristics, echo=FALSE>>=
+sGitDir <- ifelse(.Platform$OS.type == "windows",
+                  "c:/Daten/pvr/Github",
+                  "~/Data/Projects/GitHub")
+bModeOnline <- FALSE
+### # Define data depending on whether we are online or offline
+sDataFn <- ifelse(bModeOnline,
+                  "http://charlotte-ngs.github.io/LivestockBreedingAndGenomics/w5/simgenphen.csv",
+                  file.path(sGitDir, "LivestockBreedingAndGenomics/gh-pages/w5/simgenphen.csv"))
+dfSimGenPhenDat <- read.csv2(file = sDataFn)
+@
+
+Der in dieser Aufgabe verwendete Datensatz unter \\
+\texttt{http://charlotte-ngs.github.io/LivestockBreedingAndGenomics/w5/simgenphen.csv} umfasst nur \Sexpr{nrow(dfSimGenPhenDat)} Records und wurde mit folgenden Parametern simuliert.
+
+\vspace*{2ex}
+\begin{tabular}{|c|c|}
+\hline
+Locus  &  additiver genotypischer Wert ($a$) \\
+\hline
+1      &  $10$ \\
+\hline
+2      &  $5$ \\
+\hline
+3      &  $2$ \\
+\hline
+\end{tabular}
+
+\vspace*{2ex}
+\noindent Als Intercept wurde ein Wert von $-10.76$ angenommen. Die Standardabweichung der Fehler betrug $2.5$.
+
+\subsection*{Analyse des urspr\"unglichen Datensatzes}
+In der Aufgabe ging es darum die multiple lineare Regression mit den simplen Regressionen f\"ur die drei Loci miteinander zu vergleichen. Bei der multiplen Regression sollten die in der Simulation verwendeten Parameter wieder als Effekte erscheinen.
+
+<<MultLinRegOrgData>>=
+lmMultRegOrg <- lm(y ~ locus1 + locus2 + locus3, data = dfSimGenPhenDat)
+summary(lmMultRegOrg)
+@
+
+\subsection*{Analyse eines neuen Datensatzes}
+<<SimDataNew>>=
+
+@
+
+Damit der in der Aufgabe beschriebene Effekt trotzdem sichtbar gemacht werden kann, wird ein neuer Datensatz simuliert. Die Parameterwerte wurden etwas anders gew\"ahlt, und der neue Datensatz enth\"alt
+
+\section*{Aufgabe 2 (5)}
+Analog zur in der Funktion \texttt{quadratzahl()} definieren wir die Funktion \texttt{convertCelsiusToFahrenheit()}. Als Input nimmt die Funktion die Temparatur in Grad Celsius als einziges Funktionsargument. Folgende Definition der Funktion \texttt{convertCelsiusToFahrenheit()} ist denkbar.
+
+<<ConvertCelsiusToFahrenheitFuncDef>>=
+convertCelsiusToFahrenheit <- function(pnTempC){
+  nResultTempF <-32 + (9/5) * pnTempC
+  return(nResultTempF)
+}
+@
+
+\subsection*{Umrechnung einzelner Werte}
+Einzelne Temperaturwerte k\"onnen mit einzelnen Funktionsaufrufen umgerechnet werden.
+
+<<ConvertCelsiusToFahrenheitFuncCall>>=
+convertCelsiusToFahrenheit(7)
+convertCelsiusToFahrenheit(13)
+convertCelsiusToFahrenheit(35)
+@
+
+\subsection*{Umrechnungstabelle}
+Angenommen, wir m\"ochten die Temparaturen zwischen $-50$ und $+50$ Grad Celsius in Fahrenheit umrechnen und die Werte dann in einer Tabelle darstellen, dann k\"onnen wir das in einem Loop machen.
+
+<<CelsiusToFahrenheitTableComp>>=
+Celsius <- seq(from = -50,to = 50,by = 10)
+nNrValues <- length(Celsius)
+Fahrenheit <- vector(mode = "numeric", length = nNrValues)
+for (i in 1:nNrValues){
+  Fahrenheit[i] <- convertCelsiusToFahrenheit(Celsius[i])
+}
+print(Celsius)
+print(Fahrenheit)
+@
+
+Die Tabelle sieht dann wie folgt aus.
+
+<<CelsiusToFahrenheitTable, echo=FALSE, results=tex>>=
+dfCelToFahr <- data.frame(Celsius, Fahrenheit)
+xtable::xtable(dfCelToFahr)
+@
+
+\end{document}
