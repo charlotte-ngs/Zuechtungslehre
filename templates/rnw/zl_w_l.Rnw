@@ -1,0 +1,15 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uchtungslehre - L\"osung }
+\author{Peter von Rohr}
+\maketitle
+
+
+\section*{Aufgabe 1 ()}
+
+\section*{Aufgabe 2 ()}
+
+\end{document}
