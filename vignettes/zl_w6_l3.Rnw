@@ -50,115 +50,8 @@ summary(lmMultRegOrg)
 
 
 \subsection*{Analyse eines neuen Datensatzes}
-<<SimDataNew, echo=FALSE>>=
-sDatDir <- ifelse(.Platform$OS.type == "windows",
-                  "C:/Daten/pvr/Google Drive/eBooks/GWH2013_Genome-Wide_Association_Studies_and_Genomic_Prediction/978-1-62703-446-3/Chapter10",
-                  "~/Google Drive/eBooks/GWH2013_Genome-Wide_Association_Studies_and_Genomic_Prediction/978-1-62703-446-3/Chapter10")
-### # name of the file with original data
-sGenDatFn <- "Genotypes.dat"
-### # number of lines to be read from orignial data file
-nDataLine <- 31
-### # column indices to extract
-nStartCol <- 2
-nEndCol <- 5
-### # rowindex of header lines
-nHeaderLineIdx <- 1
-### # regexp with which to split columns
-sColSplit <- "[ ]+"
-### # constants for simulation
-nInterceptTrue <- -10.76
-nSubsEffLocus1 <- 2.9 #1   #
-nSubsEffLocus2 <- 1.1 #0.5 #
-nSubsEffLocus3 <- 0.5 #0.37 #
-nMeanRes <- 0
-nSdRes   <- 1
-### # directory and file where results should be written to
-sResultDir <- "inst/extdata/w5"
-sResultFn <- "simgenphencorr.csv"
-sResultFile <- file.path(sResultDir, sResultFn)
-
-set.seed(1239)
-
-##############################
-### # functions
-sGetHeaderLine <- function(psGenDataLine, pnHeaderLineIdx, psColSplit, pnStartCol, pnEndCol) {
-  sResultHeaderLine <- unlist(strsplit(psGenDataLine[pnHeaderLineIdx],
-                                       split = psColSplit))[pnStartCol:pnEndCol]
-  return(sResultHeaderLine)
-}
-##############################
-### # code starts here ....
-### # save the current working directory
-#zlwd <- getwd()
-zlwd <- ifelse(.Platform$OS.type == "windows",
-               "C:/Daten/GitHub/Zuechtungslehre",
-               "~/Data/Projects/GitHub/Zuechtungslehre")
-
-### # change wd to where genotype.dat is located
-#setwd(sDatDir)
-
-### # open a connection and read first 20 records with header
-conDat <- file(description = file.path(sDatDir,sGenDatFn))
-sGenDataLine <- readLines(con = conDat, n = nDataLine)
-close(con = conDat)
-
-sHeaderLine <- sGetHeaderLine(psGenDataLine   = sGenDataLine,
-                              pnHeaderLineIdx = nHeaderLineIdx,
-                              psColSplit      = sColSplit,
-                              pnStartCol      = nStartCol,
-                              pnEndCol        = nEndCol)
-
-### # body of data records
-matGenoDat <- matrix(data = NA, nrow = length(sGenDataLine)-1, ncol = length(sHeaderLine))
-for (i in 2:length(sGenDataLine)){
-  matGenoDat[(i-1),] <- as.numeric(unlist(strsplit(sGenDataLine[i],
-                                                   split = sColSplit))[nStartCol:nEndCol])
-}
-
-### # generate the data
-matDesignX <- matGenoDat
-matDesignX[,1] <- rep(1, nrow(matGenoDat))
-### # check rank of design matrix
-qr(matDesignX)$rank
-### # make adjustments to get full column rank
-#matDesignX[2,3] <- 10
-#matDesignX[17,1] <- -10
-matDesignX[19,4] <- -10
-#matDesignX[20,4] <- 0
-#matDesignX[23,1] <- 10
-#matDesignX[26,2] <- 10
-qr(matDesignX)$rank
-
-### # true beta vector
-vecBetaTrue <- c(nInterceptTrue,
-                 nSubsEffLocus1,
-                 nSubsEffLocus2,
-                 nSubsEffLocus3)
-vecYTrue <- matDesignX %*% vecBetaTrue + rnorm(n = nrow(matDesignX), mean = nMeanRes, sd = nSdRes)
-
-### # conversion to a dataframe
-id <- matGenoDat[,1]
-locus1 <- matDesignX[,2]/10
-locus2 <- matDesignX[,3]/10
-locus3 <- matDesignX[,4]/10
-y <- vecYTrue
-dfSimGenPhenDat <- data.frame(id,locus1, locus2, locus3, y, stringsAsFactors = FALSE)
-
-### # fit lm
-fitMultReg <- lm( y ~ locus1 + locus2 + locus3, data = dfSimGenPhenDat)
-summary(fitMultReg)
-
-### # single regressions
-summary(lm(y ~ locus1, data = dfSimGenPhenDat))
-summary(lm(y ~ locus2, data = dfSimGenPhenDat))
-summary(lm(y ~ locus3, data = dfSimGenPhenDat))
-
-
-### # re-set working directory
-#setwd(zlwd)
-
-### # write df to csv file
-write.csv2(dfSimGenPhenDat, file = sResultFile, quote = FALSE, row.names = FALSE)
+<<SimDataNew, echo=FALSE, eval=FALSE>>=
+# source(file = "inst/extdata/w5/generateOriginalGenotypeData.R")
 @
 
 Damit der in der Aufgabe beschriebene Effekt trotzdem sichtbar gemacht werden kann, wird ein neuer Datensatz simuliert. Die Parameterwerte wurden etwas anders gew\"ahlt, so dass die Effekte eindeutig
@@ -187,8 +80,17 @@ Wird die Analyse mit diesem zweiten Datensatz gemacht, und werden die Resultate 
 
 Das Einlesen der Daten erfolgt wie gewohnt mit:
 
-<<ReadCorrData, eval=FALSE>>=
-dfSimGenPhenDat <- read.csv2(file = "http://charlotte-ngs.github.io/LivestockBreedingAndGenomics/w5/simgenphencorr.csv")
+<<ReadCorrDataOffline, echo=FALSE>>=
+sResultDir <- "../../LivestockBreedingAndGenomics/gh-pages/w5"
+sResultFn <- "simgenphencorr.csv"
+sResultFile <- file.path(sResultDir, sResultFn)
+dfSimGenPhenDat <- read.csv2(file = sResultFile, as.is = TRUE)
+@
+
+<<ReadCorrDataOnline, eval=FALSE>>=
+dfSimGenPhenDat <- read.csv2(file =
+  "http://charlotte-ngs.github.io/LivestockBreedingAndGenomics/w5/simgenphencorr.csv",
+  as.is = TRUE)
 @
 
 Die multiple lineare Regression
@@ -198,7 +100,67 @@ fitMultLinReg <- lm(y ~ locus1 + locus2 + locus3, data = dfSimGenPhenDat)
 summary(fitMultLinReg)
 @
 
+Der Plot der Residuen zeigt kein erkennbares Muster.
 
+<<MlPlotRes, fig=TRUE>>=
+plot(residuals(fitMultLinReg))
+@
+
+\subsection*{Vergleich mit einfachen Regressionen}
+Wird immer nur ein Locus in einer einfachen Regression gefittet sieht das Ergebnis ganz anders aus.
+
+<<SimpleRegLocus1, fig=TRUE>>=
+fitRegLocus1 <- lm(y ~ locus1, data = dfSimGenPhenDat)
+summary(fitRegLocus1)
+plot(residuals(fitRegLocus1))
+@
+
+<<SimpleRegLocus2, fig=TRUE>>=
+fitRegLocus2 <- lm(y ~ locus2, data = dfSimGenPhenDat)
+summary(fitRegLocus2)
+plot(residuals(fitRegLocus2))
+@
+
+<<SimpleRegLocus3, fig=TRUE>>=
+fitRegLocus3 <- lm(y ~ locus3, data = dfSimGenPhenDat)
+summary(fitRegLocus3)
+plot(residuals(fitRegLocus3))
+@
+
+
+Vor allem die Resultate der letzten beiden einfachen Regressionen zeigen, dass die Zerlegung einer multiplen linearen Regression in mehrere einfache Regressionen nicht funktioniert. Die gesch\"atzten Effekte weisen eine grosse Differenz auf zu den Parametern, welche in der Simulation verwendet wurden. Auch die Plots der Resiuduen zeigen offensichtliche Strukturen mit Ausreissern, welche auf eine ung\"unstige Modellwahl hindeuten. Die Sch\"atzwerte der Restvarianzen sind bei den einfachen Regressionen um einiges h\"oher im Vergleich zur multiplen linearen Regression, welche eine gesch\"atzte Restvarianz im Bereich des in der Simulation verwendeten Wertes hat.
+
+Alle Resultate in einer Tabelle zusammengefasst sehen wie folgt aus
+
+\vspace*{2ex}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Parameter   &  Simulation    &  Simple Regression  &  Multiple Regression \\
+\hline
+Locus 1     &  $29$          &  \Sexpr{round(coefficients(fitRegLocus1)["locus1"], digits = 1)}
+                             &  \Sexpr{round(coefficients(fitMultLinReg)["locus1"], digits = 1)} \\
+\hline
+Locus 2     &  $11$          &  \Sexpr{round(coefficients(fitRegLocus2)["locus2"], digits = 1)}
+                             &  \Sexpr{round(coefficients(fitMultLinReg)["locus2"], digits = 1)} \\
+\hline
+Locus 3     &  $5$           &  \Sexpr{round(coefficients(fitRegLocus3)["locus3"], digits = 1)}
+                             &  \Sexpr{round(coefficients(fitMultLinReg)["locus3"], digits = 1)} \\
+\hline
+Intercept   & $-10.76$       &  \Sexpr{round(coefficients(fitRegLocus1)["(Intercept)"], digits = 1)}
+                             &  \Sexpr{round(coefficients(fitMultLinReg)["(Intercept)"], digits = 1)} \\
+            &                &  \Sexpr{round(coefficients(fitRegLocus2)["(Intercept)"], digits = 1)}
+                             & \\
+            &                &  \Sexpr{round(coefficients(fitRegLocus3)["(Intercept)"], digits = 1)}
+                             & \\
+\hline
+Reststandardabweichung & $1$            &  \Sexpr{round(summary(fitRegLocus1)$sigma, digits = 2)}
+                             &  \Sexpr{round(summary(fitMultLinReg)$sigma, digits = 2)} \\
+            &                &  \Sexpr{round(summary(fitRegLocus2)$sigma, digits = 2)}
+                             & \\
+            &                &  \Sexpr{round(summary(fitRegLocus3)$sigma, digits = 2)}
+                             & \\
+\hline
+\end{tabular}
 
 
 \section*{Aufgabe 2 (5)}
@@ -236,9 +198,9 @@ print(Fahrenheit)
 
 Die Tabelle sieht dann wie folgt aus.
 
-<<CelsiusToFahrenheitTable, eval = FALSE, echo=FALSE>>=
-#dfCelToFahr <- data.frame(Celsius, Fahrenheit)
-#xtable::xtable(dfCelToFahr)
+<<CelsiusToFahrenheitTable, echo=FALSE, results=tex>>=
+dfCelToFahr <- data.frame(Celsius, Fahrenheit)
+xtable::xtable(dfCelToFahr)
 @
 
 \end{document}

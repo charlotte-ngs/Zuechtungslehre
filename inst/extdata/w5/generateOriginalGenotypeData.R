@@ -25,11 +25,15 @@ nHeaderLineIdx <- 1
 sColSplit <- "[ ]+"
 ### # constants for simulation
 nInterceptTrue <- -10.76
-nSubsEffLocus1 <- 1   # 2.9 #
-nSubsEffLocus2 <- 0.5 # 1.1 #
-nSubsEffLocus3 <- 0.37 # 0.5 #
+nSubsEffLocus1 <- 2.9 #1   #
+nSubsEffLocus2 <- 1.1 #0.5 #
+nSubsEffLocus3 <- 0.5 #0.37 #
 nMeanRes <- 0
-nSdRes   <- 2.5
+nSdRes   <- 1
+### # directory and file where results should be written to
+sResultDir <- "inst/extdata/w5"
+sResultFn <- "simgenphencorr.csv"
+sResultFile <- file.path(sResultDir, sResultFn)
 
 set.seed(1239)
 
@@ -112,4 +116,4 @@ summary(lm(y ~ locus3, data = dfSimGenPhenDat))
 setwd(zlwd)
 
 ### # write df to csv file
-write.csv2(dfSimGenPhenDat, file = "inst/extdata/w5/simgenphen.csv", quote = FALSE, row.names = FALSE)
+write.csv2(dfSimGenPhenDat, file = sResultFile, quote = FALSE, row.names = FALSE)

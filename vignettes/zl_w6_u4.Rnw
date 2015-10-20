@@ -1,0 +1,30 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uchtungslehre - \"Ubung 4}
+\author{Peter von Rohr}
+\maketitle
+
+
+\section*{Aufgabe 1 (3)}
+Stellen Sie die additive genetische Verwandtschaftsmatrix f\"ur folgendes Pedigree (Stammbaum) auf.
+
+
+\section*{Aufgabe 2 (8)}
+Die manuelle Berechnung der additiven Verwandtschaftskoeffizienten verlangt sehr grosse Konzentration und ist deshalb fehleranf\"allig. Solche Aufgaben sollten besser durch ein Computerprogramm erledigt werden. Da die Berechnung der Verwandtschaftskoeffizienten wiederholt immer wieder die gleichen Schritte beinhaltet, verwenden wir das Programmierkonzept der ``Loops''. In R werden Loops wie folgt erzeugt.
+
+<<RLoops>>=
+for (i in 1:5){
+  cat(" * Wert der Variablen i: ", i, "\n")
+}
+@
+
+
+\section*{Aufgabe 3 (6)}
+In der Vorlesung wurde die allgemeine Formerl zur Berechnung des Verwandtschaftskoeffizienten $a_{XY}$ vorgestellt.
+
+Mit der Matrixmethode wird der Verwandtschaftskoeffizient rekursiv berechnet.
+
+\end{document}
