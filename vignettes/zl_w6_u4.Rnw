@@ -11,20 +11,89 @@
 \section*{Aufgabe 1 (3)}
 Stellen Sie die additive genetische Verwandtschaftsmatrix f\"ur folgendes Pedigree (Stammbaum) auf.
 
+\includegraphics[width=0.8\textwidth]{figure/w6/zl_w6_u4_a1_pedigree}
+
 
 \section*{Aufgabe 2 (8)}
 Die manuelle Berechnung der additiven Verwandtschaftskoeffizienten verlangt sehr grosse Konzentration und ist deshalb fehleranf\"allig. Solche Aufgaben sollten besser durch ein Computerprogramm erledigt werden. Da die Berechnung der Verwandtschaftskoeffizienten wiederholt immer wieder die gleichen Schritte beinhaltet, verwenden wir das Programmierkonzept der ``Loops''. In R werden Loops wie folgt erzeugt.
 
 <<RLoops>>=
-for (i in 1:5){
-  cat(" * Wert der Variablen i: ", i, "\n")
+for (idx in 1:5){
+  cat(" * Wert der Variablen idx: ", idx, "\n")
+}
+@
+
+In der ersten Zeile des Loops wird der Loop definiert. Das Schl\"usselwort ``for'' zeigt an, um welche Art eines Loops es sich handelt. Beim sogenannten ``for''-Loop wird in der runden Klammer gleich im Anschluss an das Schl\"usselwort ``for'' die Laufvariable (hier ``idx'') bestimmt und von wo bis wo diese Variable im Loop-Body laufen soll. Als Loop-Body werden alle Statements zwischen den geschweiften Klammern bezweichnet. Hier enth\"alt der Loop-Body nur eine ``cat''-Anweisung, welche einfach den Wert der Laufvariablen ``idx'' ausgibt. Der Loop-Body wird so manchmal ausgef\"uhrt, wie dies in der runden Klammer nach dem ``for''-Statement angegeben wird. Hier in unserem Beispiel wird der Loop-Body $5$ mal ausgef\"uhrt und wie das von der Ausgabe ersichtlich ist, wird der Wert der Laufvariablen ``idx'' in jeder Ausf\"uhrtungsrunde um eins erh\"oht.
+
+\textbf{Wichtig} zu merken ist, dass die Laufvariable, welche in der runden Klammer nach dem ``for'' definiert wurde nur innerhalb der geschweiften Klammern bekannt ist, und somit nur im Loop-Body verwendet werden darf.
+
+
+\subsection*{Vorbereitungen zur Berechnung des Verwandtschaftskoeffizienten}
+F\"ur die Berechnung des Verwandtschaftskoeffizienten m\"ussen wir Eltern und Nachkommen einander zuordnen k\"onnen. Dies kann \"uber eine Tabelle mit drei Kolonnen gel\"ost werden. Die drei Kolonnen enthalten die Tiere, die M\"utter und V\"ater. Pro Zeile steht ein Tier mit seiner Mutter und seinem Vater. In R kann das mit einem data.frame dargestellt werden. Dieser wird wie folgt erzeugt.
+
+<<PedigreeList>>=
+Tier   <- c("1" ,"2" ,"3" ,"6" ,"4","5","7","8" ,"9","10")
+Mutter <- c("NA","NA","NA","NA","1","1","3","NA","5","7")
+Vater  <- c("NA","NA","NA","NA","2","2","4","6" ,"6","8")
+dfPedigree <- data.frame(Tier,Mutter,Vater, stringsAsFactors = FALSE)
+print(dfPedigree)
+@
+
+Die Matrix zum Speichern der additive genetischen Verwandtschaftskoeffizienten wird wie folgt initialisiert.
+
+<<AddGenVerMatInit>>=
+matAddGenVer <- matrix(NA, nrow = (nrow(dfPedigree)+1),
+                       ncol = (nrow(dfPedigree)+1),
+                       dimnames = list(c("NA", dfPedigree[,"Tier"]),
+                                       c("NA", dfPedigree[,"Tier"])))
+matAddGenVer["NA",] <- 0
+matAddGenVer[,"NA"] <- 0
+@
+
+
+\subsection*{Berechnung des Verwandtschaftskoeffizienten}
+F\"ur die Berechnung der Verwandtschaftskoeffizienten brauchen wir zwei Loops. Einer der \"uber die Zeilen und einer der \"uber die Kolonnen der Verwandtschaftsmatrix l\"auft. Im ersten Loop \"uber die Zeilen k\"onnen die Diagonalelemente berechnet werden.
+
+<<CompAddGenVar, eval=FALSE>>=
+nAnzahlTiere <- nrow(dfPedigree)
+for (idx in 1:nAnzahlTiere) {
+  sTier <- dfPedigree[idx,"Tier"]
+  sMutter <- dfPedigree[idx,"Mutter"]
+  sVater <- dfPedigree[idx,"Vater"]
+  nInzuchtGrad <- 1/2 * matAddGenVer[sMutter,sVater]
+  # berechne Diagonalelement
+  matAddGenVer[sTier,sTier] <- 1 + nInzuchtGrad
+  # loop ueber Nicht-Diagonalelemente
+  # Bitte Ihren Code hier eintragen ...
+
+
+
+
+
+
+
 }
 @
 
 
-\section*{Aufgabe 3 (6)}
-In der Vorlesung wurde die allgemeine Formerl zur Berechnung des Verwandtschaftskoeffizienten $a_{XY}$ vorgestellt.
 
-Mit der Matrixmethode wird der Verwandtschaftskoeffizient rekursiv berechnet.
+
+
+\section*{Aufgabe 3 (6)}
+In der Vorlesung wurde die allgemeine Formel (\ref{eq:VwKoeff}) zur Berechnung des Verwandtschaftskoeffizienten $a_{XY}$ zwischen zwei Tiere $X$ und $Y$ vorgestellt.
+
+\begin{equation}
+a_{XY} = \sum_{Pfade}{1\over 2}^{t_1+t_2}(1 + F_Z)
+\label{eq:VwKoeff}
+\end{equation}
+
+Mit der Matrixmethode wird der Verwandtschaftskoeffizient zwischen zwei Tieren $X$ und $Y$ rekursiv \"uber die Eltern von $Y$, $m(Y)$ und $v(Y)$ berechnet. Dies f\"uhrte zur Formel
+
+\begin{equation}
+a_{XY} = {1\over 2}(a_{X,m(Y)} + a_{X,v(Y)})
+\label{eq:VwKoeffIter}
+\end{equation}
+
+Zeigen Sie, dass die beiden Formeln das gleiche berechnen.
 
 \end{document}
