@@ -72,11 +72,36 @@ for (idx in 1:nAnzahlTiere) {
 
 
 
+
+
+
 }
 @
 
+Als Kontrolle k\"onnen Sie die additiv genetische Verwandtschaftsmatrix auch mit dem R-package ``pedigreemm'' berechnen. Falls Sie das Package ``pedigreemm'' noch nicht installiert haben, m\"ussen Sie ``pedigreemm'' zuerst in R installieren. Dies geschieht mit folgendem Statement.
 
+<<InstallPedigreemm, eval=FALSE>>=
+install.packages(pkgs = "pedigreemm")
+@
 
+\subsection*{Hinweis}
+Aus der Hilfeseite von Package ``pedigreemm'' (kann mit ``?pedigreemm'' angezeigt werden) ist ersichtlich, wie die Verwandtschaftsmatrix erh\"altlich ist. Zuerst muss das Pedigree definiert werden, anhand der drei Vektoren ``sire'', ``dam'' und ``label''. F\"ur das Beispiel auf der Hilfeseite bekommen wir
+
+<<PedExPedigreemm>>=
+library(pedigreemm)
+pedExample <- pedigree(sire  = c(NA,NA,1, 1,4,5),
+                       dam   = c(NA,NA,2,NA,3,2),
+                       label = 1:6)
+print(pedExample)
+@
+
+Die Kolonne ganz links ohne \"Uberschrift zeigt die Tiere im Pedigree. Die Kolonnen mit den \"Uberschriften ``sire'' und ``dam'' enthalten Vater und Mutter zu jedem Tier.
+
+<<RelMatExPedigreemm>>=
+getA(ped = pedExample)
+@
+
+Versuchen Sie als Kontrolle die Verwandtschaftsmatrix mit Funktion \texttt{getA()} aus Package ``pedigreemm'' aufzustellen.
 
 
 \section*{Aufgabe 3 (6)}
