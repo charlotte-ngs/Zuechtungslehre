@@ -1,0 +1,278 @@
+%  Example for the ETH Beamer template
+%  Copyright 2014 by
+%  Dr. Antonios Garas,
+%  Chair of Systems Design, ETH Zurich
+%  Weinbergstrasse 56/58 CH-8092 Zurich
+%
+\pdfminorversion=4
+\documentclass[
+%aspectratio=169,
+first,
+%handout,
+%compress,
+%Helv,
+ETH3, %ETH1,
+navigation
+]{ETHbeamerclass}
+
+% Options for beamer:
+%
+% compress: navigation bar becomes smaller
+% t       : place contents of frames on top (alternative: b,c)
+% handout : handoutversion
+% notes   : show notes
+% notes=onlyslideswithnotes
+%
+\setbeamertemplate{note page}{\ \\[.3cm]
+\textbf{\color{colorSG}Notes:}\\%[0.1cm]
+{\footnotesize %\tiny
+\insertnote}}
+
+\setbeameroption{hide notes}
+%\setbeameroption{show notes}
+
+\setbeamertemplate{navigation symbols}{} % suppresses all navigation symbols:
+% \setbeamertemplate{navigation symbols}[horizontal] % Organizes the navigation symbols horizontally.
+% \setbeamertemplate{navigation symbols}[vertical] % Organizes the navigation symbols vertically.
+% \setbeamertemplate{navigation symbols}[only frame symbol] % Shows only the navigational symbol for navigating frames.
+
+\usepackage{amsmath, amssymb}
+\usepackage{pifont}
+\usepackage{multimedia}
+
+%--------------------------------------------------------------------------------------------------------
+%--- Some custom definitions...
+
+\definecolor{cbf}{RGB}{199,100,95}%{163,15,0}
+\newcommand{\cbf}{\color{cbf}}
+
+\newcommand{\mean}[1]{\left\langle #1 \right\rangle}
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+%--------------------------------------------------------------------------------------------------------
+%--- Inputs for the title page...
+
+\title{Inverse der Verwandtschaftsmatrix}
+\newcommand{\shorttitle}{}
+
+\author{Peter von Rohr}
+\date{\today}
+\institute{Qualitas AG}
+
+\newcommand{\collaborators}{}
+\newcommand{\event}{Folien ZL I+II}
+\newcommand{\place}{LFW C11}
+
+\newcommand{\Prob}{\mathrm{Pr}}
+\newcommand{\sign}{\mathrm{sign}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\nbin}[1]{\mathrm{nb}_\mathrm{in}(#1)}
+\newcommand{\nbout}[1]{\mathrm{nb}_\mathrm{out}(#1)}
+\newcommand{\one}{\mathbb{\bf 1}}
+
+\newcommand{\sref}[1]{SLIDE \ref{#1}}
+
+%--------------------------------------------------------------------------------------------------------
+%--- Here begins the presentation...
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\frame{
+\maketitle
+}
+\note{}
+
+
+\section{Matrixinversion}
+
+\frame{
+  \frametitle{Inverse einer Matrix}
+  \begin{block}{Definition}
+    \begin{itemize}
+    \item Gegeben eine quadratische Matrix $\mathbf{A}$
+    \item Finde eine quadratische Matrix $\mathbf{B}$ so, dass gilt
+      $$\mathbf{B} * \mathbf{A} = \mathbf{A} * \mathbf{B} = \mathbf{I}$$
+      \noindent wobei $\mathbf{I} =
+      \left[\begin{array}{cccc} 1  &  0  & 0 & ...\\
+                                0  &  1  & 0 & ...\\
+                                0  &  0  & 1 & ...\\
+                                ... & ...   & ...  & ...
+            \end{array}\right]$ die Einheitsmatrix
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Berechnung der Inversen}
+  \begin{block}{Gauss-Jordan}
+    \begin{itemize}
+    \item Schreibe die gesuchte Matrix
+      $$\mathbf{B} = \left[
+                      \begin{array}{cccc}
+                      \mathbf{b_1} & \mathbf{b_2} & ... & \mathbf{b_n}
+                      \end{array}
+                    \right]
+      $$
+      und die Einheitsmatrix
+      $$\mathbf{I} = \left[
+                      \begin{array}{cccc}
+                      \mathbf{e_1} & \mathbf{e_2} & ... & \mathbf{e_n}
+                      \end{array}
+                    \right]
+      $$
+      je als Sequenz von Kolonnenvektoren
+    \item L\"ose die Gleichungssysteme f\"ur $j = 1,..., n$
+    $$\mathbf{A} * \mathbf{b}_j = \mathbf{e}_j$$
+    \end{itemize}
+  \end{block}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Beispiel f\"ur Gauss-Jordan}
+  \begin{itemize}
+  \item Gegeben ist die Matrix
+    $\mathbf{A} =
+      \left[\begin{array}{cc} 8 & 4 \\
+                              4 & 3
+            \end{array}
+      \right]
+    $
+  \item Folgende Schreibweise f\"ur das L\"osen der Gleichungen
+    $$\left[\mathbf{A} | \mathbf{I} \right]
+        = \left[
+            \begin{array}{cc|cc} 8 & 4 & 1 & 0  \\
+                                 4 & 3 & 0 & 1
+            \end{array}
+        \right]
+    $$
+  \item Elimination von Koeffizienten auf der linken Seite bis links $\mathbf{I}$ und rechts $\mathbf{B}$ steht
+  \end{itemize}
+
+}
+\note{}
+
+
+\frame{
+  \frametitle{Rechenschritte f\"ur Gauss-Jordan}
+  \begin{itemize}
+  \item Schritt 1 - Element $a_{11}$ muss eine $1$ sein $\rightarrow$ erste Zeile durch $8$ teilen
+    $$\left[
+            \begin{array}{cc|cc} 8 & 4 & 1 & 0  \\
+                                 4 & 3 & 0 & 1
+            \end{array}
+      \right]
+      \rightarrow
+      \left[
+            \begin{array}{cc|cc} 1 & 0.5 & 0.125 & 0  \\
+                                 4 & 3   & 0     & 1
+            \end{array}
+      \right]
+    $$
+  \item Schritt 2 - Element $a_{21}$ muss eine $0$ sein $\rightarrow$ vier mal erste Zeile von zweiten abziehen
+    $$\left[
+            \begin{array}{cc|cc} 1 & 0.5 & 0.125 & 0  \\
+                                 4 & 3   & 0     & 1
+            \end{array}
+      \right]
+      \rightarrow
+      \left[
+            \begin{array}{cc|cc} 1 & 0.5 & 0.125 & 0  \\
+                                 0 & 1   & -0.5  & 1
+            \end{array}
+      \right]
+    $$
+  \item Schritt 3 - Element $a_{12}$ muss eine $0$ sein $\rightarrow$ erste Zeile plus die H\"alfte der zweiten Zeile
+    $$\left[
+            \begin{array}{cc|cc} 1 & 0.5 & 0.125 & 0  \\
+                                 0 & 1   & -0.5  & 1
+            \end{array}
+      \right]
+      \rightarrow
+      \left[
+            \begin{array}{cc|cc} 1 & 0   & 0.375 & -0.5  \\
+                                 0 & 1   & -0.5  & 1
+            \end{array}
+      \right] = \left[\mathbf{I} | \mathbf{B} \right]
+    $$
+
+
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Cramersche Regel}
+  \begin{itemize}
+  \item L\"osung f\"ur Gleichungssystem
+    $$\mathbf{A} * \mathbf{b}_j = \mathbf{e}_j$$
+  \item Das $i-$te Element des L\"osungsvektors $\mathbf{b}_j$ entspricht
+    $$\left(\mathbf{b}_j\right)_i = \frac{det(\mathbf{A}_i)}{det(\mathbf{A})}$$
+  \item Matrix $\mathbf{A}_i$ entsteht durch Ersetzen der $i$-ten Spalte von $\mathbf{A}$ mit dem Einheitsvektor
+  \item Determinante
+    $$det(\mathbf{A}) = \sum_{i=1}^n (-1)^{i+j} * a_{ij} * det(\mathbf{A}_{ij})$$
+    \noindent wobei $\mathbf{A}_{ij}$ die Untermatrix von $\mathbf{A}$ ist, welche durch Streichen der $i$-ten Zeile und der $j$-ten Kolonne entsteht
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Cramersche Regel II}
+  \begin{itemize}
+  \item In
+    $$\left(\mathbf{b}_j\right)_i = \frac{det(\mathbf{A}_i)}{det(\mathbf{A})}$$
+    \noindent wird $det(\mathbf{A}_i)$ nach der Zeile entwickelt, d.h. es wird \"uber die Kolonne summiert, welche durch den Einheitsvektor ersetzt wurde
+  \item Somit ist
+    $$det(\mathbf{A}_i) = \sum_{i=1}^n (-1)^{i+j} * a_{ij} * det(\mathbf{A}_{ij})$$
+    \noindent wobei alle $a_{ij} = 0$ sind ausser eines ist gleich $1$
+  \item Es folgt
+    $$det(\mathbf{A}_i) = (-1)^{i+j} det(\mathbf{A}_{ij})$$
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Beispiel f\"ur Cramersche Regel}
+  \begin{itemize}
+  \item Element $b_{ij}$ der Inversen kann berechnet werden als
+    $$b_{ij} = {1\over det(\mathbf{A})}\left((-1)^{i+j} det(\mathbf{A}_{ij})\right)$$
+  \item F\"ur $\mathbf{A} =
+      \left[\begin{array}{cc} 8 & 4 \\
+                              4 & 3
+            \end{array}
+      \right]$
+  \item $b_{11} = {1\over 8} * 3 = 0.375$
+  \item $b_{12} = {1\over 8} * (-1) * 4 = -0.5$
+  \item $b_{21} = {1\over 8} * (-1) * 4 = -0.5$
+  \item $b_{22} = {1\over 8} * 8 = 1$
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Anwendung f\"ur Verwandtschaftsmatrix}
+  \begin{itemize}
+  \item Gauss-Jordan und vor allem Cramer sind sehr aufw\"anding und ungenau f\"ur grosse Matrizen
+  \item Verwandtschaftmatrix hat spezielle Eigenschaften, welche wir ausn\"utzen wollen, z.Bsp Symmetrie, d,h, $\mathbf{A} = \mathbf{A}^T$ und positiv-definit, d.h., Eigenwerte $\lambda > 0$, welche erf\"ullen
+    $\mathbf{A}*\mathbf{x} = \lambda \mathbf{x}$
+  \item Regeln f\"ur Inverse eines Produktes
+    $$\mathbf{A} = \mathbf{X}*\mathbf{Y}*\mathbf{Z}$$
+    \noindent die Inverse von $\mathbf{A}$ ist dann
+    $$\mathbf{A}^{-1} = \mathbf{Z}^{-1} * \mathbf{Y}^{-1} * \mathbf{X}^{-1}$$
+    \noindent da
+    $$\mathbf{A}*\mathbf{A}^{-1} = \mathbf{X}*\mathbf{Y}*\mathbf{Z} * \mathbf{Z}^{-1} * \mathbf{Y}^{-1} * \mathbf{X}^{-1} = \mathbf{I}$$
+  \end{itemize}
+}
+
+
+\end{document}
