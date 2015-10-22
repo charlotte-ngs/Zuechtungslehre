@@ -399,6 +399,65 @@ matD <- diag(vecD)
 \end{frame}
 
 
+\frame{
+  \frametitle{Allgemeine Berechnung der Matrizen $\mathbf{D}$ und $\mathbf{L}$}
+  $$\mathbf{A} = \mathbf{L} * \mathbf{D} * \mathbf{L}^T
+    = \left[
+        \begin{array}{ccc}
+          1       &  0       &  0\\
+          L_{21}  &  1       &  0\\
+          L_{31}  &  L_{32}  &  1
+        \end{array} \right] *
+      \left[
+        \begin{array}{ccc}
+          D_1  &  0    &  0\\
+          0    &  D_2  &  0\\
+          0    &  0    &  D_3
+        \end{array} \right] *
+      \left[
+        \begin{array}{ccc}
+          1  &  L_{21}  &  L_{31}\\
+          0  &  1       &  L_{32}\\
+          0  &  0       &  1
+        \end{array} \right]
+  $$
+  F\"ur die Elemente in $\mathbf{D}$ und $\mathbf{L}$ gelten folgende rekursive Beziehungen
+
+  \vspace{2ex}
+  \begin{itemize}
+  \item $D_j = A_{jj} - \sum_{k=1}^{j-1}L_{jk}^2D_k$ \vspace{1ex}
+  \item $L_{ij} = {1\over D_j}\left(A_{ij} - \sum_{k=1}^{j-1}L_{ik}L_{jk}D_k\right)$, f\"ur $i>j$
+  \end{itemize}
+}
+
+
+\frame{
+  \frametitle{Matrix $\mathbf{L}$ f\"ur Verwandtschaftsmatrix}
+  \begin{itemize}
+  \item Diagonalelement f\"ur Tier $i$: $L_{ii} = 1$
+  \item F\"ur Tiere $i$ mit bekannten Eltern $m$ und $v$: $L_{ij} = 0.5(L_{mj} + L_{vj})$
+  \item Falls nur ein Elternteil $m$ bekannt ist: $L_{ij} = 0.5L_{mj}$
+  \item Beide Eltern unbekannt: $L_{ij} = 0$
+  \end{itemize}
+
+}
+
+\frame{
+  \frametitle{Matrix $\mathbf{D}$ f\"ur Verwandtschaftsmatrix}
+  \begin{itemize}
+  \item Mendelian sampling f\"ur Tier $i$ mit Eltern $m$ und $v$ und den entsprechenden Zuchtwerten $u_i$, $u_m$ und $u_v$:
+  $$m_i = u_i - 0.5(u_s + u_d)$$
+  \item Die Varianz der mendelian Sampling Effekte ist definiert als $\mathbf{D}*\sigma_u^2$ wobei $\sigma_u^2$ der genetisch additiven Varianz entspricht.
+  $$var(m_i) = var(u_i) - var(0.5u_m + 0.5u_v)$$
+  $$ = var(u_i) - var(0.5u_m) - var(0.5u_v) - 2cov(0.5u_m,0.5u_v)$$
+  $$ = (1+F_i)\sigma_u^2 - 0.25a_{mm}\sigma_u^2 - 0.25a_{vv}\sigma_u^2 - 0.5a_{mv}\sigma_u^2$$
+  \item Somit ist das Element $D_{ii}$ f\"ur Tier $i$
+  $$ D_{ii} = {var(m_i)\over \sigma_u^2} = (1+F_i)  - 0.25a_{mm} - 0.25a_{vv} - 0.5a_{mv}$$
+  \end{itemize}
+
+}
+
+
 \begin{frame}[fragile]
   \frametitle{Verwendung der Zerlegung zur Inversion}
   \begin{itemize}
@@ -421,11 +480,42 @@ solve(matD)
   \frametitle{Inverse von Matrix $\mathbf{L}$}
   \begin{itemize}
   \item Wie sieht $\mathbf{L}^{-1}$ aus
+  \item Diagonalelemente sind alle $1$
+  \item Verbindet Eltern und Nachkommen mit Elementen von $-0.5$
   \end{itemize}
 <<MatLInv>>=
 solve(matLt)
 @
 
 \end{frame}
+
+
+\frame{
+  \frametitle{Direktes Aufstellen von $\mathbf{A}^{-1}$ ohne Inzucht}
+  \begin{itemize}
+  \item Setze $\alpha_i$ auf den Wert von $\mathbf{D}^{-1}$ f\"ur Tier $i$
+  \item Hat Tier $i$ bekannte Eltern $m$ und $v$, dann wird
+  \item $\alpha_i$ zum Element $(i,i)$ addiert
+  \item $-{\alpha_i \over 2}$ zu den Elementen $(m,i)$, $(i,m)$, $(v,i)$ und $(i,v)$
+  \item ${\alpha_i \over 4}$ zu den Elementen $(m,m)$, $(m,v)$, $(v,m)$ und $(v,v)$
+  \item Falls Elternteile fehlen, dann werden entsprechende Teile weggelassen
+  \end{itemize}
+}
+
+
+\frame{
+  \frametitle{Direktes Aufstellen von $\mathbf{A}^{-1}$ mit Inzucht}
+  \begin{itemize}
+  \item Zur\"uck zur Zerlegung $\mathbf{A} = \mathbf{U}*\mathbf{U}^T$
+  \item Dann gilt $a_{ii} = \sum_{k=1}^i u_{ik}^2$
+  \item Diagonalelement von $u_{ii} = \sqrt{d_i} = \sqrt{\left[0.5 - 0.25(F_m + F_v)\right]}
+    = \sqrt{\left[1 - 0.25(a_{mm} + a_{vv})\right]}$
+  \item Einsetzen: $u_{ii} = \sqrt{\left[1 - 0.25
+     \left(\sum_{k=1}^m u_{mk}^2 + \sum_{k=1}^v u_{vk}^2 \right) \right]}$
+  \item Diagonalelement von $\mathbf{D}^{-1}$ ist berechnet als $\alpha_i = {1\over l_{ii}^2}$
+  \item Off-Diagonalelemente sind: $l_{ij} = 0.5(l_{mj} + l_{vj})$
+  \end{itemize}
+}
+
 
 \end{document}
