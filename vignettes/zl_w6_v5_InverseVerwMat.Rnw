@@ -318,10 +318,114 @@ navigation
 <<PedNoInbreeding>>=
 library(pedigreemm)
 pedNoIb <- pedigree(sire = as.integer(c(NA,NA,1, 1,4,4)),
-           dam  = as.integer(c(NA,NA,2,NA,3,3)),
+           dam  = as.integer(c(NA,NA,2,NA,2,2)),
            label = as.character(1:6))
-
+spmatANoIb <- getA(pedNoIb)
 @
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Beispiel Pedigree}
+<<PedNoInbreedingShow>>=
+print(pedNoIb)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Verwandtschaftsmatrix zum Beispiel}
+<<PedNoInbreedingShow>>=
+print(spmatANoIb)
+@
+\noindent ``Sparse Matrix'' heisst, es werden nur Elemente $<>0$ gespeichert, \"uberall wo ein Punkt steht, da ist das Element $=0$
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Verwandtschaftsmatrix als normale Matrix}
+<<PedNoInbreedingShow>>=
+matANoIb <- as.matrix(spmatANoIb)
+print(matANoIb)
+@
+\noindent Tiere sind nicht ingez\"uchtet, alle Diagonalelemente $=1$
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zerlegung der Verwandtschaftsmatrix $\mathbf{U}^T$}
+  \begin{itemize}
+  \item Matrix $\mathbf{U}^T$
+  \end{itemize}
+<<CholMatU>>=
+(matCholUt <- chol(matANoIb))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zerlegung der Verwandtschaftsmatrix $\mathbf{S}$}
+  \begin{itemize}
+  \item Matrizen $\mathbf{D}$, $\mathbf{S}$ und $\mathbf{S}^{-1}$
+  \end{itemize}
+<<CholMatU>>=
+vecD <- Dmat(pedNoIb)
+matD <- diag(vecD)
+(matSinv <- diag(1/sqrt(vecD)))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Zerlegung der Verwandtschaftsmatrix $\mathbf{L}^T$}
+  \begin{itemize}
+  \item Matrix $\mathbf{L}^T$
+  \end{itemize}
+<<MatLt>>=
+(matLt <- matSinv %*% matCholUt)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Kontrolle der Zerlegung}
+  \begin{itemize}
+  \item Matrixmultiplikation $\mathbf{A} = \mathbf{L} * \mathbf{D} * \mathbf{L}^T$
+  \end{itemize}
+<<KontrolleZerlegung>>=
+(t(matLt) %*% matD %*% matLt - matANoIb)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Verwendung der Zerlegung zur Inversion}
+  \begin{itemize}
+  \item Aufgrund Regel zur Inversen eines Produktes (siehe Folie 9) gilt
+    $$\mathbf{A}^{-1} = \left(\mathbf{L} * \mathbf{D} * \mathbf{L}^T \right)^{-1}
+      = \left(\mathbf{L}^T\right)^{-1} * \mathbf{D}^{-1} * \mathbf{L}^{-1}
+    $$
+  \item Matrizen $\mathbf{L}$  und $\mathbf{D}$ sind viel einfacher zu invertieren als $\mathbf{A}$
+  \item Matrix $\mathbf{D}^{-1}$ auch eine Diagonalmatrix mit inversen Elementen der Ursprungsmatrix
+    - \"Uberpr\"ufung mit
+  \end{itemize}
+<<MatDInv>>=
+solve(matD)
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Inverse von Matrix $\mathbf{L}$}
+  \begin{itemize}
+  \item Wie sieht $\mathbf{L}^{-1}$ aus
+  \end{itemize}
+<<MatLInv>>=
+solve(matLt)
+@
+
 \end{frame}
 
 \end{document}
