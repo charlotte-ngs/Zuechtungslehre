@@ -273,6 +273,55 @@ navigation
     $$\mathbf{A}*\mathbf{A}^{-1} = \mathbf{X}*\mathbf{Y}*\mathbf{Z} * \mathbf{Z}^{-1} * \mathbf{Y}^{-1} * \mathbf{X}^{-1} = \mathbf{I}$$
   \end{itemize}
 }
+\note{}
 
+
+\frame{
+  \frametitle{Zerlegung der Verwandtschaftsmatrix}
+  \begin{itemize}
+  \item Symmetrische, positive-definite Matrizen $\mathbf{A}$ k\"onnen in folgendes Produkt zerlegt werden
+    $$ \mathbf{A} = \mathbf{U} * \mathbf{U}^T$$
+    \noindent wobei $\mathbf{L}$ eine untere Dreiecksmatrix ist
+  \item Diese Zerlegung heisst \textbf{Cholesky}-Zerlegung
+  \item In R wird diese Zerlegung mit der Funktion \texttt{chol()} berechnet
+  \item Variante der Cholesky-Zerlegung
+    $$ \mathbf{A} = \mathbf{L} * \mathbf{D} * \mathbf{L}^T$$
+    \noindent wobei $\mathbf{L}$ eine untere Dreiecksmatrix mit $1$ auf der Diagonalen und $\mathbf{D}$ eine Diagonalmatrix ist
+  \end{itemize}
+}
+\note{}
+
+
+\frame{
+  \frametitle{Berechnung der Matrizen $\mathbf{L}$ und $\mathbf{D}$}
+  \begin{itemize}
+  \item Definiert man $\mathbf{U} = \mathbf{L} * \mathbf{S}$,
+    wobei $\mathbf{D} = \mathbf{S} * \mathbf{S}$, dann ist
+    $$\mathbf{A} = \mathbf{U} * \mathbf{U}^T = \mathbf{L} * \mathbf{S} * \left( \mathbf{L} * \mathbf{S}\right)^T
+                 = \mathbf{L} * \mathbf{S} *\mathbf{S}^T * \mathbf{L}^T = \mathbf{L} * \mathbf{D} * \mathbf{L}^T$$
+  \item $\mathbf{S}$ ist eine Diagonalmatrix wobei Elemente von $\mathbf{S}$ der Wurzel der Elemente von
+    $\mathbf{D}$ entsprechen
+  \item Somit ist $\mathbf{L} = \mathbf{U} * \mathbf{S}^{-1}$
+  \item $\mathbf{U}$ und $\mathbf{D}$ k\"onnen mit R bestimmt werden
+  \item \textbf{Wichtig} die Funktion \texttt{chol()} in R macht die Zerlegung $\mathbf{A} = \mathbf{U}^T * \mathbf{U}$, welche dank Symmetrie v\"ollig \"aquivalent ist, aber bei der Kontrolle muss man aufpassen.
+  \end{itemize}
+}
+
+
+\begin{frame}[fragile]
+  \frametitle{Bestimmung von $\mathbf{U}$ und $\mathbf{D}$ mit R}
+  \begin{itemize}
+  \item Diagonalmatrix $\mathbf{D}$ (und somit $\mathbf{S}$) kann mit der Funktion \texttt{Dmat()} aus Package ``pedigreemm'' bestimmt werden
+  \item Matrix $\mathbf{U}$ kann mit Funktion \texttt{chol()} bestimmt werden
+  \item F\"ur ein Beispielpedigree ohne Inzucht
+  \end{itemize}
+<<PedNoInbreeding>>=
+library(pedigreemm)
+pedNoIb <- pedigree(sire = as.integer(c(NA,NA,1, 1,4,4)),
+           dam  = as.integer(c(NA,NA,2,NA,3,3)),
+           label = as.character(1:6))
+
+@
+\end{frame}
 
 \end{document}
