@@ -73,9 +73,126 @@ Gem\"ass der Matrixmethode werden die Elemente der additiv-genetischen Verwandts
 In der Aufgabe war folgender Code schon gegeben.
 
 <<CompAddGenVerMat>>=
+# Definition des Pedigrees als data.frame
+Tier <- c("1" ,"2" ,"3" ,"6" ,"4","5","7","8" ,"9","10")
+Mutter <- c("NA","NA","NA","NA","1","1","3","NA","5","7")
+Vater <- c("NA","NA","NA","NA","2","2","4","6" ,"6","8")
+dfPedigree <- data.frame(Tier,Mutter,Vater, stringsAsFactors = FALSE)
+# Anzeige des Pedigress
+print(dfPedigree)
+@
 
+Die Verwandtschaftsmatrix wird wie folgt definiert und initialisiert.
+
+<<InitAddGenVwMat>>=
+# Definition und Initialisierung der Verwandtschaftsmatrix
+matAddGenVer <- matrix(NA, nrow = (nrow(dfPedigree)+1),
+                       ncol = (nrow(dfPedigree)+1),
+                       dimnames = list(c("NA", dfPedigree[,"Tier"]),
+                                       c("NA", dfPedigree[,"Tier"])))
+matAddGenVer["NA",] <- 0
+matAddGenVer[,"NA"] <- 0
+@
+
+Die Diagonalelemente wurden schon berechnet. Neu gefragt war ein Loop innerhalb des gegebenen Loops, welcher f\"ur jede Zeile die Offdiagonal-elemente berechnet
+
+<<CompAMatOffDiag>>=
+nAnzahlTiere <- nrow(dfPedigree)
+for (idx in 1:nAnzahlTiere) {
+  sTier <- dfPedigree[idx,"Tier"]
+  sMutter <- dfPedigree[idx,"Mutter"]
+  sVater <- dfPedigree[idx,"Vater"]
+  nInzuchtGrad <- 1/2 * matAddGenVer[sMutter,sVater]
+  # berechne Diagonalelement
+  matAddGenVer[sTier,sTier] <- 1 + nInzuchtGrad
+  # loop ueber Nicht-Diagonalelemente
+  # Bitte Ihren Code hier eintragen ...
+  # Berechnung der Off-Diagonalelemente, falls wir noch
+  #  nicht auf der letzen Zeile sind
+  if (idx < nAnzahlTiere){
+    for (jdx in (idx+1):nAnzahlTiere){
+      sTierJ <- dfPedigree[jdx,"Tier"]
+      sMutterJ <- dfPedigree[jdx,"Mutter"]
+      sVaterJ <- dfPedigree[jdx,"Vater"]
+      matAddGenVer[sTier,sTierJ] <- 1/2*(matAddGenVer[sTier,sMutterJ]
+                                         + matAddGenVer[sTier,sVaterJ])
+      # Uebertrag direkt bei Berechnung
+      matAddGenVer[sTierJ,sTier] <- matAddGenVer[sTier,sTierJ]
+    }
+  }
+}
+# Elimination der Zeile und der Spalte fuer NA
+matAddGenVer <- matAddGenVer[2:nrow(matAddGenVer),2:ncol(matAddGenVer)]
+print(matAddGenVer)
+@
+
+
+\subsection*{Kontrolle mit pedigreemm}
+Als Kontrolle stellen wir die additiv genetische Verwandtschaftsmatrix mit Funktion \texttt{getA()} aus dem R-Package ``pedigreemm'' auf.
+
+<<PedigreemmGetA>>=
+library(pedigreemm)
+pedA1 <- pedigree(sire = as.numeric(dfPedigree$Vater),
+                  dam = as.numeric(dfPedigree$Mutter),
+                  label = as.numeric(dfPedigree$Tier))
+spmVerwPedMM <- getA(pedA1)
+matVerwPedMM <- as.matrix(spmVerwPedMM)
+print(matVerwPedMM)
+@
+
+Als Kontrolle auf einen Blick berechnen wir das Maxium der Differenz zwischen den beiden Matrizen.
+
+<<MaxPedDiff>>=
+max(matAddGenVer-matVerwPedMM)
 @
 
 
 \section*{Aufgabe 3 (6)}
+Die Berechnung des additiv genetischen Verwandtschaftskoeffizienten zwischen Tieren $X$ und $Y$ mit ihrem gemeinsamen Ahnen $Z$ kann wie folgt veranschaulicht werden.
+
+\includegraphics[width=0.8\textwidth]{figure/w7/zl_w7l4_pedigree}
+
+Zu zeigen ist, dass folgende beiden Formeln gleich sind.
+
+\begin{equation}
+a_{XY} = \sum_{i \in \mathcal{P}}{1\over 2}^{t_1+t_2}(1 + F_Z_i)
+\label{eq:VwKoeff}
+\end{equation}
+
+\noindent wobei die Summe \"uber die Menge $\mathcal{P}$ aller m\"oglichen Pfade zwischen den Tieren $X$ und $Y$ im Pedigree l\"auft. Wichtig hier ist, dass verschiedene gemeinsame Ahnen $Z_i$ und $Z_j$ f\"ur $i \ne j$ bis zu den Eltern, komplett verschiedene Pfade haben.
+
+\begin{equation}
+a_{XY} = {1\over 2}(a_{X,m(Y)} + a_{X,v(Y)})
+\label{eq:VwKoeffRec}
+\end{equation}
+
+In der rekursiven Beziehung in Gleichung (\ref{eq:VwKoeffRec}) schreiben wir die Terme $a_{X,m(Y)}$ und $a_{X,v(Y)}$ gem\"ass der Definition von Gleichung (\ref{eq:VwKoeff}).
+
+\begin{equation}
+a_{X,m(Y)} = \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
+\label{eq:VwKoeffM}
+\end{equation}
+
+\begin{equation}
+a_{X,v(Y)} = \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
+\label{eq:VwKoeffV}
+\end{equation}
+
+Setzt man Gleichungen (\ref{eq:VwKoeffM}) und (\ref{eq:VwKoeffV}) wieder in Gleichung (\ref{eq:VwKoeffRec}) ein, dann folgt
+
+\begin{eqnarray}
+a_{XY} &=& {1\over 2}(a_{X,m(Y)} + a_{X,v(Y)})\\
+       &=& {1\over 2}\left(
+            \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
+          + \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
+          \right) \nonumber \\
+       &=& {1\over 2} \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
+          + {1\over 2} \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i) \nonumber \\
+       &=& \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2}(1 + F_Z_i)
+          + \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2}(1 + F_Z_i) \nonumber\\
+       &=&  \sum_{i \in \mathcal{P}} {1\over 2}^{t_1+t_2}(1 + F_Z_i) \nonumber
+\end{eqnarray}
+
+
+
 \end{document}
