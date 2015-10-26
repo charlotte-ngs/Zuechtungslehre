@@ -155,7 +155,7 @@ Die Berechnung des additiv genetischen Verwandtschaftskoeffizienten zwischen Tie
 Zu zeigen ist, dass folgende beiden Formeln gleich sind.
 
 \begin{equation}
-a_{XY} = \sum_{i \in \mathcal{P}}{1\over 2}^{t_1+t_2}(1 + F_Z_i)
+a_{XY} = \sum_{i \in \mathcal{P}}{1\over 2}^{t_1+t_2}(1 + F_{Z_i})
 \label{eq:VwKoeff}
 \end{equation}
 
@@ -169,28 +169,32 @@ a_{XY} = {1\over 2}(a_{X,m(Y)} + a_{X,v(Y)})
 In der rekursiven Beziehung in Gleichung (\ref{eq:VwKoeffRec}) schreiben wir die Terme $a_{X,m(Y)}$ und $a_{X,v(Y)}$ gem\"ass der Definition von Gleichung (\ref{eq:VwKoeff}).
 
 \begin{equation}
-a_{X,m(Y)} = \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
+a_{X,m(Y)} = \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2-1}(1 + F_{Z_i})
 \label{eq:VwKoeffM}
 \end{equation}
 
+\noindent wobei $\mathcal{P}\setminus \{m(Y) \rightarrow Y\}$ alle Pfade zwischen $X$ und $Y$ \"uber den gemeinsamen Ahnen $Z_i$ ausser der Schritt vom Elternteil $m(Y)$ zum Tier $Y$.
+
 \begin{equation}
-a_{X,v(Y)} = \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
+a_{X,v(Y)} = \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2-1}(1 + F_{Z_i})
 \label{eq:VwKoeffV}
 \end{equation}
+
+\noindent wobei $\mathcal{P}\setminus \{v(Y) \rightarrow Y\}$ alle Pfade zwischen $X$ und $Y$ \"uber den gemeinsamen Ahnen $Z_i$ ausser der Schritt vom Elternteil $v(Y)$ zum Tier $Y$.
 
 Setzt man Gleichungen (\ref{eq:VwKoeffM}) und (\ref{eq:VwKoeffV}) wieder in Gleichung (\ref{eq:VwKoeffRec}) ein, dann folgt
 
 \begin{eqnarray}
 a_{XY} &=& {1\over 2}(a_{X,m(Y)} + a_{X,v(Y)})\\
        &=& {1\over 2}\left(
-            \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
-          + \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
+            \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2-1}(1 + F_{Z_i})
+          + \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2-1}(1 + F_{Z_i})
           \right) \nonumber \\
-       &=& {1\over 2} \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i)
-          + {1\over 2} \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2-1}(1 + F_Z_i) \nonumber \\
-       &=& \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2}(1 + F_Z_i)
-          + \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2}(1 + F_Z_i) \nonumber\\
-       &=&  \sum_{i \in \mathcal{P}} {1\over 2}^{t_1+t_2}(1 + F_Z_i) \nonumber
+       &=& {1\over 2} \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2-1}(1 + F_{Z_i})
+          + {1\over 2} \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2-1}(1 + F_{Z_i}) \nonumber \\
+       &=& \sum_{i \in \mathcal{P}\setminus \{m(Y) \rightarrow Y\}}{1\over 2}^{t_1+t_2}(1 + F_{Z_i})
+          + \sum_{i \in \mathcal{P}\setminus\{v(Y) \rightarrow Y \}}{1\over 2}^{t_1+t_2}(1 + F_{Z_i}) \nonumber\\
+       &=&  \sum_{i \in \mathcal{P}} {1\over 2}^{t_1+t_2}(1 + F_{Z_i}) \nonumber
 \end{eqnarray}
 
 
