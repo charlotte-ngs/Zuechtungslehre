@@ -188,7 +188,7 @@ navigation
             \end{array}
       \right]
     $$
-  \item Schritt 3 - Element $a_{12}$ muss eine $0$ sein $\rightarrow$ erste Zeile plus die H\"alfte der zweiten Zeile
+  \item Schritt 3 - Element $a_{12}$ muss eine $0$ sein $\rightarrow$ erste Zeile minus die H\"alfte der zweiten Zeile
     $$\left[
             \begin{array}{cc|cc} 1 & 0.5 & 0.125 & 0  \\
                                  0 & 1   & -0.5  & 1

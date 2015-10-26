@@ -14,7 +14,7 @@ deploy_selected <- function(psSrcDir, psPattern = NULL, psTrgDir){
   sDeployFiles <- list.files(path = psSrcDir, pattern = psPattern)
   cat(" * Which file should be deployed\n")
   print(sDeployFiles)
-  nDeployFileIdx <- readline(prompt = " * Please enter index of file to be deployed: ")
+  nDeployFileIdx <- as.numeric(readline(prompt = " * Please enter index of file to be deployed: "))
   if (nDeployFileIdx <= length(sDeployFiles)) {
     cat(" * Selected file to be deployed: ", sDeployFiles[nDeployFileIdx], "\n")
     RCourseTools::deploy_document(psDocument = sDeployFiles[nDeployFileIdx],

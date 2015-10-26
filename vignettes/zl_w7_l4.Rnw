@@ -1,0 +1,81 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uchtungslehre - L\"osung 4}
+\author{Peter von Rohr}
+\maketitle
+
+
+\section*{Aufgabe 1 (3)}
+<<PedInput, echo=FALSE>>=
+# Konstanten
+nAnzTiere <- 10
+
+library(pedigreemm)
+pedA1 <- pedigree(sire  = c(NA,NA,NA,NA,2,2,4,6,6,8),
+                  dam   = c(NA,NA,NA,NA,1,1,3,NA,5,7),
+                  label = 1:nAnzTiere)
+@
+
+Das gezeigte Pedigree in Aufgabe 1 als Liste geschrieben sieht wie folgt aus
+
+<<ShowPed>>=
+print(pedA1)
+@
+
+Die additive genetische Verwandtschaftsmatrix $\mathbf{A}$ f\"ur $n$ Tiere ist symmetrisch und hat die Dimension $n \times n$. In unserem Beispiel in Aufgabe 1 haben wir $\Sexpr{nAnzTiere}$ Tiere also hat die Matrix $\mathbf{A}$ $10$ Zeilen und $10$ Kolonnen.
+
+Die Matrix $\mathbf{A}$ hat folgende Struktur
+
+<<GeneratePedStruktur,echo=FALSE,results=tex>>=
+# Funktionen
+#' Generate the matrix element with row-index nRowIdx and column-index nColIdx
+#'
+#'@param nRowIdx   row index
+#'@param nColIdx   column index
+#'@return element  on row nRowIdx and column nColIdx
+genAddMatElement <- function(pnRowIdx, pnColIdx) return(paste("a_{",pnRowIdx,pnColIdx,"}", sep = "", collapse = ""))
+#'
+#'
+genAddGenMatrix <- function(pnMatDim){
+  matAddGenMatResult <- matrix(data = NA, nrow = pnMatDim, ncol = pnMatDim)
+  for (nRowIdx in 1:pnMatDim){
+    for (nColIdx in 1:pnMatDim) {
+      matAddGenMatResult[nRowIdx,nColIdx] <- genAddMatElement(nRowIdx,nColIdx)
+    }
+  }
+  return(matAddGenMatResult)
+}
+out <- capture.output(print(xtable::xtable(genAddGenMatrix(nAnzTiere)),
+      include.rownames = FALSE,
+      include.colnames = FALSE,
+      hline.after = NULL,
+      sanitize.text.function=identity))
+### # do some replacements
+sArrayOut <- gsub("tabular", "array", out[5:(length(out)-1)], fixed = TRUE)
+cat("$$\\mathbf{A} = \\left[")
+cat(paste(sArrayOut, collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+
+
+Gem\"ass der Matrixmethode werden die Elemente der additiv-genetischen Verwandtschaftsmatrix berechnet als
+
+\begin{itemize}
+\item Diagonalelement $a_{ii}$ f\"ur Tier $i$: $a_{ii} = 1 + F_i$ wobei $F_i$ der Inzuchtgrad vom Tier $i$ ist und der H\"alfte des Verwandtschaftsgrades der Eltern von Tier $i$ entspricht. Also ist $F_i = {1\over 2} a_{M(i),V(i)}$, wenn $M(i)$ und $V(i)$ die Eltern von Tier $i$ sind
+\item Off-Diagonalelement $a_{ij}$ zwischen Tieren $i$ und $j$: $a_{ij} = {1\over 2}(a_{i,M(j)} + a_{i,V(j)})$, wenn $M(j)$ und $V(j)$ die Eltern sind von $j$
+\end{itemize}
+
+\section*{Aufgabe 2 (8)}
+In der Aufgabe war folgender Code schon gegeben.
+
+<<CompAddGenVerMat>>=
+
+@
+
+
+\section*{Aufgabe 3 (6)}
+\end{document}
