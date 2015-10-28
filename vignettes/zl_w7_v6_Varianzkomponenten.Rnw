@@ -124,7 +124,7 @@ navigation
   Eine Beobachtung betreffend der Eigenschaft der \textbf{Erwartungstreue} (Unbiasedness) eines Sch\"atzers f\"uhrt zu folgendem Ergebnis
   \begin{itemize}
   \item Erwartungstreue (Unbiasedness) ist eine Eigenschaft eines Sch\"atzers $\hat{\theta}$ f\"ur einen Parameter $\theta$, sofern gilt, dass $E\left[\hat{\theta} \right] = \theta$
-  \item Erwartungswert der Summe der quadrierten Residuen
+  \item Erwartungswert der Summe der quadrierten Residuen ($r_i$)
   $$E\left[\sum_{i=1}^n r_i^2 \right]
     =  \sum_{i=1}^n E\left[r_i^2 \right]
     =  \sum_{i=1}^n Var(r_i)
@@ -132,11 +132,68 @@ navigation
   $$
     =  \sigma^2 (n-tr(P))
     =  \sigma^2 (n-p)$$
+    \noindent wobei: $r_i = y_i - \hat{y}_i = y_i - \mathbf{x}_i^T\hat{b}$
+      und Matrix $\mathbf{P} = \mathbf{X}\left(\mathbf{X}^T\mathbf{X} \right)^{-1}\mathbf{X}^T$,\\
+      $n$: Anzahl Beobachtungen und $p$: Anzahl Parameter
   \end{itemize}
 
-  \begin{block}{Likelihood}
 
-  \end{block}
+}
+\note{}
+
+\frame{
+  \frametitle{Sch\"atzung der Varianzkomonente $\sigma^2$ II}
+    \begin{itemize}
+    \item Somit gilt Erwartungstreue f\"ur den Sch\"atzer
+      $$\hat{\sigma^2} =  {1\over (n-p)} \sum_{i=1}^n r_i^2$$
+    \item da f\"ur die Erwartungswerte gilt
+      $$E\left[\hat{\sigma^2} \right] = E\left[{1\over (n-p)} \sum_{i=1}^n r_i^2 \right]
+         = {1\over (n-p)} E\left[\sum_{i=1}^n r_i^2 \right]$$
+      $$ = {1\over (n-p)} \left[ \sigma^2 (n-p)\right] = \sigma^2$$
+    \item Dieser Sch\"atzer wird oft als LS-Sch\"atzer bezeichnet
+    \end{itemize}
+}
+\note{}
+
+\frame{
+  \frametitle{Maximum Likelihood}
+    \begin{itemize}
+    \item Definition der Likelihood als gemeinsame Dichteverteilung der Daten ($\mathbf{y}$) gegeben die Parameter ($\mathbf{b}$, $\sigma^2$)
+      $$ Pr\left(\mathbf{y} | \mathbf{b},\sigma^2\right)$$
+    \item Unter der Annahme einer Normalverteilung und nach Beobachtung der Daten als Funktion der Parameter
+          aufgefasst, folgt
+      $$ L\left(\mathbf{b},\sigma^2;\mathbf{y}\right) = Pr\left(\mathbf{y} | \mathbf{b},\sigma^2\right)
+         = (2\pi\sigma^2)^{-{n\over2}}
+           \prod_{i=1}^n exp \left[-\frac{(y_i - \mathbf{x}_i^T\mathbf{b})^2}{2\sigma^2} \right]
+      $$
+    \end{itemize}
+}
+\note{}
+
+\frame{
+  \frametitle{Maximierung der Likelihood Funktion}
+  \begin{itemize}
+  \item Maximierung der Likelihood Funktion $L\left(\mathbf{b},\sigma^2;\mathbf{y}\right)$ ist
+    analog zur Maximierung von
+    $$l\left(\mathbf{b},\sigma^2;\mathbf{y}\right)
+      = \log\left(L\left(\mathbf{b},\sigma^2;\mathbf{y}\right) \right)$$
+    $$ = -{n\over2} \log(2\pi\sigma^2) - {1\over 2\sigma^2}
+      \sum_{i=1}^n (y_i - \mathbf{x}_i^T\mathbf{b})^2$$
+  \item Sch\"atzungen f\"ur $\mathbf{b}$ und $\sigma$ erhalten wir durch Nullsetzen der partiellen
+    Ableitungen von $l\left(\mathbf{b},\sigma^2;\mathbf{y}\right)$ nach $\mathbf{b}$ und $\sigma$
+  \end{itemize}
+}
+\note{}
+
+\frame{
+  \frametitle{Partielle Ableitungen}
+  \begin{itemize}
+  \item Partielle Ableitung von $l\left(\mathbf{b},\sigma^2;\mathbf{y}\right)$ nach $\mathbf{b}$
+    $$\frac{\partial l}{\partial \mathbf{b}} =  - {1\over 2\sigma^2}
+      \sum_{i=1}^n 2\mathbf{x}_i(y_i - \mathbf{x}_i^T\mathbf{b}) = 0$$
+  \item Somit ist
+    $$ \sum_{i=1}^n \mathbf{x}_i\mathbf{x}_i^T\mathbf{b} = \sum_{i=1}^n \mathbf{x}_iy_i$$
+  \end{itemize}
 }
 \note{}
 
