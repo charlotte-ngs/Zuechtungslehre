@@ -8,11 +8,100 @@
 \maketitle
 
 
-\section*{Aufgabe 1 ()}
+\section*{Aufgabe 1 (8)}
+Diese Aufgabe soll einerseits eine Einf\"uhrung in das Thema der Varianzkomponentensch\"atzung geben und andererseits die Vertrautheit mit dem R-package \textbf{pedigreemm} f\"ordern. Bis jetzt hatten wir nur lineare Modelle gesehen mit fixen Effekten, so wie zum Beispiel die Effekte an verschiedenen Loci. Eine Annahme in diese Modellen waren, dass die Beobachtungen unkorreliert waren.
 
+In der Tierzucht arbeiten wir mit Beobachtungen von verwandten Tieren. Deshalb k\"onnen wir nicht annehmen, dass die Beobachtungen unkorreliert sind. F\"ur ein Tier liegen auch mehrere Beobachtungen vor, welche in der Regel nicht unabh\"angig sind voneinander.
 
+Die Ab\"angigkeiten zwischen den Beobachtungen werden in sogenannten ``linearen gemischten Modellen'' analysiert. Die Modelle heissen gemischt, da sie neben fixen Effekten auch noch sogenannte ``zuf\"allige'' Effekte enthalten. Bei den zuf\"alligen Effekten wird angenommen, sie h\"atten Erwartungswert $0$ und eine bekannte Co-Varianzmatrix.
 
-\section*{Aufgabe 2 ()}
+Beim Thema der Varianzkomponentensch\"atzung geht es genau darum diese Varianzen aus den Daten zu sch\"atzen.
 
+Als Beispiel f\"ur ein lineares gemischtes Modell verwenden wir das Pedigree aus der Dokumentation von ``pedigreemm'' und generieren daraus einen einfachen Datensatz.
+
+<<DataSim, echo=FALSE, results=hide>>=
+sResultFile <- "zl_w7_u5_DataLmm.csv"
+set.seed(1082)
+# fix effects
+nInterCeptTrue <- -24.5
+nbeta1 <- 13
+betaTrue <- c(nInterCeptTrue, nbeta1)
+matBetaTrue <- matrix(betaTrue, nrow = 2)
+
+# individuals
+nAnzAnim <- 6
+nFixFacTrue <- floor(10*runif(nAnzAnim)) - 3
+matDesign <- matrix(NA, nrow=length(nFixFacTrue), ncol = 2)
+matDesign[,1] <- 1
+matDesign[,2] <- nFixFacTrue
+vecXBetaTrue <- matDesign %*% matBetaTrue
+
+library(pedigreemm)
+  p1 <- new("pedigree",
+           sire = as.integer(c(NA,NA,1, 1,4,5)),
+           dam  = as.integer(c(NA,NA,2,NA,3,2)),
+           label = as.character(1:nAnzAnim))
+  A<-getA(p1)
+  cholA<-chol(A)
+  varU<-2.4;
+  varE<-3.6;
+  rep<-40
+  n<-rep*nAnzAnim
+
+  bStar<- rnorm(nAnzAnim, sd=sqrt(varU))
+  b<-crossprod(as.matrix(cholA),bStar)
+  ID <- rep(1:nAnzAnim, each=rep)
+  e0<-rnorm(n, sd=sqrt(varE))
+  y<-vecXBetaTrue[ID] + b[ID] + e0
+
+  ### # data.frame
+  dfSimDataLmm <- data.frame(ID, nFixFacTrue[ID], y)
+  names(dfSimDataLmm) <- c("ID","FixerFactor","y" )
+
+  ### # Schreiben der Daten
+  if (!file.exists(sResultFile)) write.csv2(dfSimDataLmm, quote = FALSE)
+
+@
+
+Das Pedigree f\"ur die Analyse sieht wie folgt aus und kann in der Hilfedatei von ``pedigreemm'' kopiert werden. Die Hilfedatei kann mit ``?pedigreemm'' oder \verb+help("pedigreemm")+ aufgerufen werden.
+
+<<ShowPed, echo=false>>=
+print(p1)
+@
+
+Der Datensatz kann von der Webseite unter \\
+\verb+http://charlotte-ngs.github.io/LivestockBreedingAndGenomics/w7/zl_w7_u5_DataLmm.csv+ heruntergeladen werden. Im Datensatz befinden sich die drei Kolonnen
+
+\begin{enumerate}
+\item ID: Tier-Id
+\item FixerFactor: Fixer Faktor
+\item y: Beobachtungswerte
+\end{enumerate}
+
+\subsection*{Anpassung eines linearen gemischten Modells}
+Ihre Aufgabe ist es, f\"ur den gegebenen Datensatz ein lineares gemischtes Modell anzupassen. Dazu k\"onnen Sie die Funktion \texttt{pedigreemm()} verwenden. Als erstes Argument f\"ur die Funktion \texttt{pedigreemm()} muss eine Formel angegeben werden. Die Formel wird gleich angegeben, wie bei der Funktion \texttt{lm()}. Im Unterschied zu \texttt{lm()} muss die Variable ``ID'' als zuf\"alliger Effekt angegeben werden. Der zuf\"allige Effekt wird mit \texttt{(1 | ID)} angegeben. Das Pedigree wird als Argument ``pedigree'' angeben. Das Ergebnis der Sch\"atzung k\"onnen Sie wieder mit Funktion \texttt{summary()} anschauen.
+
+\subsection*{Zusatz}
+Als Zusatzaufgabe k\"onnen Sie der Funktion \texttt{pedigreemm()} das zus\"atzliche Argument ``REML = FALSE'' angeben und dann das Ergebnis mit dem urspr\"unglichen Ergebnis vergleichen. Das Argument ``REML'' steuert, ob die Varianzkomponenten mit Maximumlikelihood (ML, d.h. REML = FALSE) oder mit Restricted Maximum Likelihood (REML = TRUE) gesch\"atzt werden soll.
+
+\vspace*{2ex}
+\section*{Aufgabe 2 (5)}
+In der zweiten Aufgabe behandeln wir ein Programmierkonzept in R, womit wir den Programmfluss steuern k\"onnen. Es geht dabei um sogenannte ``if-else''-Anweisungen. Diese haben folgende Struktur.
+
+\includegraphics[width=0.8\textwidth]{figure/w7/zl_w7u5_if_else}
+
+Als kleine \"Ubung sei eine Liste mit zwei Kolonnen zu erzeugen. Die erste Kolonne enthalte die Zahlen von $1$ bis $10$ und die zweite die Farben rot und gr\"un. Bei allen Werten der ersten Kolonne, welche kleiner sind als $8$ soll ``gr\"un'' stehen, bei allen anderen Werten soll ``rot'' stehen. Das Resultat der Liste soll wie folgt aussehen.
+
+<<FarbList, echo=FALSE>>=
+nListLen <- 10
+nLimit <- 8
+for (idx in 1:nListLen){
+  if (idx < nLimit) {
+    cat(idx, "gruen\n", sep=", ")
+  } else {
+    cat(idx, "rot\n", sep=", ")
+  }
+}
+@
 
 \end{document}
