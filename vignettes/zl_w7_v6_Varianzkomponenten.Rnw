@@ -89,12 +89,54 @@ navigation
 
 \frame{
   \frametitle{Multiple Lineare Regression}
-  Folgende Annahmen werden gemacht bei einer multiplen linearen Regression
+  \begin{block}{Annahmen}
+    \begin{itemize}
+    \item Modell $$\mathbf{y} = \mathbf{X}\mathbf{b} + \mathbf{e}$$
+    \item Varianz der Fehler $e_i$ ist konstant, d.h. $Var(e_i) = \sigma^2$ f\"ur alle $i$
+    \item Fehler $e_i$ sind nicht korreliert, d.h. $Cov(e_i,e_j) = 0$ f\"ur $i\ne j$
+    \item Fehler $\mathbf{e}$ ist multivariat normal verteilt
+    \end{itemize}
+  \end{block}
+  \begin{block}{Momente}
+    \begin{itemize}
+    \item Erwartungswerte: $E\left[\mathbf{e} \right] = \mathbf{0}$, $E\left[\mathbf{y} = \mathbf{X}\mathbf{b} \right]$
+    \item Varianzen: $Var(y_i) = \sigma^2$, $Var(e_i) = \sigma^2$ f\"ur alle $i$
+    \end{itemize}
+  \end{block}
+}
+\note{}
 
+
+\frame{
+  \frametitle{Parametersch\"atzung}
   \begin{itemize}
-  \item
-
+  \item Im linearen Model $\mathbf{y} = \mathbf{X}\mathbf{b} + \mathbf{e}$ sind $\mathbf{b}$ und $\sigma^2$ unbekannte Parameter
+  \item Parameter sollen als Funktion der Daten ($\mathbf{y}$) gesch\"atzt werden
+  \item Ein m\"oglicher Sch\"atzer $\hat{b}_{LS}$ f\"ur $\mathbf{b}$ kann mit \textbf{Least Squares} (kleinste Quadrate) berechnet werden
+  $$\hat{\mathbf{b}}_{LS} = \left(\mathbf{X}^T\mathbf{X} \right)^{-1}\mathbf{X}^T\mathbf{y}$$
+  \item \textbf{Aber} Least Squares gibt keine Sch\"atzung f\"ur $\sigma^2$
   \end{itemize}
+}
+\note{}
+
+\frame{
+  \frametitle{Sch\"atzung der Varianzkomonente $\sigma^2$}
+  Eine Beobachtung betreffend der Eigenschaft der \textbf{Erwartungstreue} (Unbiasedness) eines Sch\"atzers f\"uhrt zu folgendem Ergebnis
+  \begin{itemize}
+  \item Erwartungstreue (Unbiasedness) ist eine Eigenschaft eines Sch\"atzers $\hat{\theta}$ f\"ur einen Parameter $\theta$, sofern gilt, dass $E\left[\hat{\theta} \right] = \theta$
+  \item Erwartungswert der Summe der quadrierten Residuen
+  $$E\left[\sum_{i=1}^n r_i^2 \right]
+    =  \sum_{i=1}^n E\left[r_i^2 \right]
+    =  \sum_{i=1}^n Var(r_i)
+    =  \sigma^2 \sum_{i=1}^n (1 - P_{ii})$$
+  $$
+    =  \sigma^2 (n-tr(P))
+    =  \sigma^2 (n-p)$$
+  \end{itemize}
+
+  \begin{block}{Likelihood}
+
+  \end{block}
 }
 \note{}
 
