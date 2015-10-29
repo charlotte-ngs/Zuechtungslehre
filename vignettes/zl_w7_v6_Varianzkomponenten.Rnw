@@ -186,16 +186,92 @@ navigation
 \note{}
 
 \frame{
-  \frametitle{Partielle Ableitungen}
+  \frametitle{Partielle Ableitung nach $\mathbf{b}$}
   \begin{itemize}
   \item Partielle Ableitung von $l\left(\mathbf{b},\sigma^2;\mathbf{y}\right)$ nach $\mathbf{b}$
     $$\frac{\partial l}{\partial \mathbf{b}} =  - {1\over 2\sigma^2}
-      \sum_{i=1}^n 2\mathbf{x}_i(y_i - \mathbf{x}_i^T\mathbf{b}) = 0$$
-  \item Somit ist
-    $$ \sum_{i=1}^n \mathbf{x}_i\mathbf{x}_i^T\mathbf{b} = \sum_{i=1}^n \mathbf{x}_iy_i$$
+      \sum_{i=1}^n 2\mathbf{x}_i(y_i - \mathbf{x}_i^T\mathbf{b})$$
+  \item Extremum ist erreicht, falls partielle Ableitung $=0$, somit ist
+    $$ \sum_{i=1}^n \mathbf{x}_i\mathbf{x}_i^T\hat{\mathbf{b}} = \sum_{i=1}^n \mathbf{x}_iy_i$$
+    $$ \hat{\mathbf{b}}_{ML} = \left(\sum_{i=1}^n \mathbf{x}_i\mathbf{x}_i^T \right)^{-1}\sum_{i=1}^n \mathbf{x}_iy_i$$
+  \item Beobachtung: $\hat{\mathbf{b}}_{LS} = \hat{\mathbf{b}}_{ML}$
   \end{itemize}
 }
 \note{}
+
+\frame{
+  \frametitle{Sch\"atzer f\"ur $\sigma^2$}
+  \begin{itemize}
+  \item Analoges Vorgehen, wie f\"ur $\mathbf{b}$
+  \item Partielle Ableitung von $l\left(\mathbf{b},\sigma^2;\mathbf{y}\right)$ nach $\sigma^2$ null setzen
+  \item F\"ur $\mathbf{b}$ setzen wir $\hat{\mathbf{b}}_{ML}$ ein
+    $$\frac{\partial l}{\partial \sigma^2} = -{n\over 2\sigma^2} + {1\over 2\sigma^4}
+      \sum_{i=1}^n (y_i - \mathbf{x}_i^T\mathbf{b})^2 $$
+    $$ n \hat{\sigma^2}_{ML} = \sum_{i=1}^n (y_i - \mathbf{x}_i^T\hat{\mathbf{b}}_{ML})^2$$
+    $$ \hat{\sigma^2}_{ML} = {1\over n}\sum_{i=1}^n (y_i - \mathbf{x}_i^T\hat{\mathbf{b}}_{ML})^2$$
+  \item $\hat{\sigma^2}_{ML}$ ist nicht erwartungstreu, d.h. $E\left[\hat{\sigma^2}_{ML} \right] \ne \sigma^2$
+  \end{itemize}
+}
+\note{}
+
+\frame{
+  \frametitle{REML}
+  \begin{itemize}
+  \item Restricted oder Residual Maximum Likelihood
+  \item Basiert auf der Log-likelihood Funktion
+    $$ l_{REML}(\sigma^2;\mathbf{y}) = -\frac{n-p}{2}\log(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^nr_i^2$$
+    \noindent wobei:
+    $$ r_i = y_i - \mathbf{x}_i^T \left(\sum_{i=1}^n \mathbf{x}_i \mathbf{x}_i^T \right)^{-1} \sum_{i=1}^n \mathbf{x}_i y_i$$
+  \item $l_{REML}$ ist unabh\"angig von $\mathbf{b}$
+  \item Maximierung von $l_{REML}$ f\"uhrt zum Sch\"atzer
+    $$\hat{\sigma^2}_{REML} = \frac{1}{n-p} \sum_{i=1}^nr_i^2$$
+  \end{itemize}
+}
+\note{}
+
+\frame{
+  \frametitle{Bayes'sche Methoden}
+  \begin{block}{Philosophie}
+    \begin{itemize}
+    \item Welt der Statistik unterteilt sich in zwei Lager
+      \begin{enumerate}
+      \item Frequentisten
+      \item Bayesianer
+      \end{enumerate}
+    \end{itemize}
+  \end{block}
+  \begin{block}{Frequentisten}
+    \begin{itemize}
+    \item Parametersch\"atzungen basieren auf ML oder REML
+    \item Trennung zwischen Daten und Parameter, fehlende Daten werden ignoriert
+    \item Effekte in Modellen werden in fix und zuf\"allig unterteilt
+    \item Keine Ber\"ucksichtigung von a priori Information
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+\frame{
+  \frametitle{Bayes'sche Methoden II}
+   \begin{block}{Bayesianer}
+    \begin{itemize}
+    \item Unterteilung in bekannte und unbekannte Gr\"ossen, dies k\"onnen Daten oder Parameter sein
+    \item Sch\"atzung von unbekannten Gr\"ossen basieren auf der a posteriori Verteilung der unbekannten Gr\"ossen gegeben die bekannten Gr\"ossen
+    \item Fehlende Daten k\"onnen ber\"ucksichtigt werden
+    \item A priori Information wird ber\"ucksichtigt
+    \end{itemize}
+  \end{block}
+}
+\note{}
+
+\frame{
+  \frametitle{Beispiel f\"ur Bayes'sche Parametersch\"atzung}
+  \begin{itemize}
+  \item Modell: $\mathbf{y} = \mathbf{X}\mathbf{b} + \mathbf{e}$
+  \end{itemize}
+}
+\note{}
+
 
 \frame{
   \frametitle{Folientitel}
@@ -204,6 +280,7 @@ navigation
   \end{block}
 }
 \note{}
+
 
 \section{Selektionsindex}
 
