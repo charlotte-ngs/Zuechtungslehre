@@ -155,6 +155,73 @@ navigation
 }
 \note{}
 
+
+\begin{frame}
+  \frametitle{Varianzanalyse - ANOVA}
+  \begin{itemize}
+  \item Effekte oder Faktoren im Modell (bis jetzt $x$ Variable) sind kategorisch oder qualitativ
+  \item Ziel ist es herauszufinden, wie viel von der totalen empirischen Varianz in den Beobachtungen durch die Faktoren erkl\"art werden kann.
+  \item Folgendes Modell wird angenommen:
+    $$y_{ij} = \mu + \alpha_i + e_{ij} $$
+    \noindent wobei: Faktor $\alpha$ $i=1,...,I$ Stufen aufweist und $j=1,...,J_i$ Beobachtungen pro Stufe vorliegen.
+  \item Effekte sind nur unter gewissen Restriktionen sch\"atzbar. H\"aufig wird die Summe aller Effekte $\sum_i J_i \alpha_i = 0$ gesetzt
+  \end{itemize}
+\end{frame}
+
+\frame{
+  \frametitle{Parametersch\"atzung ANOVA}
+  \begin{itemize}
+  \item Mit Restriktion $\sum_i J_i \alpha_i = 0$ folgen Sch\"atzer
+    $$\hat{\mu} = \bar{y} \text{ und } \hat{\alpha}_i = \bar{y}_{i.} - \bar{y}$$
+    \noindent wobei: $\bar{y}$ der Mittelwert \"uber alle Beobachtungen und $\bar{y}_{i.}$ der Mittelwert \"uber alle Beobachtungen auf Stufe $i$ ist.
+  \item Die Varianzanteile werden aufgrund der Summenquadrate bestimmt
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Tabelle der Varianzanalyse - ANOVA Table}
+  \begin{tabular}{lrrrrr}
+  \hline
+  Quelle           &  DF     &  SQ            &  MSQ   &  F         &  P  \\
+  \hline
+  Faktor $\alpha$  &  $i-1$  &  SQZ           &  MSQZ  &  MSQZ$/$MSQE &   \\
+  Fehler $e$       &  $n-i$  &  SQE           &  MSQE  &              &   \\
+  Total            &  $n-1$  &  SQT           &        &              &   \\
+  \hline
+  \end{tabular}
+
+  \noindent wobei
+  $$SQT = \sum_{i=1}^I\sum_{j=1}^{J_i}(y_{ij} - \bar{y})^2$$
+  $$SQZ = \sum_{i=1}^I\sum_{j=1}^{J_i}(\bar{y}_{i.} - \bar{y})^2 \text{; } MSQZ = SQZ/(i-1)$$
+  $$SQE = \sum_{i=1}^I\sum_{j=1}^{J_i}(y_{ij} - \bar{y}_{i.})^2 \text{; } MSQE = SQE/(n-i)$$
+}
+
+\begin{frame}[fragile]
+  \frametitle{Beispieldatensatz}
+  Koagulationsdatensatz von \verb+https://cran.r-project.org/doc/contrib/Faraway-PRA.pdf+
+<<CoagData>>=
+if (!require(faraway)) {
+  install.packages("faraway");require(faraway)}
+data("coagulation")
+head(coagulation, n=5)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Beispieldatensatz II}
+<<CoagSummary>>=
+summary(coagulation)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Beispieldatensatz Anova}
+<<CoagAnova>>=
+lmCoDi <- lm(coag ~ diet, data = coagulation)
+anova(lmCoDi)
+@
+\end{frame}
+
 \frame{
   \frametitle{Maximum Likelihood}
     \begin{itemize}
@@ -268,21 +335,79 @@ navigation
   \frametitle{Beispiel f\"ur Bayes'sche Parametersch\"atzung}
   \begin{itemize}
   \item Modell: $\mathbf{y} = \mathbf{X}\mathbf{b} + \mathbf{e}$
+  \item Bekannte Gr\"ossen sind die beobachteten Daten $\mathbf{y}$
+  \item Unbekannte Gr\"ossen sind die Parameter $\mathbf{b}$ und $\sigma$
+  \item Sch\"atzungen f\"ur Unbekannte $\mathbf{b}$ und $\sigma$ werden gemacht
+    aufgrund der a posteriori Dichteverteilungen $f(\mathbf{b} | \mathbf{y},\sigma^2)$ und
+    $f(\sigma^2 | \mathbf{y}, \mathbf{b})$
+  \item A posteriori Dichteverteilungen werden aufgrund des Satzes von Bayes berechnet
+  \end{itemize}
+}
+\note{}
+
+\frame{
+  \frametitle{Satz von Bayes}
+  $$ f(\mathbf{b} | \mathbf{y},\sigma^2)
+     = \frac{f(\mathbf{y} |\mathbf{b},\sigma^2)f(\mathbf{b})f(\sigma^2)}{f(\mathbf{y},\sigma^2)}$$
+  \noindent wobei
+
+  \vspace{2ex}
+  \begin{tabular}{ll}
+  $f(\mathbf{y} |\mathbf{b},\sigma^2)$  &  Bayes'sche Likelihood \\
+  $f(\mathbf{b})$                       &  a priori Dichteverteilung von $\mathbf{b}$ \\
+  $f(\sigma^2)$                         &  a priori Dichteverteilung von $\sigma^2$ \\
+  $f(\mathbf{y},\sigma^2)$              &  Normalisierungskonstante \\
+  \end{tabular}
+}
+
+
+\frame{
+  \frametitle{Bayes'sche Sch\"atzung f\"ur $\mathbf{b}$}
+  \begin{itemize}
+  \item F\"ur Sch\"atzung werden nur die von $\mathbf{b}$ abh\"angigen Teile aus
+    $f(\mathbf{b} | \mathbf{y},\sigma^2)$ verwendet
+  \item Konstante $f(\sigma^2)$ und $f(\mathbf{y},\sigma^2)$ werden ignoriert
+  \item Daraus folgt
+    $$ f(\mathbf{b} | \mathbf{y},\sigma^2) \propto f(\mathbf{y} |\mathbf{b},\sigma^2)f(\mathbf{b})$$
+  \item Ist a priori nichts \"uber $\mathbf{b}$ bekannt, dann wird $f(\mathbf{b})$ als konstant angenommen
+    (uninformativer Prior)
+  \item Weitere Vereinfachung zu
+    $$ f(\mathbf{b} | \mathbf{y},\sigma^2) \propto f(\mathbf{y} |\mathbf{b},\sigma^2)$$
   \end{itemize}
 }
 \note{}
 
 
 \frame{
-  \frametitle{Folientitel}
-  \begin{block}{Blocktitel}
+  \frametitle{Bayes'sche Sch\"atzung f\"ur $\mathbf{b}$ II}
+  \begin{itemize}
+  \item Unter der Annahme der Normalverteilung folgt
+    $$ f(\mathbf{y} |\mathbf{b},\sigma^2)
+      = (2\pi\sigma^2)^{-{n\over 2}} exp\left\{
+        - \frac{(\mathbf{y} - \mathbf{X}\mathbf{b})^T(\mathbf{y} - \mathbf{X}\mathbf{b})}
+             {2\sigma^2} \right\}$$
+  \item Damit die Dimensionen konsistent sind, machen wir folgende Transformation
+    $$ f(\mathbf{b} | \mathbf{y},\sigma^2) \propto
+       exp\left\{- \frac{(\mathbf{y} - \mathbf{X}\mathbf{b})^T(\mathbf{y} - \mathbf{X}\mathbf{b})}
+                        {2\sigma^2} \right\}$$
+    $$ \propto exp\left\{ -\frac{(\mathbf{b}-\hat{\mathbf{b}})^T(\mathbf{X}^T\mathbf{X})(\mathbf{b}-\hat{\mathbf{b}})}{2\sigma^2}\right\}$$
+    \noindent wobei: $\hat{\mathbf{b}} = \left(\mathbf{X}^T\mathbf{X}\right)^{-1}\mathbf{X}^T\mathbf{y}$
+  \end{itemize}
 
-  \end{block}
 }
 \note{}
 
 
-\section{Selektionsindex}
+\frame{
+  \frametitle{Bayes'sche Sch\"atzung III}
+  \begin{itemize}
+  \item Sch\"atzung f\"ur $\sigma^2$ analog basierend auf $f(\sigma^2 | \mathbf{y},\mathbf{b})$
+  \item Sch\"atzwerte basieren auf Momenten (Erwartungswert und Varianz) der a posteriori Dichteverteilungen
+  \item Entsprechen die a posteriori Dichteverteilungen keinen Standarddichteverteilungen (wie Normal, Student-t, Beta, Gamma, ...), dann werden Erwartungswert und Varianzen aufgrund von Zufallszahlen von diesen Dichten approximiert
+  \item Zufallszahlen werden aufgrund von Markovketten generiert
+  \end{itemize}
+}
+\note{}
 
 
 \end{document}
