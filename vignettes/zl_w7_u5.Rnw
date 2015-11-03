@@ -59,7 +59,7 @@ library(pedigreemm)
   names(dfSimDataLmm) <- c("ID","FixerFactor","y" )
 
   ### # Schreiben der Daten
-  if (!file.exists(sResultFile)) write.csv2(dfSimDataLmm, quote = FALSE)
+  if (!file.exists(sResultFile)) write.csv2(dfSimDataLmm, file = sResultFile, quote = FALSE, row.names = FALSE)
 
 @
 
