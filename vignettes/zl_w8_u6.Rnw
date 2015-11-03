@@ -1,0 +1,77 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uchtungslehre - \"Ubung 6}
+\author{Peter von Rohr}
+\maketitle
+
+
+\section*{Aufgabe 1 ()}
+<<pedMM, echo=FALSE, results=hide>>=
+library(pedigreemm)
+nAnzTiere <- 6
+pedA1 <- pedigree(sire = c(NA,NA,1, 1,4,4),
+                dam  = c(NA,NA,2,NA,2,2), label= 1:nAnzTiere)
+@
+
+Das folgende kleine Beispiel-Pedigree ohne Inzucht soll als Beispiel dienen f\"ur das Aufstellen der inversen Verwandtschaftsmatrix. In der Listenform sieht das Pedigree wie folgt aus.
+
+<<pedMMOut, echo=FALSE>>=
+print(pedA1)
+@
+
+Aufgrund der LDL-Zerlegung der inversen Verwandtschaftsmatrix $\mathbf{A}^{-1}$ in Matrizen
+
+$$\mathbf{A}^{-1} = \left(\mathbf{L}^{T}\right)^{-1} * \mathbf{D}^{-1} * \mathbf{L}^{-1}$$
+
+\noindent k\"onnen folgende Regeln zum direkten Aufstellen der Matrix $\mathbf{A}^{-1}$ aufgestellt werden. F\"ur den Fall, dass Inzucht nicht ber\"ucksichtigt wird, entsprechen die Diagnoalelemente der Matrix $\mathbf{D}^{-1}$ folgenden Werten
+
+\vspace{2ex}
+\begin{center}
+\begin{tabular}{|l|c|}
+\hline
+Eltern                  &  Wert in Matrix $\mathbf{D}^{-1}$\\
+\hline
+beide Eltern bekannt    &  $2$\\
+\hline
+ein Elternteil bekannt  &  ${4\over 3}$ \\
+\hline
+Eltern unbekannt        &  $1$\\
+\hline
+\end{tabular}
+\end{center}
+
+F\"ur unser Beispiel-Pedigree resultieren also folgende Werte f\"ur die Diagonalelemente von Matrix $\mathbf{D}^{-1}$
+
+\vspace{2ex}
+\begin{center}
+\begin{tabular}{|r|r|}
+  \hline
+  TierId & Wert in Matrix $\mathbf{D}^{-1}$ ($\alpha_i$) \\
+  \hline
+   1 & 1.00 \\
+      \hline
+   2 & 1.00 \\
+      \hline
+   3 & 2.00 \\
+      \hline
+   4 & 1.33 \\
+      \hline
+   5 & 2.00 \\
+      \hline
+   6 & 2.00 \\
+   \hline
+\end{tabular}
+\end{center}
+
+
+\section*{Aufgabe 2 ()}
+
+
+
+\section*{Aufgabe 3 ()}
+
+
+\end{document}

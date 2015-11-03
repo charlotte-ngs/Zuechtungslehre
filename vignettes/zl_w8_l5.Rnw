@@ -31,14 +31,14 @@ pedP1 <- pedigree(sire = as.integer(c(NA,NA,1, 1,4,5)),
            dam  = as.integer(c(NA,NA,2,NA,3,2)),
            label = as.character(1:nAnzAnim))
 
-fitReml <- pedigreemm(formula = y ~ FixerFactor + (1 | ID))
+fitReml <- pedigreemm(formula = y ~ FixerFactor + (1 | ID), data = dfLmm)
 summary(fitReml)
 @
 
 Als Zusatzaufgabe war gefragt, ein lineares gemischtes Modell anzupassen mit der Option ``REML = FALSE''. Das f\"uhrt dazu, dass die Parameter mit Maximum Likelihood gesch\"atzt werden.
 
 <<fitLmmML>>=
-fitML <- pedigreemm(formula = y ~ FixerFactor + (1 | ID), REML = FALSE)
+fitML <- pedigreemm(formula = y ~ FixerFactor + (1 | ID), data = dfLmm, REML = FALSE)
 summary(fitML)
 
 @
