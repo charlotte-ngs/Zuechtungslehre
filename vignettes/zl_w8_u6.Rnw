@@ -147,8 +147,145 @@ cat("\\right] $$\n")
 
 Als zweites werden die Offdiagonalelemente von $\mathbf{A}^{-1}$, welche das Tier $3$ mit seinen Eltern $1$ und $2$ verbindet, angeschaut. Dabei handelt es sich um die Elemente $(1,3)$, $(3,1)$, $(2,3)$ und $(3,2)$. Von diesen Elementen wird der Betrage von ${\alpha_3 \over 2}$ abgezogen
 
-\section*{Aufgabe 2 ()}
+<<ParentAnimalOffDiag, echo=FALSE, results=tex>>=
+nVaterIdx <- 1
+nMutterIdx <- 2
+matAInv[nVaterIdx,nTierIdx] <- paste("-", alpha[nTierIdx]/2, sep="")
+matAInv[nTierIdx,nVaterIdx] <- paste("-", alpha[nTierIdx]/2, sep="")
+matAInv[nMutterIdx,nTierIdx] <- paste("-", alpha[nTierIdx]/2, sep="")
+matAInv[nTierIdx,nMutterIdx] <- paste("-", alpha[nTierIdx]/2, sep="")
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInv), collapse = "\n"))
+cat("\\right] $$\n")
+@
 
+
+Als drittes und letztes werden die Elemente der Eltern von Tier $3$ um den Wert von ${\alpha_3 \over 4}$ ge\"andert. Dieser Betrage wird den Elementen $(1,1)$, $(1,2)$, $(2,1)$ und $(2,2)$ hinzugef\"ugt. Somit sieht die Matrix $\mathbf{A}^{-1}$ nach drei Schritten wie folgt aus.
+
+<<ParentElements, echo=FALSE, results=tex>>=
+matAInv[nVaterIdx,nVaterIdx] <- paste(matAInv[nVaterIdx,nVaterIdx],
+                                      "+",
+                                      alpha[nTierIdx]/4,
+                                      sep="", collapse = "")
+matAInv[nVaterIdx,nMutterIdx] <- paste(matAInv[nVaterIdx,nMutterIdx],
+                                      "+",
+                                      alpha[nTierIdx]/4,
+                                      sep="", collapse = "")
+matAInv[nMutterIdx,nVaterIdx] <- paste(matAInv[nMutterIdx,nVaterIdx],
+                                      "+",
+                                      alpha[nTierIdx]/4,
+                                      sep="", collapse = "")
+matAInv[nMutterIdx,nMutterIdx] <- paste(matAInv[nMutterIdx,nMutterIdx],
+                                      "+",
+                                      alpha[nTierIdx]/4,
+                                      sep="", collapse = "")
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInv), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+
+\subsection*{Ihre Aufgabe}
+In den Schritten 4 bis 6 sollen Sie die entsprechenden Elemente f\"ur die Tiere 4, 5 und 6, gem\"ass den Regeln f\"ur das Aufstellen von $\mathbf{A}^{-1}$, berechnen und in der Matrix $\mathbf{A}^{-1}$ hinzuf\"ugen.
+
+Als Kontrolle k\"onnen Sie dann die Inverse mit der Funktion
+
+<<pedmmAinv, eval=FALSE>>=
+getAInv(pedA1)
+@
+
+\noindent \"uberpr\"ufen.
+
+\section*{Aufgabe 2 (7)}
+Beim Aufstellen der Matrix $\mathbf{A}^{-1}$ unter Ber\"ucksichtigung der Inzucht gelten die gleichen Regeln, wie unter Aufgabe 1 beschrieben. Der einzige Unterschied liegt in der Berechnung der $\alpha_i$ Werte. Die $\alpha_i$ Werte entsprechen den Diagonalelementen von der Matrix $\mathbf{D}^{-1}$ aus der LDL-Zerlegung von $\mathbf{A}$
+
+\begin{equation}
+\mathbf{A} = \mathbf{L} * \mathbf{D} * \mathbf{L}^T
+\label{eq:LdlDecomp}
+\end{equation}
+
+
+\subsection*{Inzuchtgrad eines Tieres}
+Der Inzuchtgrad f\"ur Tier $i$ ist im Diagnoalelement $a_{ii}$ der Verwandtschaftsmatrix $\mathbf{A}$ enthalten. Aufgrund der Zerlegung der Matrix $\mathbf{A}$ in
+
+\begin{equation}
+\mathbf{A} = \mathbf{U}*\mathbf{U}^T
+\label{eq:UuDecomp}
+\end{equation}
+
+\noindent l\"asst sich das Diagnoalelement $a_{ii}$ berechnen als
+
+\begin{equation}
+a_{ii} = \sum_{m=1}^i u_{im}^2
+\label{eq:ElementAii}
+\end{equation}
+
+
+\subsection*{Rekursive Berechnung der Elemente in Matrix $\mathbf{U}$}
+Diagonalelemente $u_{ii}$ der Matrix $\mathbf{U}$ sind definiert als
+
+\begin{equation}
+u_{ii} = \sqrt{d_i} = \sqrt{1-0.25(a_{ss} + a_{dd})}
+\label{eq:DiagUii}
+\end{equation}
+
+\noindent wobei $d_i$ das $i$-te Diagonalelement der Matrix $\mathbf{D}$ aus der LDL- Zerlegung (siehe Gleichung (\ref{eq:LdlDecomp})) ist. Die Terme $a_{ss}$ und $a_{dd}$ entsprechen den Diagonalelementen der Verwandtschaftsmatrix $\mathbf{A}$ f\"ur die Eltern $s$ und $d$ von Tier $i$.
+
+Zusammen mit Gleichung (\ref{eq:ElementAii}) kann das Diagonalelement $u_{ii}$ berechnet werden als
+
+\begin{equation}
+u_{ii} = \sqrt{1-0.25 \left(\sum_{m=1}^s u_{sm}^2 + \sum_{m=1}^d u_{dm}^2 \right)}
+\label{eq:DiagUiiComp}
+\end{equation}
+
+Die Elemente der Nebendiagonale werden berechnet als
+
+\begin{equation}
+u_{ij} = 0.5 \left(u_{sj} + u_{dj}\right)
+\label{eq:DiagUijComp}
+\end{equation}
+
+\noindent f\"ur Eltern $s$ und $d$ von Tier $i$.
+
+
+\subsection*{Berechnung von $\alpha_i$}
+Die Werte $\alpha_i$ entsprechen den Diagonalelementen der Matrix $\mathbf{D}^{-1}$. Da $\mathbf{D}^{-1}$ eine Diagonalmatrix ist, entspricht
+
+\begin{equation}
+\alpha_i = {1 \over u_{ii}^2}
+\label{eq:AlphaComp}
+\end{equation}
+
+
+\subsection*{Ihre Aufgabe}
+F\"ullen Sie die Tabelle mit den $\alpha$ Werten f\"ur jedes Tier aus unter Ber\"ucksichtigung von Inzucht. Dazu verwenden wir folgendes Pedigree, welches Tiere mit Inzucht aufweist.
+
+<<PedA2, echo=FALSE>>=
+pedA2 <- pedigree(sire = c(NA,NA,1, 1,4,5),
+                dam  = c(NA,NA,2,NA,3,2), label= 1:nAnzTiere)
+print(pedA2)
+@
+
+\vspace{2ex}
+\begin{center}
+\begin{tabular}{|r|r|}
+  \hline
+  TierId & Wert in Matrix $\mathbf{D}^{-1}$ ($\alpha_i$) \\
+  \hline
+   1 &  \\
+      \hline
+   2 &  \\
+      \hline
+   3 &  \\
+      \hline
+   4 &  \\
+      \hline
+   5 &  \\
+      \hline
+   6 &  \\
+   \hline
+\end{tabular}
+\end{center}
 
 
 \section*{Aufgabe 3 ()}
