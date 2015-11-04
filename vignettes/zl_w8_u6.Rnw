@@ -8,8 +8,25 @@
 \maketitle
 
 
-\section*{Aufgabe 1 ()}
+\section*{Aufgabe 1 (5)}
 <<pedMM, echo=FALSE, results=hide>>=
+#' Function returning a matrix as tex output
+#' @param  pmatAMatrix        Matrix to be represented in tex format
+#' @param  pnOutStartLine     line index where output should start, default = 5
+#' @param  pnEndIgnoreLines   number of lines to be ignored at the end of the output, default = 1
+#' @return string containing tex representation of matrix
+sGetTexMatrix <- function(pmatAMatrix, pnOutStartLine = 5, pnEndIgnoreLines = 1) {
+  sResultTexMatrix <- capture.output(print(xtable::xtable(pmatAMatrix),
+                                     include.rownames = FALSE,
+                                     include.colnames = FALSE,
+                                     hline.after = NULL,
+                                     sanitize.text.function=identity))
+  ### # do some replacements
+  sResultTexMatrix <- gsub("tabular", "array",
+                           sResultTexMatrix[pnOutStartLine:(length(sResultTexMatrix)-pnEndIgnoreLines)],
+                           fixed = TRUE)
+  return(sResultTexMatrix)
+}
 library(pedigreemm)
 nAnzTiere <- 6
 pedA1 <- pedigree(sire = c(NA,NA,1, 1,4,4),
@@ -43,7 +60,7 @@ Eltern unbekannt        &  $1$\\
 \end{tabular}
 \end{center}
 
-F\"ur unser Beispiel-Pedigree resultieren also folgende Werte f\"ur die Diagonalelemente von Matrix $\mathbf{D}^{-1}$
+F\"ur unser Beispiel-Pedigree resultieren also folgende Werte f\"ur die Diagonalelemente von Matrix $\mathbf{D}^{-1}$. Das Diagonalelement, welches zu Tier $i$ geh\"ort bezeichnen wir auch mit $\alpha_i$.
 
 \vspace{2ex}
 \begin{center}
@@ -66,6 +83,69 @@ F\"ur unser Beispiel-Pedigree resultieren also folgende Werte f\"ur die Diagonal
 \end{tabular}
 \end{center}
 
+
+\subsection*{Regeln f\"ur $\mathbf{A}^{-1}$}
+Die Matrix $\mathbf{A}^{-1}$ wird jetzt aufgrund der folgenden Regeln aufgestellt.
+
+\begin{itemize}
+\item Initialisierung aller Elemente in $\mathbf{A}^{-1}$ mit dem Wert $0$
+\item Hat Tier $i$ bekannte Eltern $m$ und $v$ dann folgende Ver\"anderungen in $\mathbf{A}^{-1}$ vornehmen
+  \begin{itemize}
+  \item $\alpha_i$ zum Element $(i,i)$ (Zeile von Tier $i$ und Kolonne von Tier $i$) hinzuz\"ahlen
+  \item ${\alpha_i \over 2}$ von den Elementen $(m,i)$, $(i,m)$, $(v,i)$ und $(i,v)$ abziehen
+  \item ${\alpha_i \over 4}$ zu den Elementen $(m,m)$, $(m,v)$, $(v,m)$ und $(v,v)$ hinzuz\"ahlen
+  \end{itemize}
+\item Nur Elternteil $m$ von Tier $i$ ist bekannt, dann folgende Ver\"anderungen in $\mathbf{A}^{-1}$ vornehmen
+  \begin{itemize}
+  \item $\alpha_i$ zum Element $(i,i)$  hinzuz\"ahlen
+  \item ${\alpha_i \over 2}$ von den Elementen $(m,i)$ und $(i,m)$ abziehen
+  \item ${\alpha_i \over 4}$ zum Element $(m,m)$ hinzuz\"ahlen
+  \end{itemize}
+\item Tier $i$ hat keine bekannten Eltern, dann $\alpha_i$ zum Element $(i,i)$  hinzuz\"ahlen
+\end{itemize}
+
+
+\subsection*{Umsetzung der Regeln}
+Die Umsetzung der Regeln zum Aufstellen der Matrix $\mathbf{A}^{-1}$ verl\"auft gem\"ass folgenden Schritten
+
+\subsubsection*{Schritt 1}
+Initialisierung der Matrix $\mathbf{A}^{-1}$ mit $0$. Somit haben wir
+
+<<InitMatAinv, echo=FALSE, results=tex>>=
+matAInv <- matrix("0", nrow = nAnzTiere, ncol = nAnzTiere)
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInv), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+
+\subsubsection*{Schritt 2}
+Tiere $1$ und $2$ haben beide unbekannte Eltern deshalb gilt f\"ur sie die letzte der Regeln, d.h., zu den Diagonalelementen wird jeweilen das entsprechende $\alpha_i$ (d.h. $\alpha_1$ f\"ur Tier $1$ und $\alpha_2$ f\"ur Tier $2$) hinzugez\"ahlt
+
+<<FirstTwoAnimals, echo=FALSE, results=tex>>=
+alpha <- 1/Dmat(pedA1)
+nTierIdx <- 1
+matAInv[nTierIdx,nTierIdx] <- paste("+", alpha[nTierIdx], sep="")
+nTierIdx <- 2
+matAInv[nTierIdx,nTierIdx] <- paste("+", alpha[nTierIdx], sep="")
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInv), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+
+\subsubsection*{Schritt 3}
+Tier $3$ hat bekannte Eltern $1$ und $2$, somit kommt die erste Regel zur Anwendung. Als erstes wird zum Diagnoalelement von $\mathbf{A}^{-1}$ des Tieres $3$ der Betrage $\alpha_3$ dazugez\"ahlt.
+
+<<AnimalThreeDiagonal, echo=FALSE, results=tex>>=
+nTierIdx <- 3
+matAInv[nTierIdx,nTierIdx] <- paste("+", alpha[nTierIdx], sep="")
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInv), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+Als zweites werden die Offdiagonalelemente von $\mathbf{A}^{-1}$, welche das Tier $3$ mit seinen Eltern $1$ und $2$ verbindet, angeschaut. Dabei handelt es sich um die Elemente $(1,3)$, $(3,1)$, $(2,3)$ und $(3,2)$. Von diesen Elementen wird der Betrage von ${\alpha_3 \over 2}$ abgezogen
 
 \section*{Aufgabe 2 ()}
 
