@@ -512,8 +512,8 @@ solve(matLt)
     = \sqrt{\left[1 - 0.25(a_{mm} + a_{vv})\right]}$
   \item Einsetzen: $u_{ii} = \sqrt{\left[1 - 0.25
      \left(\sum_{k=1}^m u_{mk}^2 + \sum_{k=1}^v u_{vk}^2 \right) \right]}$
-  \item Diagonalelement von $\mathbf{D}^{-1}$ ist berechnet als $\alpha_i = {1\over l_{ii}^2}$
-  \item Off-Diagonalelemente sind: $l_{ij} = 0.5(l_{mj} + l_{vj})$
+  \item Diagonalelement von $\mathbf{D}^{-1}$ ist berechnet als $\alpha_i = {1\over u_{ii}^2}$
+  \item Off-Diagonalelemente sind: $u_{ij} = 0.5(u_{mj} + u_{vj})$
   \end{itemize}
 }
 

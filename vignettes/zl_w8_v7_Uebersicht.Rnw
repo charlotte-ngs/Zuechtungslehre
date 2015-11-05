@@ -107,7 +107,129 @@ navigation
 
 
 \frame{
-  \frametitle
+  \frametitle{Einf\"uhrung in R}
+  \begin{block}{Datentypen}
+    numeric, integer, complex, character, factor
+  \end{block}
+  \begin{block}{Funktionen}
+    \begin{itemize}
+    \item Funktionsdefinition
+    \item Parameter p
+    \item Funktions-Body
+    \item Allg.: \texttt{funktionsName <- function(p)\{Funktions-Body\}}
+    \end{itemize}
+  \end{block}
+  \begin{block}{Loops, Bedingungen}
+    \begin{itemize}
+    \item for-loops: \texttt{for (i in untereGrenze:obereGrenze)\{...\}}
+    \item if-Bedingungen: \texttt{if (Bedingung)\{wahr\} else \{falsch\}}
+    \end{itemize}
+  \end{block}
+}
+
+
+\frame{
+  \frametitle{Vektoren, Matrizen, Indexgleichung}
+  \begin{block}{Vektoren und Matrizen}
+    \begin{itemize}
+    \item Operationen: Addition (komponenten-weise), Skalarprodukt, Transponieren, Matrixinversion
+    \item Lineare Gleichungssysteme:
+      $\mathbf{A}*\mathbf{x} = \mathbf{b} \rightarrow \mathbf{x} = \mathbf{A}^{-1} * \mathbf{b}$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Indexgleichung}
+    \begin{itemize}
+    \item Finde Indexgewichte $\mathbf{b}$ so, dass $r_{HI}$ maximal oder $E\left[H-I\right]$ minimal
+    \item Resultat $\mathbf{P}*\mathbf{b} = \mathbf{G}*\mathbf{v} \rightarrow \mathbf{b} = \mathbf{P}^{-1} * \mathbf{G}*\mathbf{v}$
+    \end{itemize}
+  \end{block}
+
+}
+
+
+\frame{
+  \frametitle{Werte und Varianzen}
+  {\renewcommand{\arraystretch}{1.7}
+   \renewcommand{\tabcolsep}{0.2cm}
+   \begin{tabular}{|c|c|c|c|}
+   \hline
+   Genotyp  &  genotypischer Wert  &  Zuchtwert     &  Dominanzabweichung\\
+   $G_iG_j$ &  $V_{ij}$            &  $ZW_{ij}$     &  $D_{ij}$           \\
+   \hline
+   $G_1G_1$ &  $a$                 &  $2q\alpha$    &  $-2q^2d$          \\
+   \hline
+   $G_1G_2$ &  $d$                 &  $(q-p)\alpha$ & $2pqd$             \\
+   \hline
+   $G_2G_2$ &  $-a$                &  $-2p\alpha$   & $-2p^2d$           \\
+   \hline
+   \end{tabular}}
+
+   \begin{itemize}
+   \item Die genotypischen Werte k\"onnen mit folgendem Modell beschrieben werden
+      $$V_{ij} = \mu + ZW_{ij} + D_{ij}$$
+   \item Genetische Varianz
+     $$\sigma_G^2 = \sigma_A^2 + \sigma_D^2 = 2pq\alpha^2 + (2pqd)^2 $$
+   \end{itemize}
+
+}
+
+\frame{
+  \frametitle{Verwandtschaft und Inzucht}
+  \begin{block}{Verwandtschaft - direkt}
+    $$a_{xy} = \sum_{Pfade} \left({1\over 2}\right)^{t_1+t_2}(1+F_Z)$$
+    \noindent wobei $F_Z$ der Inzuchtgrad des gemeinsamen Ahnen $Z$ ist
+  \end{block}
+  \begin{block}{Inzucht}
+    $$F_i = {1 \over 2} a_{m,v}$$
+    \noindent wobei $a_{m,v}$: Verwandtschaftskoeffizient zwischen Eltern $m$ und $v$
+  \end{block}
+  \begin{block}{Verwandtschaft - rekursiv - Matrixmethode}
+    Diagonale $a_{ii} = 1 + F_i$, Neben-Diagonale: $a_{i,j} = {1\over 2} \left( a_{m,j} + a_{v,j}\right)$
+  \end{block}
+}
+
+\frame{
+  \frametitle{Inverse Verwandtschaftsmatrix}
+  \begin{block}{Regeln}
+    \begin{itemize}
+    \item Hat Tier $i$ bekannte Eltern $m$ und $v$, dann wird
+    \item $\alpha_i$ zum Element $(i,i)$ addiert
+    \item $-{\alpha_i \over 2}$ zu den Elementen $(m,i)$, $(i,m)$, $(v,i)$ und $(i,v)$
+    \item ${\alpha_i \over 4}$ zu den Elementen $(m,m)$, $(m,v)$, $(v,m)$ und $(v,v)$
+    \item Falls Elternteile fehlen, dann werden entsprechende Teile weggelassen
+    \end{itemize}
+  \end{block}
+  \begin{block}{Berechnung der $\alpha_i$}
+    unterschiedlich ob Inzucht ber\"ucksichtigt wird oder nicht
+  \end{block}
+}
+
+\frame{
+  \frametitle{Varianzkomponentensch\"atzung}
+  \begin{block}{ANOVA}
+    Aufteilung der Summenquadrate in Anteil, welcher durch Modell erkl\"arbar und Restanteil
+    (siehe R-Funktion ``anova()'')
+  \end{block}
+  \begin{block}{Likelihood-basiert}
+    \begin{itemize}
+    \item Likelihood definiert als gemeinsame Dichteverteilung aller Daten gegeben die Parameter
+    \item ML: Parametersch\"atzer, wo Likelihood maximal
+    \item REML: Likelihood nicht aufgrund von Beobachtungen, sondern aufgrund von Residuen
+    \item In R: ``lm()'', ``lme()'' oder ``nlme()''
+    \end{itemize}
+  \end{block}
+}
+\frame{
+  \frametitle{Varianzkomponentensch\"atzung II}
+  \begin{block}{Bayes}
+    \begin{itemize}
+    \item Parametersch\"atzung aufgrund der aposteriori Dichteverteilung der Parameter gegeben die Daten
+    \item Apriori Information werden bei Sch\"atzungen ber\"ucksichtigt
+    \item Sch\"atzwerte basieren auf Erwartungswert und Varianz der aposteriori Dichteverteilungen
+    \item Sind aposteriori Dichteverteilungen keine Standardverteilungen werden Momente durch numerische Integration approximiert
+    \end{itemize}
+  \end{block}
+
 }
 
 
