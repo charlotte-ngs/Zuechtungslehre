@@ -36,6 +36,10 @@ pedA1 <- pedigree(sire = c(NA,NA,1, 1,4,4),
 Das folgende kleine Beispiel-Pedigree ohne Inzucht soll als Beispiel dienen f\"ur das Aufstellen der inversen Verwandtschaftsmatrix. In der Listenform sieht das Pedigree wie folgt aus.
 
 <<pedMMOut, echo=FALSE>>=
+library(pedigreemm)
+nAnzTiere <- 6
+pedA1 <- pedigree(sire = c(NA,NA,1, 1,4,4),
+                dam  = c(NA,NA,2,NA,2,2), label= 1:nAnzTiere)
 print(pedA1)
 @
 
@@ -260,12 +264,15 @@ Die Werte $\alpha_i$ entsprechen den Diagonalelementen der Matrix $\mathbf{D}^{-
 \subsection*{Ihre Aufgabe}
 F\"ullen Sie die Tabelle mit den $\alpha$ Werten f\"ur jedes Tier aus unter Ber\"ucksichtigung von Inzucht. Dazu verwenden wir folgendes Pedigree, welches Tiere mit Inzucht aufweist.
 
-<<PedA2, echo=FALSE>>=
+<<PedA2>>=
+library(pedigreemm)
+nAnzTiere <- 6
 pedA2 <- pedigree(sire = c(NA,NA,1, 1,4,5),
                 dam  = c(NA,NA,2,NA,3,2), label= 1:nAnzTiere)
 print(pedA2)
 @
 
+Hier ist die Tabelle, in welche die $\alpha_i$ Werte eingetragen werden k\"onnen.
 \vspace{2ex}
 \begin{center}
 \begin{tabular}{|r|r|}
@@ -287,8 +294,49 @@ print(pedA2)
 \end{tabular}
 \end{center}
 
+Zur Demonstration geben wir die Berechnung der ersten drei $\alpha_i$ Werte vor.
 
-\section*{Aufgabe 3 ()}
+\subsubsection*{Schritt 1}
+Der Wert f\"ur $\alpha_1$ f\"ur Tier $1$ wird aufgrund der Gleichung (\ref{eq:AlphaComp}) berechnet.
 
+$$\alpha_1 = {1 \over u_{11}^2}$$
+
+Da Tier $1$ keine bekannten Eltern hat, reduziert sich die Formel in (\ref{eq:DiagUiiComp}) zur Berechnung von $u_{11}$ zu
+
+$$u_{11} = \sqrt{1-0.25(0+0)} = 1 $$
+
+\noindent Somit ist auch $\alpha_1 = 1$
+
+\subsubsection*{Schritt 2}
+Der Wert $\alpha_2$ f\"ur Tier $2$ wird analog zu Tier $1$ berechnet. Tier $2$ hat auch keine Eltern und somit ist auch $\alpha_2 = 1$.
+
+\subsubsection*{Schritt 3}
+Tier $3$ hat bekannte Eltern $1$ und $2$. Da $\alpha_3$ als
+
+$$\alpha_3 = {1 \over u_{33}^2}$$
+
+\noindent definiert ist, m\"ussen wir zuerst $u_{33}$ aufgrund von Gleichung (\ref{eq:DiagUiiComp}) berechnen.
+
+$$u_{33} = \sqrt{1-0.25 \left(\sum_{m=1}^1 u_{sm}^2 + \sum_{m=1}^2 u_{dm}^2 \right)}$$
+$$ = \sqrt{1-0.25 \left(u_{11}^2\right) - 0.25\left(u_{21}^2 + u_{22}^2 \right)}$$
+
+\noindent wobei $u_{11}$ und $u_{22}$ schon berechnet wurden. Den Wert f\"ur $u_{21}$ bestimmen wir mit der Gleichung (\ref{eq:DiagUijComp}). Da beide Tiere $1$ und $2$ keine bekannten Eltern haben, ist $u_{21} = 0$. Somit k\"onnen wir einsetzen und erhalten
+
+$$u_{33} = \sqrt{1-0.25 \left(1\right) - 0.25\left(0 + 1 \right)} = \sqrt{0.5}$$
+
+Daraus folgt, dass
+
+$$\alpha_3 = \frac{1}{\left(\sqrt{0.5}\right)^2} = 2$$
+
+\subsubsection*{Schritte 4 bis 6}
+Berechnen Sie die $\alpha_i$ Werte f\"ur Tiere $4$ bis $6$ und f\"ullen Sie die Tabelle aus.
+
+
+\subsection*{Zusatzaufgabe}
+Verwenden Sie die berechneten $\alpha_i$ Werte und stellen Sie die inverse Verwandtschaftsmatrix aufgrund der Regeln aus Aufgabe 1 auf. Kontrollieren Sie das Ergebnis mit der Funktion
+
+<<pedmmAinv, eval=FALSE>>=
+getAInv(pedA2)
+@
 
 \end{document}

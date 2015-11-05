@@ -1,0 +1,114 @@
+%  Example for the ETH Beamer template
+%  Copyright 2014 by
+%  Dr. Antonios Garas,
+%  Chair of Systems Design, ETH Zurich
+%  Weinbergstrasse 56/58 CH-8092 Zurich
+%
+\pdfminorversion=4
+\documentclass[
+%aspectratio=169,
+first,
+%handout,
+%compress,
+%Helv,
+ETH3, %ETH1,
+navigation
+]{ETHbeamerclass}
+
+% Options for beamer:
+%
+% compress: navigation bar becomes smaller
+% t       : place contents of frames on top (alternative: b,c)
+% handout : handoutversion
+% notes   : show notes
+% notes=onlyslideswithnotes
+%
+\setbeamertemplate{note page}{\ \\[.3cm]
+\textbf{\color{colorSG}Notes:}\\%[0.1cm]
+{\footnotesize %\tiny
+\insertnote}}
+
+\setbeameroption{hide notes}
+%\setbeameroption{show notes}
+
+\setbeamertemplate{navigation symbols}{} % suppresses all navigation symbols:
+% \setbeamertemplate{navigation symbols}[horizontal] % Organizes the navigation symbols horizontally.
+% \setbeamertemplate{navigation symbols}[vertical] % Organizes the navigation symbols vertically.
+% \setbeamertemplate{navigation symbols}[only frame symbol] % Shows only the navigational symbol for navigating frames.
+
+\usepackage{amsmath, amssymb}
+\usepackage{pifont}
+\usepackage{multimedia}
+
+%--------------------------------------------------------------------------------------------------------
+%--- Some custom definitions...
+
+\definecolor{cbf}{RGB}{199,100,95}%{163,15,0}
+\newcommand{\cbf}{\color{cbf}}
+
+\newcommand{\mean}[1]{\left\langle #1 \right\rangle}
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+%--------------------------------------------------------------------------------------------------------
+%--- Inputs for the title page...
+
+\title{\"Ubersicht und Zusammenfassung}
+\newcommand{\shorttitle}{}
+
+\author{Peter von Rohr}
+\date{\today}
+\institute{Qualitas AG}
+
+\newcommand{\collaborators}{}
+\newcommand{\event}{Folien ZL I+II}
+\newcommand{\place}{LFW C11}
+
+\newcommand{\Prob}{\mathrm{Pr}}
+\newcommand{\sign}{\mathrm{sign}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\nbin}[1]{\mathrm{nb}_\mathrm{in}(#1)}
+\newcommand{\nbout}[1]{\mathrm{nb}_\mathrm{out}(#1)}
+\newcommand{\one}{\mathbb{\bf 1}}
+
+\newcommand{\sref}[1]{SLIDE \ref{#1}}
+
+%--------------------------------------------------------------------------------------------------------
+%--- Here begins the presentation...
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\frame{
+\maketitle
+}
+\note{}
+
+
+\section{Gesamtzuchtwert}
+
+\frame{
+  \frametitle{Selektion, Zuchtziel, Gesamtzuchtwert und Index}
+  \begin{block}{Techniken in der Tierzucht}
+  \emph{Gezielte Paarung} und \emph{K\"unstliche Selektion}
+  \end{block}
+  \begin{block}{Zuchtziel}
+  Idealvorstellung eines Zuchttieres
+  \end{block}
+  \begin{block}{Gesamtzuchtwert $H$ und Index $I$}
+    \begin{itemize}
+      \item Gesamtzuchtwert $H = \mathbf{v}^T * \mathbf{g}$ entspricht der mathematische Formulierung des Zuchtziels, wobei $\mathbf{v}$: wirtschaftliche Gewichte und $\mathbf{g}$: Zuchtwerte
+      \item Index $I = \mathbf{b}^T * \mathbf{p}$ ist ein Sch\"atzer f\"ur $H$, wobei $\mathbf{b}$ Indexgewichte und $\mathbf{p}$ verf\"ugbaren Informationen (Ph\"anotypen, Nachkommendurchschnitte, gesch\"atzte Zuchtwerte, ...)
+    \end{itemize}
+
+  \end{block}
+}
+\note{}
+
+
+\frame{
+  \frametitle
+}
+
+
+\end{document}
