@@ -9,7 +9,7 @@
 
 
 \section*{Aufgabe 2 (8)}
-Es soll eine alternative L\"osung f\"ur Aufgabe 2 in \"Ubung 4 vorgestellt werden. In diesem alternativen L\"osungsansatz wird auf die Verwendung von ``if-else''-Statements verzichtet. 
+Es soll eine alternative L\"osung f\"ur Aufgabe 2 in \"Ubung 4 vorgestellt werden. In diesem alternativen L\"osungsansatz wird auf die Verwendung von ``if-else''-Statements verzichtet.
 
 In der Aufgabe war folgender Code schon gegeben.
 
