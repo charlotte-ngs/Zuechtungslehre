@@ -27,10 +27,6 @@ sGetTexMatrix <- function(pmatAMatrix, pnOutStartLine = 5, pnEndIgnoreLines = 1)
                            fixed = TRUE)
   return(sResultTexMatrix)
 }
-library(pedigreemm)
-nAnzTiere <- 6
-pedA1 <- pedigree(sire = c(NA,NA,1, 1,4,4),
-                dam  = c(NA,NA,2,NA,2,2), label= 1:nAnzTiere)
 @
 
 Das folgende kleine Beispiel-Pedigree ohne Inzucht soll als Beispiel dienen f\"ur das Aufstellen der inversen Verwandtschaftsmatrix. In der Listenform sieht das Pedigree wie folgt aus.
