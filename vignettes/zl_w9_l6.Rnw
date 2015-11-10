@@ -26,6 +26,22 @@ sGetTexMatrix <- function(pmatAMatrix, pnOutStartLine = 5, pnEndIgnoreLines = 1)
   return(sResultTexMatrix)
 }
 
+#' Parse and evaluate a matrix of strings
+#'
+#' \code{matParseEval} takes a matrix of strings and parses and evaluates the components
+#'
+mParseEval <- function(pmStringMat) {
+  nRowResultMat <- nrow(pmStringMat)
+  nColResultMat  <- ncol(pmStringMat)
+  mResultMat <- matrix(0, nrow = nRowResultMat, ncol = nColResultMat)
+  for (idx in 1:nRowResultMat){
+    for (jdx in 1:nColResultMat) {
+      mResultMat[idx,jdx] <- eval(parse(text=pmStringMat[idx,jdx]))
+    }
+  }
+  return(mResultMat)
+}
+
 #' Parse a string into a vector of function parameters
 #' @param psParseString
 #' @param psFunName
@@ -42,11 +58,41 @@ sParseString <- function(psParseString, psFunName) {
 
 
 \section*{Aufgabe 1 (5)}
-<<pedMM, echo=FALSE, results=hide>>=
+F\"ur Aufgabe 1 wurde folgendes Pedigree verwendet
+
+<<pedA1>>=
 library(pedigreemm)
 nAnzTiere <- 6
 pedA1 <- pedigree(sire = c(NA,NA,1, 1,4,4),
                 dam  = c(NA,NA,2,NA,2,2), label= 1:nAnzTiere)
+print(pedA1)
+@
+
+Die $\alpha_i$-Werte f\"ur die Tiere im Pedigree sind in folgender Tabelle aufgelistet.
+
+\vspace{2ex}
+\begin{center}
+\begin{tabular}{|r|r|}
+  \hline
+  TierId & Wert in Matrix $\mathbf{D}^{-1}$ ($\alpha_i$) \\
+  \hline
+   1 & 1.00 \\
+      \hline
+   2 & 1.00 \\
+      \hline
+   3 & 2.00 \\
+      \hline
+   4 & 1.33 \\
+      \hline
+   5 & 2.00 \\
+      \hline
+   6 & 2.00 \\
+   \hline
+\end{tabular}
+\end{center}
+
+
+<<pedMM, echo=FALSE, results=hide>>=
 ### # Aufbau der Matrix
 matAInv <- matrix("0", nrow = nAnzTiere, ncol = nAnzTiere)
 alpha <- 1/Dmat(pedA1)
@@ -78,6 +124,7 @@ matAInv[nMutterIdx,nMutterIdx] <- paste(matAInv[nMutterIdx,nMutterIdx],
                                       "+",
                                       alpha[nTierIdx]/4,
                                       sep="", collapse = "")
+mParsedEvaledAinv <- mParseEval(pmStringMat = matAInv)
 @
 
 Das direkte Aufstellen der inversen Verwandtschaftsmatrix $\mathbf{A}^{-1}$ basiert auf folgenden Regeln.
@@ -101,14 +148,35 @@ Das direkte Aufstellen der inversen Verwandtschaftsmatrix $\mathbf{A}^{-1}$ basi
 \item Tier $i$ hat keine bekannten Eltern, dann $\alpha_i$ zum Element $(i,i)$  hinzuz\"ahlen
 \end{itemize}
 
-\subsection*{Schritt 1 bis 3}
-Schritte 1 bis 3 zur Berechnung der Anteile von $\mathbf{A}^{-1}$ f\"ur Tiere 1 bis 3 wurden in der Aufgabe schon vorgegeben. Nach diesen drei Schritten sieht die Matrix $\mathbf{A}^{-1}$ wie folgt aus
+\subsection*{Schritte 1 bis 3}
+Schritte 1 bis 3 zur Berechnung der Anteile von $\mathbf{A}^{-1}$ f\"ur Tiere 1 bis 3 wurden in der Aufgabe vorgegeben. Nach diesen drei Schritten sieht die Matrix $\mathbf{A}^{-1}$ wie folgt aus
 
 <<MatAInvStepThree, echo=FALSE, results=tex>>=
 cat("$$\\mathbf{A}^{-1} = \\left[")
-cat(paste(sGetTexMatrix(pmatAMatrix = matAInv), collapse = "\n"))
+cat(paste(sGetTexMatrix(pmatAMatrix = mParsedEvaledAinv), collapse = "\n"))
 cat("\\right] $$\n")
 @
+
+\subsection*{Schritt 4}
+Tier 4 hat nur einen bekannten Elternteil. Aus der Tabelle der $\alpha_i$ Werte kann $\alpha_4 = 1.33$ bestimmt werden.  Somit werden folgende Betr\"age zu $\mathbf{A}^{-1}$ hinzugef\"ugt.
+
+<<ContribStep4, echo=FALSE, results=hide>>=
+nTierIdx <- 4
+nVaterIdx <- pedA1@sire[nTierIdx]
+@
+
+\begin{itemize}
+\item $\alpha_\Sexpr{nTierIdx} = \Sexpr{round(alpha[nTierIdx], digits=2)}$
+  zum Element $(\Sexpr{nTierIdx},\Sexpr{nTierIdx})$  hinzuz\"ahlen
+\item ${\alpha_\Sexpr{nTierIdx} \over 2} = \Sexpr{round(alpha[nTierIdx]/2, digits=2)}$
+  von den Elementen $(\Sexpr{nVaterIdx},\Sexpr{nTierIdx})$ und
+  $(\Sexpr{nTierIdx},\Sexpr{nVaterIdx})$ abziehen
+\item ${\alpha_\Sexpr{nTierIdx} \over 4} = \Sexpr{round(alpha[nTierIdx]/4, digits=2)}$
+  zum Element $(\Sexpr{nVaterIdx},\Sexpr{nVaterIdx})$ hinzuz\"ahlen
+\end{itemize}
+
+
+
 
 
 \section*{Aufgabe 2 ()}
