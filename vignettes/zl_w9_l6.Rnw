@@ -442,13 +442,13 @@ print(pedA2)
 \end{center}
 
 \subsection*{Berechnung der $\alpha_i$}
-Die $\alpha_i$ Werte entsprechen den Diagonalelementen der Matrix $\mathbf{D}^{-1}$ aus der LDL-Zerlegung der inversen Verwandtschaftsmatrix $\mathbf{A}^{-1}$. Da die Matrix $\mathbf{D}^{-1}$ und somit auch die Matrix $\mathbf{D}$ beides Diagonalmatrizen sind, lassen sich die $\alpha_i$ Werte einfach aus den Diagonalelementen $d_{i}$ der Matrix $\mathbf{D}$ berechnen. Aufgrund der Eigenschaften einer Diagonalmatrix gilt, dass
+Die $\alpha_i$ Werte entsprechen den Diagonalelementen der Matrix $\mathbf{D}^{-1}$ aus der LDL-Zerlegung der inversen Verwandtschaftsmatrix $\mathbf{A}^{-1}$. Da die Matrix $\mathbf{D}^{-1}$ und somit auch die Matrix $\mathbf{D}$ beides Diagonalmatrizen sind, lassen sich die $\alpha_i$ Werte einfach aus den Diagonalelementen $d_{ii}$ der Matrix $\mathbf{D}$ berechnen. Aufgrund der Eigenschaften einer Diagonalmatrix gilt, dass
 
 \begin{equation}
-\alpha_i = {1 \over d_i}
+\alpha_i = {1 \over d_{ii}}
 \end{equation}
 
-Aus der LDL-Zerlegung und der Cholesky-Zerlegung der Verwandtschaftsmatrix $\mathbf{A}$ k\"onnen wir die $d_i$ Werte berechnen
+Aus der LDL-Zerlegung und der Cholesky-Zerlegung der Verwandtschaftsmatrix $\mathbf{A}$ k\"onnen wir die $d_{ii}$ Werte berechnen
 
 \begin{equation}
 \mathbf{A} = \mathbf{L}*\mathbf{D}*\mathbf{L}^{T} = \mathbf{U}*\mathbf{U}^{T}
@@ -460,5 +460,54 @@ Aus der LDL-Zerlegung und der Cholesky-Zerlegung der Verwandtschaftsmatrix $\mat
 \mathbf{U} = \mathbf{L}*\mathbf{S}
 \end{equation}
 
-\noindent wobei $\mathbf{S}$ eine Diagonalmatrix ist deren Elemente $s_i = \sqrt{d_i}$ entsprechen. Da die Matrix $\mathbf{L}$ eine untere Dreiecksmatrix mit Diagonalelementen $l_i = 1$ ist, entsprechen die Diagonalelemente $u_i$ der Matrix $\mathbf{U}$ den Diagonalelementen $s_i$ der Matrix $\mathbf{S}$. Es gilt also $u_i = s_i = \sqrt{d_i}$.
+\noindent wobei $\mathbf{S}$ eine Diagonalmatrix ist deren Elemente $s_{ii} = \sqrt{d_{ii}}$ entsprechen. Da die Matrix $\mathbf{L}$ eine untere Dreiecksmatrix mit Diagonalelementen $l_{ii} = 1$ ist, entsprechen die Diagonalelemente $u_{ii}$ der Matrix $\mathbf{U}$ den Diagonalelementen $s_{ii}$ der Matrix $\mathbf{S}$. Es gilt also
+
+\begin{equation}
+u_{ii} = s_{ii} = \sqrt{d_{ii}} = {1 \over \sqrt{\alpha_i}}
+\label{eq:DiagonalUii}
+\end{equation}
+
+\noindent Diese Beziehung in Gleichung (\ref{eq:DiagonalUii}) zeigt, dass wir $\alpha_i$ aus den $u_{ii}$ berechnen k\"onnen, wobei gilt, dass aufgrund von (\ref{eq:DiagonalUii})
+$\alpha_i = {1\over u_{ii}^2}$ ist. Sobald wir also f\"ur jedes Tier $i$ das entsprechende Diagonalelement $u_{ii}$ der Matrix $\mathbf{U}$ bestimmen k\"onnen, wissen wir auch das zugeh\"orige $\alpha_i$.
+
+In der Vorlesung hatten wir gesehen, dass die Diagonalelemente von $\mathbf{D}$ berechnet werden als
+
+\begin{equation}
+d_{ii} = 1 - 0.25(a_{ss} + a_{dd})
+\label{eq:DiagonalDii}
+\end{equation}
+
+\noindent wobei $s$ und $d$ die Eltern von $i$ sind und $a_{ss}$ und $a_{dd}$ die den Eltern entsprechenden Diagonalelemente aus der Verwandtschaftsmatrix sind.
+
+\noindent Setzen wir Gleichung (\ref{eq:DiagonalDii}) in Gleichung (\ref{eq:DiagonalUii}) ein, dann folgt
+
+\begin{equation}
+u_{ii} = s_{ii} = \sqrt{d_{ii}} = \sqrt{1 - 0.25(a_{ss} + a_{dd})}
+\label{eq:DiagonalUii2}
+\end{equation}
+
+Aufgrund der Cholesky-Zerlegung von $\mathbf{A} = \mathbf{U}*\mathbf{U}^{T}$ k\"onnen die Diagonalelemente $a_{ii}$ von $\mathbf{A}$ berechnet werden als
+
+\begin{equation}
+a_{ii} = \sum_{m=1}^{i} u_{im}^2
+\label{eq:DiagonalAii}
+\end{equation}
+
+\noindent Setzen wir die Beziehung aus Gleichung (\ref{eq:DiagonalAii}) in Gleichung (\ref{eq:DiagonalUii2}) dann erhalten wir eine rekursive Formel f\"ur $u_{ii}$
+
+\begin{equation}
+u_{ii} = \sqrt{1 - 0.25(a_{ss} + a_{dd})}
+       = \sqrt{1 - 0.25(\sum_{m=1}^{s} u_{sm}^2 + \sum_{m=1}^{d} u_{dm}^2)}
+\label{eq:DiagonalUiiRekursiv}
+\end{equation}
+
+Die Nebendiagonalelemente $u_{ij}$, wobei $i\ne j$ der Matrix $\mathbf{U}$ werden berechnet als
+
+\begin{equation}
+u_{ij} = 0.5 (u_{sj} + u_{dj})
+\label{eq:OffDiagUij}
+\end{equation}
+
+\noindent wobei, $s$ und $d$ die Eltern von Tier $i$ sind.
+
 \end{document}
