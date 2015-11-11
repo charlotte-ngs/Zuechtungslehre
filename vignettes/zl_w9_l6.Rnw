@@ -42,18 +42,36 @@ mParseEval <- function(pmStringMat) {
   return(mResultMat)
 }
 
-#' Parse a string into a vector of function parameters
-#' @param psParseString
-#' @param psFunName
-#' @return vector of function parameters as strings
-sParseString <- function(psParseString, psFunName) {
-  vecFunParam <- unlist(strsplit(psParseString, psFunName, fixed = TRUE))
-  # remove empty first character
-  if (vecFunParam[1] == "") vecFunParam <- vecFunParam[2:length((vecFunParam))]
-  return(vecFunParam)
+#' Add a string to a component of a character matrix
+#'
+#' @param pmMat         input character matrix
+#' @param psPasteToComp   string to be added to matrix component
+#' @param pnRowIdx      row index of matrix component where string should be added
+#' @param pnColIdx      column index of matrix component where string should be added
+#' @return mResultMat   result matrix after adding string to component
+matPasteStringToMatrixComp <- function(pmMat, psPasteToComp, pnRowIdx, pnColIdx) {
+  mResultMat <- pmMat
+  mResultMat[pnRowIdx, pnColIdx] <- paste(mResultMat[pnRowIdx, pnColIdx], psPasteToComp, sep = "")
+  return(mResultMat)
 }
 
-#' Evaluate a function based on function name and vector of arguments
+matAddStringToMatrixComp <- function(pmMat, psPasteToComp, pnRowIdx, pnColIdx) {
+  sPlusSign <- "+"
+  sPlusComp <- paste(sPlusSign, psPasteToComp, sep = "")
+  return(matPasteStringToMatrixComp(pmMat = pmMat,
+                                    psPasteToComp = sPlusComp,
+                                    pnRowIdx = pnRowIdx,
+                                    pnColIdx = pnColIdx))
+}
+
+matSubStringFromMatrixComp <- function(pmMat, psPasteToComp, pnRowIdx, pnColIdx) {
+  sMinusSign <- "-"
+  sMinusComp <- paste(sMinusSign, psPasteToComp, sep = "")
+  return(matPasteStringToMatrixComp(pmMat = pmMat,
+                                    psPasteToComp = sMinusComp,
+                                    pnRowIdx = pnRowIdx,
+                                    pnColIdx = pnColIdx))
+}
 @
 
 
@@ -163,22 +181,284 @@ Tier 4 hat nur einen bekannten Elternteil. Aus der Tabelle der $\alpha_i$ Werte 
 <<ContribStep4, echo=FALSE, results=hide>>=
 nTierIdx <- 4
 nVaterIdx <- pedA1@sire[nTierIdx]
+nRoundAlpha4 <- round(alpha[nTierIdx], digits=2)
+nRoundAlpha4Half <- round(alpha[nTierIdx]/2, digits=2)
+nRoundAlpha4Quater <- round(alpha[nTierIdx]/4, digits=2)
 @
 
 \begin{itemize}
-\item $\alpha_\Sexpr{nTierIdx} = \Sexpr{round(alpha[nTierIdx], digits=2)}$
+\item $\alpha_\Sexpr{nTierIdx} = \Sexpr{nRoundAlpha4}$
   zum Element $(\Sexpr{nTierIdx},\Sexpr{nTierIdx})$  hinzuz\"ahlen
-\item ${\alpha_\Sexpr{nTierIdx} \over 2} = \Sexpr{round(alpha[nTierIdx]/2, digits=2)}$
+\item ${\alpha_\Sexpr{nTierIdx} \over 2} = \Sexpr{nRoundAlpha4Half}$
   von den Elementen $(\Sexpr{nVaterIdx},\Sexpr{nTierIdx})$ und
   $(\Sexpr{nTierIdx},\Sexpr{nVaterIdx})$ abziehen
-\item ${\alpha_\Sexpr{nTierIdx} \over 4} = \Sexpr{round(alpha[nTierIdx]/4, digits=2)}$
+\item ${\alpha_\Sexpr{nTierIdx} \over 4} = \Sexpr{nRoundAlpha4Quater}$
   zum Element $(\Sexpr{nVaterIdx},\Sexpr{nVaterIdx})$ hinzuz\"ahlen
 \end{itemize}
 
+\noindent Somit sieht die Matrix $\mathbf{A}^{-1}$ nach Schritt 4 wie folgt aus.
 
+<<MatAInvAfter4, echo=FALSE, results=tex>>=
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx], digits = 2),
+                                        pnRowIdx = nTierIdx,
+                                        pnColIdx = nTierIdx)
 
+nVaterIdx <- 1
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nVaterIdx)
 
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nVaterIdx,
+                                          pnColIdx = nTierIdx)
 
-\section*{Aufgabe 2 ()}
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nVaterIdx)
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = mParsedEvaledAinv), collapse = "\n"))
+cat("\\right] $$\n")
+@
 
+\subsection*{Schritte 5 und 6}
+Tiere 5 und 6 haben bekannte Eltern 4 und 2, somit werden folgende Beitr\"age zu $\mathbf{A}^{-1}$ hinzugef\"ugt.
+
+\noindent F\"ur Tier 5
+<<ContribStep5, echo=FALSE, results=hide>>=
+nTierIdx <- 5
+nVaterIdx <- pedA1@sire[nTierIdx]
+nMutterIdx <- pedA1@dam[nTierIdx]
+nRoundAlpha5 <- round(alpha[nTierIdx], digits=2)
+nRoundAlpha5Half <- round(alpha[nTierIdx]/2, digits=2)
+nRoundAlpha5Quater <- round(alpha[nTierIdx]/4, digits=2)
+@
+
+\begin{itemize}
+\item $\alpha_\Sexpr{nTierIdx} = \Sexpr{nRoundAlpha5}$
+  zum Element $(\Sexpr{nTierIdx},\Sexpr{nTierIdx})$  hinzuz\"ahlen
+\item ${\alpha_\Sexpr{nTierIdx} \over 2} = \Sexpr{nRoundAlpha5Half}$
+  von den Elementen
+  $(\Sexpr{nVaterIdx},\Sexpr{nTierIdx})$,
+  $(\Sexpr{nTierIdx},\Sexpr{nVaterIdx})$,
+  $(\Sexpr{nMutterIdx},\Sexpr{nTierIdx})$  und
+  $(\Sexpr{nTierIdx},\Sexpr{nMutterIdx})$
+  abziehen
+\item ${\alpha_\Sexpr{nTierIdx} \over 4} = \Sexpr{nRoundAlpha5Quater}$
+  zu den Elementen
+  $(\Sexpr{nVaterIdx},\Sexpr{nVaterIdx})$,
+  $(\Sexpr{nMutterIdx},\Sexpr{nMutterIdx})$,
+  $(\Sexpr{nVaterIdx},\Sexpr{nMutterIdx})$ und
+  $(\Sexpr{nMutterIdx},\Sexpr{nVaterIdx})$
+  hinzuz\"ahlen
+\end{itemize}
+
+\noindent Somit sieht die Matrix $\mathbf{A}^{-1}$ nach Schritt 5 wie folgt aus.
+
+<<MatAInvAfter5, echo=FALSE, results=tex>>=
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx], digits = 2),
+                                        pnRowIdx = nTierIdx,
+                                        pnColIdx = nTierIdx)
+
+nVaterIdx <- 4
+nMutterIdx <- 2
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nVaterIdx)
+
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nVaterIdx,
+                                          pnColIdx = nTierIdx)
+
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nMutterIdx)
+
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nMutterIdx,
+                                          pnColIdx = nTierIdx)
+
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nVaterIdx)
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nMutterIdx)
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nMutterIdx)
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nVaterIdx)
+
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = mParsedEvaledAinv), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+\noindent F\"ur Tier 6
+
+<<ContribStep6, echo=FALSE, results=hide>>=
+nTierIdx <- 6
+nVaterIdx <- pedA1@sire[nTierIdx]
+nMutterIdx <- pedA1@dam[nTierIdx]
+nRoundAlpha6 <- round(alpha[nTierIdx], digits=2)
+nRoundAlpha6Half <- round(alpha[nTierIdx]/2, digits=2)
+nRoundAlpha6Quater <- round(alpha[nTierIdx]/4, digits=2)
+@
+
+\begin{itemize}
+\item $\alpha_\Sexpr{nTierIdx} = \Sexpr{nRoundAlpha6}$
+  zum Element $(\Sexpr{nTierIdx},\Sexpr{nTierIdx})$  hinzuz\"ahlen
+\item ${\alpha_\Sexpr{nTierIdx} \over 2} = \Sexpr{nRoundAlpha6Half}$
+  von den Elementen
+  $(\Sexpr{nVaterIdx},\Sexpr{nTierIdx})$,
+  $(\Sexpr{nTierIdx},\Sexpr{nVaterIdx})$,
+  $(\Sexpr{nMutterIdx},\Sexpr{nTierIdx})$  und
+  $(\Sexpr{nTierIdx},\Sexpr{nMutterIdx})$
+  abziehen
+\item ${\alpha_\Sexpr{nTierIdx} \over 4} = \Sexpr{nRoundAlpha6Quater}$
+  zu den Elementen
+  $(\Sexpr{nVaterIdx},\Sexpr{nVaterIdx})$,
+  $(\Sexpr{nMutterIdx},\Sexpr{nMutterIdx})$,
+  $(\Sexpr{nVaterIdx},\Sexpr{nMutterIdx})$ und
+  $(\Sexpr{nMutterIdx},\Sexpr{nVaterIdx})$
+  hinzuz\"ahlen
+\end{itemize}
+
+\noindent Somit sieht die Matrix $\mathbf{A}^{-1}$ nach Schritt 6 wie folgt aus.
+
+<<MatAInvAfter5, echo=FALSE, results=tex>>=
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx], digits = 2),
+                                        pnRowIdx = nTierIdx,
+                                        pnColIdx = nTierIdx)
+
+nVaterIdx <- 4
+nMutterIdx <- 2
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nVaterIdx)
+
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nVaterIdx,
+                                          pnColIdx = nTierIdx)
+
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nMutterIdx)
+
+mParsedEvaledAinv <- matSubStringFromMatrixComp(pmMat = mParsedEvaledAinv,
+                                          psPasteToComp = round(alpha[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nMutterIdx,
+                                          pnColIdx = nTierIdx)
+
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nVaterIdx)
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nMutterIdx)
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nMutterIdx)
+mParsedEvaledAinv <- matAddStringToMatrixComp(pmMat = mParsedEvaledAinv,
+                                        psPasteToComp = round(alpha[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nVaterIdx)
+
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = mParsedEvaledAinv), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+\noindent Nach Vereinfachung der Summen haben wir folgend Matrix als Resultat
+
+<<MatAInvA1Result, echo=FALSE, results=tex>>=
+mParsedEvaledAinv <- mParseEval(pmStringMat = mParsedEvaledAinv)
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = mParsedEvaledAinv), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+\subsection*{Kontrolle}
+Als Kontrolle rechnen wir die Inverse Verwandtschaftsmatrix mit der Funktion \texttt{getAInv()}
+
+<<CheckGetAInv>>=
+(matCheckAInv <- round(as.matrix(getAInv(pedA1)), digits = 2))
+max(mParsedEvaledAinv-matCheckAInv)
+@
+
+\section*{Aufgabe 2 (7)}
+F\"ur Aufgabe 2 arbeiten wir mit einem im Vergleich zu Aufgabe 1 leicht modifizierten Pedigree.
+
+<<PedA2>>=
+library(pedigreemm)
+nAnzTiere <- 6
+pedA2 <- pedigree(sire = c(NA,NA,1, 1,4,5),
+                dam  = c(NA,NA,2,NA,3,2), label= 1:nAnzTiere)
+print(pedA2)
+@
+
+\noindent In der Aufgabenstellung wurden die $\alpha_i$ Werte f\"ur die ersten drei Tiere bereits vorgegeben.
+
+\vspace{2ex}
+\begin{center}
+\begin{tabular}{|r|r|}
+  \hline
+  TierId & Wert in Matrix $\mathbf{D}^{-1}$ ($\alpha_i$) \\
+  \hline
+   1 &  1\\
+      \hline
+   2 &  1\\
+      \hline
+   3 &  2\\
+      \hline
+   4 &  \\
+      \hline
+   5 &  \\
+      \hline
+   6 &  \\
+   \hline
+\end{tabular}
+\end{center}
+
+\subsection*{Berechnung der $\alpha_i$}
+Die $\alpha_i$ Werte entsprechen den Diagonalelementen der Matrix $\mathbf{D}^{-1}$ aus der LDL-Zerlegung der inversen Verwandtschaftsmatrix $\mathbf{A}^{-1}$. Da die Matrix $\mathbf{D}^{-1}$ und somit auch die Matrix $\mathbf{D}$ beides Diagonalmatrizen sind, lassen sich die $\alpha_i$ Werte einfach aus den Diagonalelementen $d_{i}$ der Matrix $\mathbf{D}$ berechnen. Aufgrund der Eigenschaften einer Diagonalmatrix gilt, dass
+
+\begin{equation}
+\alpha_i = {1 \over d_i}
+\end{equation}
+
+Aus der LDL-Zerlegung und der Cholesky-Zerlegung der Verwandtschaftsmatrix $\mathbf{A}$ k\"onnen wir die $d_i$ Werte berechnen
+
+\begin{equation}
+\mathbf{A} = \mathbf{L}*\mathbf{D}*\mathbf{L}^{T} = \mathbf{U}*\mathbf{U}^{T}
+\end{equation}
+
+\noindent Aus den zwei Zerlegungen von $\mathbf{A}$ folgt, dass
+
+\begin{equation}
+\mathbf{U} = \mathbf{L}*\mathbf{S}
+\end{equation}
+
+\noindent wobei $\mathbf{S}$ eine Diagonalmatrix ist deren Elemente $s_i = \sqrt{d_i}$ entsprechen. Da die Matrix $\mathbf{L}$ eine untere Dreiecksmatrix mit Diagonalelementen $l_i = 1$ ist, entsprechen die Diagonalelemente $u_i$ der Matrix $\mathbf{U}$ den Diagonalelementen $s_i$ der Matrix $\mathbf{S}$. Es gilt also $u_i = s_i = \sqrt{d_i}$.
 \end{document}
