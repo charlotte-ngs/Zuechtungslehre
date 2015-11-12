@@ -681,8 +681,202 @@ matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
                                       pnRowIdx = nTierIdx,
                                       pnColIdx = nTierIdx)
 
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nVaterIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nVaterIdx,
+                                          pnColIdx = nTierIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nMutterIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nMutterIdx,
+                                          pnColIdx = nTierIdx)
+
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nVaterIdx)
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nMutterIdx)
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nMutterIdx)
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nVaterIdx)
+
 cat("$$\\mathbf{A}^{-1} = \\left[")
 cat(paste(sGetTexMatrix(pmatAMatrix = matAInvA2), collapse = "\n"))
 cat("\\right] $$\n")
 @
+
+
+\subsubsection*{Beitr\"age aufgrund von Tier 4}
+<<MatAInvA2Tier4, echo=FALSE, results=tex>>=
+nTierIdx <- 4
+nVaterIdx <- 1
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                      psPasteToComp = round(alphaA2[nTierIdx], digits = 2),
+                                      pnRowIdx = nTierIdx,
+                                      pnColIdx = nTierIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nVaterIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nVaterIdx,
+                                          pnColIdx = nTierIdx)
+
+
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nVaterIdx)
+
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInvA2), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+
+\subsubsection*{Beitr\"age aufgrund von Tier 5}
+<<MatAInvA2Tier5, echo=FALSE, results=tex>>=
+nTierIdx <- 5
+nVaterIdx <- 4
+nMutterIdx <- 3
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                      psPasteToComp = round(alphaA2[nTierIdx], digits = 2),
+                                      pnRowIdx = nTierIdx,
+                                      pnColIdx = nTierIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nVaterIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nVaterIdx,
+                                          pnColIdx = nTierIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nMutterIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nMutterIdx,
+                                          pnColIdx = nTierIdx)
+
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nVaterIdx)
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nMutterIdx)
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nMutterIdx)
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nVaterIdx)
+
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInvA2), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+
+\subsubsection*{Beitr\"age aufgrund von Tier 6}
+<<MatAInvA2Tier6, echo=FALSE, results=tex>>=
+nTierIdx <- 6
+nVaterIdx <- 5
+nMutterIdx <- 2
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                      psPasteToComp = round(alphaA2[nTierIdx], digits = 2),
+                                      pnRowIdx = nTierIdx,
+                                      pnColIdx = nTierIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nVaterIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nVaterIdx,
+                                          pnColIdx = nTierIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nTierIdx,
+                                          pnColIdx = nMutterIdx)
+
+matAInvA2 <- matSubStringFromMatrixComp(pmMat = matAInvA2,
+                                          psPasteToComp = round(alphaA2[nTierIdx]/2, digits = 2),
+                                          pnRowIdx = nMutterIdx,
+                                          pnColIdx = nTierIdx)
+
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nVaterIdx)
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nMutterIdx)
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nVaterIdx,
+                                        pnColIdx = nMutterIdx)
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                        psPasteToComp = round(alphaA2[nTierIdx]/4, digits = 2),
+                                        pnRowIdx = nMutterIdx,
+                                        pnColIdx = nVaterIdx)
+
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInvA2), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+\noindent Nach dem Aufl\"osen aller Summen resultiert folgende Matrix
+
+<<AInvA2Result, echo=FALSE, results=tex>>=
+mParsedEvaledAinvA2 <- mParseEval(pmStringMat = matAInvA2)
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = mParsedEvaledAinvA2), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+\clearpage
+\pagebreak
+
+\noindent Zur Kontrolle vergleichen wir unser Resultat mit dem Resultat der Funktion \texttt{getAInv()}
+
+<<AInvA2Kontrolle>>=
+(matRoundAInvA2 <- round(as.matrix(getAInv(pedA2)), digits = 2))
+max(matRoundAInvA2-mParsedEvaledAinvA2)
+@
+
 \end{document}
