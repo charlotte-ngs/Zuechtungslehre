@@ -510,4 +510,179 @@ u_{ij} = 0.5 (u_{sj} + u_{dj})
 
 \noindent wobei, $s$ und $d$ die Eltern von Tier $i$ sind.
 
+
+\subsection*{Schritt 4}
+Tier 4 hat Tier 1 als Vater und keine bekannte Mutter. Mit der rekursiven Formel aus Gleichung \ref{eq:DiagonalUiiRekursiv} berechnen wir $u_{44}$ als
+
+\begin{equation}
+u_{44} = \sqrt{1 - 0.25(\sum_{m=1}^{1} u_{sm}^2)} = \sqrt{1- 0.25  * u_{11}^2} = \sqrt{0.75}
+\label{eq:DiagonalU44Rekursiv}
+\end{equation}
+
+\noindent und
+\begin{equation}
+\alpha_4 = {1\over u_{44}^2} = {1\over 0.75} = {4 \over 3} \approx 1.33
+\label{eq:DiagonalAlpha4Rekursiv}
+\end{equation}
+
+
+\subsection*{Schritt 5}
+Tier 5 hat bekannte Eltern 4 und 3. Die Formel f\"ur $u{55}$ lautet somit
+
+\begin{eqnarray}
+u_{55} & = & \sqrt{1 - 0.25(\sum_{m=1}^{4} u_{sm}^2 + \sum_{m=1}^3 u_{dm}^2)} \\
+       & = & \sqrt{1- 0.25(u_{41}^2 + u_{42}^2 + u_{43}^2 + u_{44}^2 + u_{31}^2 + u_{32}^2 + u_{33}^2)}\nonumber
+\label{eq:DiagonalU55Rekursiv}
+\end{eqnarray}
+
+\noindent Als Vorbereitung m\"ussen wir zuerst die Off-Diagonalelemente in Gleichung (\ref{eq:DiagonalU55Rekursiv}) berechnen.
+
+\begin{eqnarray}
+u_{41} & = & 0.5 * u_{11} = 0.5\nonumber\\
+u_{42} & = & 0.5 * u_{12} = 0\nonumber\\
+u_{43} & = & 0.5 * u_{13} = 0\nonumber\\
+u_{44} & = & \sqrt{0.75}\nonumber
+\label{eq:DiagonalU4jRekursiv}
+\end{eqnarray}
+
+\begin{eqnarray}
+u_{31} & = & 0.5 * (u_{11} + u_{21}) = 0.5\nonumber\\
+u_{32} & = & 0.5 * (u_{12} + u_{22}) = 0.5\nonumber\\
+u_{33} & = & \sqrt{0.5}\nonumber
+\label{eq:DiagonalU3jRekursiv}
+\end{eqnarray}
+
+\noindent Einsetzen der Werte f\"uhrt zu
+
+\begin{eqnarray}
+u_{55} & = & \sqrt{1- 0.25(0.25 + 0.75 + 0.25 + 0.25 + 0.5)} = \sqrt{0.5}
+\label{eq:DiagonalU55Result}
+\end{eqnarray}
+
+\begin{equation}
+\alpha_5 = {1\over u_{55}^2} = {1\over 0.5} = 2
+\label{eq:DiagonalAlpha5Rekursiv}
+\end{equation}
+
+
+\subsection*{Schritt 6}
+Tier 6 hat bekannte Eltern 5 und 2. Der Wert $u_{66}$ kann somit berechnet werden als
+
+\begin{eqnarray}
+u_{66} & = & \sqrt{1 - 0.25(\sum_{m=1}^{5} u_{sm}^2 + \sum_{m=1}^2 u_{dm}^2)} \\
+       & = & \sqrt{1- 0.25(u_{51}^2 + u_{52}^2 + u_{53}^2 + u_{54}^2 + u_{55}^2 + u_{21}^2 + u_{22}^2)}\nonumber
+\label{eq:DiagonalU66Rekursiv}
+\end{eqnarray}
+
+Die in Gleichung (\ref{eq:DiagonalU66Rekursiv}) verwendeten Offdiagonalelemente entsprechen
+
+\begin{eqnarray}
+u_{51} & = & 0.5*(u_{41} + u_{31}) = 0.5*(u_{41} + 0.5*(u_{11} + u_{21})) = 0.5 * (0.5 + 0.5*(1+0)) = 0.5\nonumber\\
+u_{52} & = & 0.5*(u_{42} + u_{32}) = 0.5*(u_{42} + 0.5*(u_{12} + u_{22})) = 0.5 * (0 + 0.5*(0 + 1)) = 0.25\nonumber\\
+u_{53} & = & 0.5*(u_{43} + u_{33}) = 0.5*(0 + \sqrt{0.5}) = \sqrt{0.125}\nonumber\\
+u_{54} & = & 0.5*(u_{44} + u_{34}) = 0.5 *(\sqrt{0.75} + 0) = \sqrt{3/16}\nonumber \\
+u_{55} & = & \sqrt{0.5}\nonumberˆ
+\label{eq:DiagonalU4jRekursiv}
+\end{eqnarray}
+
+\begin{eqnarray}
+u_{21}  & = & 0\nonumber\\
+u_{22}  & = & 1\nonumber
+\label{eq:DiagonalU2jRekursiv}
+\end{eqnarray}
+
+\noindent Durch Einsetzen der Offdiagonalelemente erhalten wir
+
+\begin{eqnarray}
+u_{66} & = & \sqrt{1- 0.25(1/4 + 1/16 + 1/8 + 3/16 + 1/2 + 1)} = \sqrt{15/32} \nonumber
+\label{eq:DiagonalU66Result}
+\end{eqnarray}
+
+\noindent und
+
+\begin{equation}
+\alpha_6 = {1\over u_{66}^2} = {32\over 15} \approx 2.133
+\label{eq:DiagonalAlpha6Rekursiv}
+\end{equation}
+
+Zusammengefasst in der vorgegebenen Tabelle sehen die $\alpha_i$ Werte wie folgt aus
+
+
+\vspace{2ex}
+\begin{center}
+\begin{tabular}{|r|r|}
+  \hline
+  TierId & Wert in Matrix $\mathbf{D}^{-1}$ ($\alpha_i$) \\
+  \hline
+   1 &  1\\
+      \hline
+   2 &  1\\
+      \hline
+   3 &  2\\
+      \hline
+   4 &  $4/3$\\
+      \hline
+   5 &  2\\
+      \hline
+   6 &  $32/15$\\
+   \hline
+\end{tabular}
+\end{center}
+
+Als Kontrolle k\"onnen die $\alpha_i$ Werte auch mit der Funktion \texttt{Dmat()} berechnet werden.
+
+<<AlphaPed2Kontrolle>>=
+1/Dmat(pedA2)
+@
+
+\subsection*{Zusatzaufgabe}
+Als Zusatzaufgabe sollen wir die inversen Verwandtschaftsmatrix $\mathbf{A}^{-1}$ mit den soeben berechneten $\alpha_i$ Werten aufstellen. Das Vorgehen ist gleich, wie unter Aufgabe 1 gezeigt, nur die $\alpha_i$ Werte sind anders. Im folgenden werden die Beitr\"age zur Matrix $\mathbf{A}^{-1}$ f\"ur jedes Tier aufgef\"uhrt
+
+<<pedMMA2, echo=FALSE, results=hide>>=
+### # Aufbau der Matrix
+matAInvA2 <- matrix("0", nrow = nAnzTiere, ncol = nAnzTiere)
+alphaA2 <- 1/Dmat(pedA2)
+@
+
+
+\subsubsection*{Beitrag aufgrund von Tier 1}
+<<MatAInvA2Tier1, echo=FALSE, results=tex>>=
+nTierIdx <- 1
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                      psPasteToComp = round(alphaA2[nTierIdx], digits = 2),
+                                      pnRowIdx = nTierIdx,
+                                      pnColIdx = nTierIdx)
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInvA2), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+
+\subsubsection*{Beitrag aufgrund von Tier 2}
+<<MatAInvA2Tier2, echo=FALSE, results=tex>>=
+nTierIdx <- 2
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                      psPasteToComp = round(alphaA2[nTierIdx], digits = 2),
+                                      pnRowIdx = nTierIdx,
+                                      pnColIdx = nTierIdx)
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInvA2), collapse = "\n"))
+cat("\\right] $$\n")
+@
+
+
+\subsubsection*{Beitr\"age aufgrund von Tier 3}
+<<MatAInvA2Tier3, echo=FALSE, results=tex>>=
+nTierIdx <- 3
+nVaterIdx <- 1
+nMutterIdx <- 2
+matAInvA2 <- matAddStringToMatrixComp(pmMat = matAInvA2,
+                                      psPasteToComp = round(alphaA2[nTierIdx], digits = 2),
+                                      pnRowIdx = nTierIdx,
+                                      pnColIdx = nTierIdx)
+
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInvA2), collapse = "\n"))
+cat("\\right] $$\n")
+@
 \end{document}
