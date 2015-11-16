@@ -42,7 +42,7 @@ mParseEval <- function(pmStringMat) {
   return(mResultMat)
 }
 
-#' Add a string to a component of a character matrix
+#' Paste a string to a component of a character matrix
 #'
 #' @param pmMat         input character matrix
 #' @param psPasteToComp   string to be added to matrix component
@@ -55,6 +55,17 @@ matPasteStringToMatrixComp <- function(pmMat, psPasteToComp, pnRowIdx, pnColIdx)
   return(mResultMat)
 }
 
+#' Wrapper for matPasteStringtoMatrixComp
+#'
+#' \code{matAddStringToMatrixComp} adds a number as a string
+#' to a component of a matrix. This is done using the more
+#' generic function matPasteStringToMatrixComp
+#'
+#' @param pmMat         input character matrix
+#' @param psPasteToComp   string to be added to matrix component
+#' @param pnRowIdx      row index of matrix component where string should be added
+#' @param pnColIdx      column index of matrix component where string should be added
+#' @return mResultMat   result matrix after adding string to component
 matAddStringToMatrixComp <- function(pmMat, psPasteToComp, pnRowIdx, pnColIdx) {
   sPlusSign <- "+"
   sPlusComp <- paste(sPlusSign, psPasteToComp, sep = "")
@@ -64,6 +75,17 @@ matAddStringToMatrixComp <- function(pmMat, psPasteToComp, pnRowIdx, pnColIdx) {
                                     pnColIdx = pnColIdx))
 }
 
+#' Wrapper for matPasteStringtoMatrixComp
+#'
+#' \code{matSubStringFromMatrixComp} subtracts a number as a string
+#' from a component of a matrix. This is done using the more
+#' generic function matPasteStringToMatrixComp
+#'
+#' @param pmMat         input character matrix
+#' @param psPasteToComp   string to be added to matrix component
+#' @param pnRowIdx      row index of matrix component where string should be added
+#' @param pnColIdx      column index of matrix component where string should be added
+#' @return mResultMat   result matrix after adding string to component
 matSubStringFromMatrixComp <- function(pmMat, psPasteToComp, pnRowIdx, pnColIdx) {
   sMinusSign <- "-"
   sMinusComp <- paste(sMinusSign, psPasteToComp, sep = "")
@@ -71,6 +93,71 @@ matSubStringFromMatrixComp <- function(pmMat, psPasteToComp, pnRowIdx, pnColIdx)
                                     psPasteToComp = sMinusComp,
                                     pnRowIdx = pnRowIdx,
                                     pnColIdx = pnColIdx))
+}
+
+#' Add contributions of a pedigree member to the inverse of the relationship matrix
+#'
+#' \code{matAddContribToAinv} adds the contribution of a given individual to the
+#' inverse relationship matrix.
+#'
+#' @param pmatAInv   inverse relationship matrix before adding the contribution
+#' @param pnAniIdx   index of animal, must be consistent with index in pmatAInv
+#' @param pnSireIdx  index of animals sire
+#' @param pnDamIdx   index of animals dam
+#' @param pnAlpha    alpha value to be added as a contribution for pnAniIdx
+#' @return matResultAInv   inverse relationship matrix after adding contribution fo pnAniIdx
+matAddContribToAinv <- function(pnAniIdx, pnSireIdx = NULL, pnDamIdx = NULL, pnAlpha, pmatAInv){
+  # initialize result with matrix passed as parameter
+  matResult <- pmatAInv
+  # add contribution based on pnAniIdx
+  matResult <- matAddStringToMatrixComp(pmMat = matResult,
+                                        psPasteToComp = pnAlpha,
+                                        pnRowIdx = pnAniIdx,
+                                        pnColIdx = pnAniIdx)
+  # if sire is known add contribution between pnAniIdx and sire
+  if (!is.null(pnSireIdx)){
+    matResult <- matSubStringFromMatrixComp(pmMat = matResult,
+                                            psPasteToComp = round(pnAlpha/2, digits = 2),
+                                            pnRowIdx = pnAniIdx,
+                                            pnColIdx = pnSireIdx)
+    matResult <- matSubStringFromMatrixComp(pmMat = matResult,
+                                            psPasteToComp = round(pnAlpha/2, digits = 2),
+                                            pnRowIdx = pnSireIdx,
+                                            pnColIdx = pnAniIdx)
+  }
+  # if dam is known, add contribution between pnAniIdx and dam
+  if (!is.null(pnDamIdx)){
+    matResult <- matSubStringFromMatrixComp(pmMat = matResult,
+                                            psPasteToComp = round(pnAlpha/2, digits = 2),
+                                            pnRowIdx = pnAniIdx,
+                                            pnColIdx = pnDamIdx)
+    matResult <- matSubStringFromMatrixComp(pmMat = matResult,
+                                            psPasteToComp = round(pnAlpha/2, digits = 2),
+                                            pnRowIdx = pnDamIdx,
+                                            pnColIdx = pnAniIdx)
+  }
+  # if both sire and dam are known add contribution between both of them
+  if (!is.null(pnSireIdx) & !is.null(pnDamIdx)) {
+    matResult <- matAddStringToMatrixComp(pmMat = matResult,
+                                          psPasteToComp = round(pnAlpha/4, digits = 2),
+                                          pnRowIdx = pnSireIdx,
+                                          pnColIdx = pnSireIdx)
+    matResult <- matAddStringToMatrixComp(pmMat = matResult,
+                                          psPasteToComp = round(pnAlpha/4, digits = 2),
+                                          pnRowIdx = pnDamIdx,
+                                          pnColIdx = pnDamIdx)
+    matResult <- matAddStringToMatrixComp(pmMat = matResult,
+                                          psPasteToComp = round(pnAlpha/4, digits = 2),
+                                          pnRowIdx = pnSireIdx,
+                                          pnColIdx = pnDamIdx)
+    matResult <- matAddStringToMatrixComp(pmMat = matResult,
+                                          psPasteToComp = round(pnAlpha/4, digits = 2),
+                                          pnRowIdx = pnDamIdx,
+                                          pnColIdx = pnSireIdx)
+
+  }
+  # all contributions added, return result
+  return(matResult)
 }
 @
 
@@ -406,6 +493,7 @@ Als Kontrolle rechnen wir die Inverse Verwandtschaftsmatrix mit der Funktion \te
 (matCheckAInv <- round(as.matrix(getAInv(pedA1)), digits = 2))
 max(mParsedEvaledAinv-matCheckAInv)
 @
+
 
 \section*{Aufgabe 2 (7)}
 F\"ur Aufgabe 2 arbeiten wir mit einem im Vergleich zu Aufgabe 1 leicht modifizierten Pedigree.
@@ -877,6 +965,24 @@ cat("\\right] $$\n")
 <<AInvA2Kontrolle>>=
 (matRoundAInvA2 <- round(as.matrix(getAInv(pedA2)), digits = 2))
 max(matRoundAInvA2-mParsedEvaledAinvA2)
+@
+
+\subsection*{In einem Schritt mit der neuen Funktion}
+
+<<NewAddContribFunction>>=
+matAInvA2 <- matrix("0", nrow = nAnzTiere, ncol = nAnzTiere)
+alphaA2 <- 1/Dmat(pedA2)
+# loop over pedigree
+for (nPedIdx in 1:nAnzTiere) {
+  matAInvA2 <-  matAddContribToAinv(pnAniIdx = nPedIdx,
+                                    pnSireIdx = NULL,
+                                    pnDamIdx = NULL,
+                                    pnAlpha,
+                                    pmatAInv = matAInvA2)
+}
+
+
+
 @
 
 \end{document}
