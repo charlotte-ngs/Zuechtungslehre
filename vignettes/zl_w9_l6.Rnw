@@ -106,16 +106,16 @@ matSubStringFromMatrixComp <- function(pmMat, psPasteToComp, pnRowIdx, pnColIdx)
 #' @param pnDamIdx   index of animals dam
 #' @param pnAlpha    alpha value to be added as a contribution for pnAniIdx
 #' @return matResultAInv   inverse relationship matrix after adding contribution fo pnAniIdx
-matAddContribToAinv <- function(pnAniIdx, pnSireIdx = NULL, pnDamIdx = NULL, pnAlpha, pmatAInv){
+matAddContribToAinv <- function(pnAniIdx, pnSireIdx = NA, pnDamIdx = NA, pnAlpha, pmatAInv){
   # initialize result with matrix passed as parameter
   matResult <- pmatAInv
   # add contribution based on pnAniIdx
   matResult <- matAddStringToMatrixComp(pmMat = matResult,
-                                        psPasteToComp = pnAlpha,
+                                        psPasteToComp = round(pnAlpha, digits = 2),
                                         pnRowIdx = pnAniIdx,
                                         pnColIdx = pnAniIdx)
   # if sire is known add contribution between pnAniIdx and sire
-  if (!is.null(pnSireIdx)){
+  if (!is.na(pnSireIdx)){
     matResult <- matSubStringFromMatrixComp(pmMat = matResult,
                                             psPasteToComp = round(pnAlpha/2, digits = 2),
                                             pnRowIdx = pnAniIdx,
@@ -126,7 +126,7 @@ matAddContribToAinv <- function(pnAniIdx, pnSireIdx = NULL, pnDamIdx = NULL, pnA
                                             pnColIdx = pnAniIdx)
   }
   # if dam is known, add contribution between pnAniIdx and dam
-  if (!is.null(pnDamIdx)){
+  if (!is.na(pnDamIdx)){
     matResult <- matSubStringFromMatrixComp(pmMat = matResult,
                                             psPasteToComp = round(pnAlpha/2, digits = 2),
                                             pnRowIdx = pnAniIdx,
@@ -137,7 +137,7 @@ matAddContribToAinv <- function(pnAniIdx, pnSireIdx = NULL, pnDamIdx = NULL, pnA
                                             pnColIdx = pnAniIdx)
   }
   # if both sire and dam are known add contribution between both of them
-  if (!is.null(pnSireIdx) & !is.null(pnDamIdx)) {
+  if (!is.na(pnSireIdx) & !is.na(pnDamIdx)) {
     matResult <- matAddStringToMatrixComp(pmMat = matResult,
                                           psPasteToComp = round(pnAlpha/4, digits = 2),
                                           pnRowIdx = pnSireIdx,
@@ -975,14 +975,25 @@ alphaA2 <- 1/Dmat(pedA2)
 # loop over pedigree
 for (nPedIdx in 1:nAnzTiere) {
   matAInvA2 <-  matAddContribToAinv(pnAniIdx = nPedIdx,
-                                    pnSireIdx = NULL,
-                                    pnDamIdx = NULL,
-                                    pnAlpha,
+                                    pnSireIdx = pedA2@sire[nPedIdx],
+                                    pnDamIdx = pedA2@dam[nPedIdx],
+                                    pnAlpha = alphaA2[nPedIdx],
                                     pmatAInv = matAInvA2)
 }
+@
 
+<<NewAinvDisplay, echo=FALSE, results=tex>>=
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matAInvA2), collapse = "\n"))
+cat("\\right] $$\n")
+@
 
+Die Matrix mit den ausgewerteten Summen
 
+<<NewAinvEval, echo=FALSE, results=tex>>=
+cat("$$\\mathbf{A}^{-1} = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = mParseEval(pmStringMat = matAInvA2)), collapse = "\n"))
+cat("\\right] $$\n")
 @
 
 \end{document}

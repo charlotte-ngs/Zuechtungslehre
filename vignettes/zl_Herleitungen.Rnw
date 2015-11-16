@@ -1,0 +1,33 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Z\"uchtungslehre - Herleitungen}
+\author{Peter von Rohr}
+\maketitle
+
+
+\section*{Erkl\"arung}
+Auf den Folien des ersten Teils der Vorlesung Z\"uchtungslehre wurden aus Platzgr\"unden die Herleitungen von einigen Formeln weggelassen. Diese Herleitungen werden in diesem Dokument zusammengefasst. Das hier gezeigte Material soll als zus\"atzliche Erkl\"arung und als Hilfestellung dienen und nicht den Pr\"ufungsstoff erweitern.
+
+\section{Selektionsindex}
+In der Vorlesung wurde der Selektionsindex $I$ als Sch\"atzer f\"ur den Gesamtzuchtwert $H$ vorgestellt. Der Gesamtzuchtwert $H$ entspricht der mathematischen Formulierung unseres Zuchtziels. Er ist definiert als
+
+\begin{equation}
+H = \mathbf{v}^T * \mathbf{g}
+\label{eq:TotalGeneticMerit}
+\end{equation}
+
+\noindent wobei $\mathbf{v}$ der Vektor der wirtschaftlichen Gewichte der Merkmale im Gesamtzuchtwert ist und $\mathbf{g}$ der Vektor der wahren Zuchtwerte der Merkmale im Gesamtzuchtwert.
+
+
+
+\section{Genetische Varianz f\"ur das Ein-Lokus Modell}
+
+
+\section{Varianz der Mendelian Sampling Komponente}
+
+
+
+\end{document}

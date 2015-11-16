@@ -3,13 +3,13 @@
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 
-\title{Z\"uchtungslehre - \"Ubung }
+\title{Z\"uchtungslehre - Herleitungen }
 \author{Peter von Rohr}
 \maketitle
 
 
-\section*{Aufgabe 1 ()}
-\label{sec:Aufgabe1}
+\section*{Erkl\"arung}
+
 
 
 \section*{Aufgabe 2 ()}
