@@ -39,10 +39,34 @@ I = \mathbf{b}^T * \mathbf{p}
 \noindent wobei: $\mathbf{b}$ der Vektor der Indexgewichte ist und $\mathbf{p}$ der Vektor der verf\"ugbaren Informationsquellen.
 
 \subsection{Informationsquellen im Selektionsindex}
-Im einfachsten Fall sind im Gesamtzuchtwert und im Selektionsindex die gleichen Merkmale enthalten. In diesem Fall werden als Informationsquellen die aus dem Tiermodell gesch\"atzten Zuchtwerte verwendet und dann entsprechen die Indexgewichte den wirtschaftlichen Gewichten.
+Im einfachsten Fall sind im Gesamtzuchtwert und im Selektionsindex die gleichen Merkmale enthalten. In diesem Fall werden als Informationsquellen die aus dem Tiermodell gesch\"atzten Zuchtwerte oder genomische Zuchtwerte verwendet und dann entsprechen die Indexgewichte den wirtschaftlichen Gewichten.
 
 Hat es in einem Gesamtzuchtwert Merkmale, welche nur schwer messbar sind, oder welche erst sp\"at im Leben eines Tieres beobachtbar sind, dann werden h\"aufig Hilfsmerkmale im Selektionsindex ber\"ucksichtigt. Diese Hilfsmerkmale m\"ussen eine hohe Korrelation zum eigentlichen Merkmal aufweisen, einfach messbar sein und m\"oglichst fr\"uh im Leben eines Tieres beobachtbar sein.
 
+Zusammenfassend kann gesagt werden, dass im Selektionsindex nach M\"oglichkeit die gleichen Merkmale wie im Gesamtzuchtwert verwendet werden. Falls dies zu teuer oder schwer umsetzbar ist, dann werden im Selektionsindex Hilfsmerkmale verwendet. Der Vektor $\mathbf{p}$ ist somit gegeben. Die verbleibende Unbekannte ist der Vektor $\mathbf{b}$ mit den Indexgewichten.
+
+\subsection{Herleitung der Indexgewichte}
+Der Vektor $\mathbf{b}$ mit Indexgewichten wird so bestimmt, dass folgende Kriterien erf\"ullt sind.
+
+\begin{enumerate}
+\item Die Varianz der Abweichung zwischen $H$ und $I$ soll minimal sein, oder
+\item Die Korrelation zwischen $H$ und $I$ soll maximal sein
+\end{enumerate}
+
+\subsubsection{Minimierung der Varianz der Abweichungen}
+Die Varianz der Abweichung zwischen Gesamtzuchtwert $H$ und und Selektionsindex $I$ wird wie folgt minimiert.
+
+\begin{eqnarray}
+Var\left( H-I \right) & = & Var\left( \mathbf{v}^T*\mathbf{g} - \mathbf{b}^T * \mathbf{p} \right) \\
+ & = & Var\left( \mathbf{v}^T*\mathbf{g} \right) +  Var\left( \mathbf{b}^T * \mathbf{p} \right)
+       - 2*Cov \left( \mathbf{v}^T*\mathbf{g}, \mathbf{b}^T * \mathbf{p} \right) \nonumber \\
+ & = & \mathbf{v}^T * Var\left( \mathbf{g} \right) * \mathbf{v}
+       +  \mathbf{b}^T * Var\left( \mathbf{p} \right) * \mathbf{b}
+       - 2 * \mathbf{v}^T * Cov \left( \mathbf{g}, \mathbf{p} \right) * \mathbf{b} \nonumber \\
+ & = & \mathbf{v}^T * \mathbf{G} * \mathbf{v}
+       +  \mathbf{b}^T * \mathbf{P} * \mathbf{b}
+       - 2 * \mathbf{v}^T * \mathbf{C} * \mathbf{b} \nonumber
+\end{eqnarray}
 
 
 \section{Genetische Varianz f\"ur das Ein-Lokus Modell}
