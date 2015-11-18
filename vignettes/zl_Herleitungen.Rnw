@@ -55,17 +55,83 @@ Der Vektor $\mathbf{b}$ mit Indexgewichten wird so bestimmt, dass folgende Krite
 
 \subsubsection{Minimierung der Varianz der Abweichungen}
 Die Varianz der Abweichung zwischen Gesamtzuchtwert $H$ und und Selektionsindex $I$ wird wie folgt minimiert.
+Dabei gilt es zu beachten, dass der Vektor der Indexgewichte $\mathbf{b}$ als unbekannte Gr\"osse gesucht wird.
 
 \begin{eqnarray}
-Var\left( H-I \right) & = & Var\left( \mathbf{v}^T*\mathbf{g} - \mathbf{b}^T * \mathbf{p} \right) \\
+Var\left( H-I \right) & = & Var\left(H\right) + Var\left(I\right) - 2*Cov\left(H,I\right) \\
  & = & Var\left( \mathbf{v}^T*\mathbf{g} \right) +  Var\left( \mathbf{b}^T * \mathbf{p} \right)
        - 2*Cov \left( \mathbf{v}^T*\mathbf{g}, \mathbf{b}^T * \mathbf{p} \right) \nonumber \\
  & = & \mathbf{v}^T * Var\left( \mathbf{g} \right) * \mathbf{v}
        +  \mathbf{b}^T * Var\left( \mathbf{p} \right) * \mathbf{b}
        - 2 * \mathbf{v}^T * Cov \left( \mathbf{g}, \mathbf{p} \right) * \mathbf{b} \nonumber \\
- & = & \mathbf{v}^T * \mathbf{G} * \mathbf{v}
+ & = & \mathbf{v}^T * \mathbf{C} * \mathbf{v}
        +  \mathbf{b}^T * \mathbf{P} * \mathbf{b}
-       - 2 * \mathbf{v}^T * \mathbf{C} * \mathbf{b} \nonumber
+       - 2 * \mathbf{v}^T * \mathbf{G} * \mathbf{b} \nonumber
+\label{eq:MinVarHMinI}
+\end{eqnarray}
+\noindent wobei $\mathbf{C}$ die Covarianzmatrix zwischen den Merkmalen im Gesamtzuchtwert ist,
+$\mathbf{P}$ die Covarianzmatrix zwischen den Merkmalen im Selektionsindex ist, und
+$\mathbf{C}$ die Covarianzmatrix zwischen den Merkmalen im Gesamtzuchtwert und den
+Merkmalen im Selektionsindex ist.
+
+In der Herleitung der Varianz der Abweichung des Selektionsindexes vom Gesamtzuchtwert in Gleichung
+(\ref{eq:MinVarHMinI}) wird im ersten Schritt die Definition der Varianz einer Differenz angewendet. Danach
+werden die Definitionen von $H$ und $I$ eingesetzt. Aus der Entwicklung der Formeln in Gleichung
+(\ref{{eq:MinVarHMinI}}) k\"onnen folgende Beziehungen zur Varianz des Gesamtzuchtwertes, zur Varianz
+des Selektionsindexes und zur Covarianz zwischen Gesamtzuchtwert und Selektionsindex abgeleitet werden.
+
+\begin{eqnarray}
+Var\left(H\right)   & = & \mathbf{v}^T * \mathbf{C} * \mathbf{v} \\
+Var\left(I\right)   & = & \mathbf{b}^T * \mathbf{P} * \mathbf{b} \nonumber\\
+Cov\left(H,I\right) & = & \mathbf{v}^T * \mathbf{G} * \mathbf{b} \nonumber
+\end{eqnarray}
+
+
+Zum Minimieren von $Var\left( H-I \right)$ muss dieser Ausdruck in Gleichung (\ref{eq:MinVarHMinI})
+nach $\mathbf{b}$ abgeleitet werden. Dabei gilt es zu beachten, dass die quadratische Form
+$\mathbf{b}^T * \mathbf{P} * \mathbf{b}$ analog zur skalaren Funktion $x^2$ abgeleitet wird, d.h.
+der quadratische Exponent wird in der Ableitung zum Faktor $2$ und Grad der Funktion wird um eins
+reduziert, d.h. aus der quadratischen Form wird in der Ableitung die lineare Form
+$\mathbf{P} * \mathbf{b}$. Der Term $\mathbf{v}^T * \mathbf{C} * \mathbf{v}$
+ist unabh\"angig von $\mathbf{b}$, d.h. es kommt darin kein $\mathbf{b}$ vor und deshalb f\"allt dieser
+Term bei der Ableitung heraus. Der letzte Term in Gleichung \ref{eq:MinVarHMinI} zeigt eine lineare
+Abh\"angigkeit in $\mathbf{b}$, was bedeutet, dass in der Ableitung noch der Konstante Faktor
+$- 2 * \mathbf{v}^T * \mathbf{G}$ \"ubrig bleibt. Damit die Ableitung bez\"ugliche der Dimensionen
+der enthaltenen Vektoren $\mathbf{P} * \mathbf{b}$ und $\mathbf{v}^T * \mathbf{G}$ konsistent wird,
+und da die Matrix $\mathbf{G}$ symmatrisch ist, transponieren wir den Ausdruck
+$\mathbf{v}^T * \mathbf{G}$ zu $\mathbf{G} * \mathbf{v}$.
+
+\begin{eqnarray}
+\frac{\partial Var\left(H-I\right)}{\partial\mathbf{b}} &=& 2*\mathbf{P} * \mathbf{b} - 2 * \mathbf{G} * \mathbf{v}
+\label{eq:DiffVarB}
+\end{eqnarray}
+
+Die in Gleichung (\ref{eq:DiffVarB}) gezeigte Ableitung wird $=0$ gesetzt und daraus kann dann der
+unbekannte Vektor $\mathbf{b}$ berechnet werden.
+
+\begin{eqnarray}
+\frac{\partial Var\left(H-I\right)}{\partial\mathbf{b}} &=& 2*\mathbf{P} * \mathbf{b} - 2 * \mathbf{G} * \mathbf{v} = 0\\
+2*\mathbf{P} * \mathbf{b}                               &=& 2 * \mathbf{G} * \mathbf{v}\nonumber\\
+\mathbf{P} * \mathbf{b}                                 &=& \mathbf{G} * \mathbf{v}\nonumber
+\label{eq:SolDiffVarB}
+\end{eqnarray}
+
+Die letzte Zeile in Gleichung (\ref{eq:SolDiffVarB}) entspricht den in der Vorlesung vorgestellten Indexgleichungen.
+Werden diese Gleichungen nach $\mathbf{b}$ aufgel\"ost, dann erhalten wir f\"ur den unbekannten Vektor $\mathbf{b}$ der
+Indexgewichte folgende Beziehung.
+
+\begin{eqnarray}
+\mathbf{b}  &=& \mathbf{P}^{-1} * \mathbf{G} * \mathbf{v}
+\label{eq:SolVecB}
+\end{eqnarray}
+
+
+\subsubsection{Maximierung der Korrelation zwischen Selektionsindex und Gesamtzuchtwert}
+Die Korrelation zwischen Selektionsindex und Gesamtzuchtwert wird als $r_{IH}$ bezeichnet und hat folgende Form.
+
+\begin{eqnarray}
+r_{IH} &=& \frac{Cov(I,H)}{\sqrt{Var(I) * Var(H)}}
+\label{eq:CorIH}
 \end{eqnarray}
 
 
