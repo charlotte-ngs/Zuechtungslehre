@@ -77,7 +77,7 @@ Merkmalen im Selektionsindex ist.
 In der Herleitung der Varianz der Abweichung des Selektionsindexes vom Gesamtzuchtwert in Gleichung
 (\ref{eq:MinVarHMinI}) wird im ersten Schritt die Definition der Varianz einer Differenz angewendet. Danach
 werden die Definitionen von $H$ und $I$ eingesetzt. Aus der Entwicklung der Formeln in Gleichung
-(\ref{{eq:MinVarHMinI}}) k\"onnen folgende Beziehungen zur Varianz des Gesamtzuchtwertes, zur Varianz
+(\ref{eq:MinVarHMinI}) k\"onnen folgende Beziehungen zur Varianz des Gesamtzuchtwertes, zur Varianz
 des Selektionsindexes und zur Covarianz zwischen Gesamtzuchtwert und Selektionsindex abgeleitet werden.
 
 \begin{eqnarray}
@@ -88,7 +88,8 @@ Cov\left(H,I\right) & = & \mathbf{v}^T * \mathbf{G} * \mathbf{b} \nonumber
 
 
 Zum Minimieren von $Var\left( H-I \right)$ muss dieser Ausdruck in Gleichung (\ref{eq:MinVarHMinI})
-nach $\mathbf{b}$ abgeleitet werden. Dabei gilt es zu beachten, dass die quadratische Form
+nach $\mathbf{b}$ abgeleitet werden (Siehe Anhang \ref{sec:AbleitungVektor} f\"ur eine allgemeine
+Erkl\"arung von Ableitungen nach Vektoren). Dabei gilt es zu beachten, dass die quadratische Form
 $\mathbf{b}^T * \mathbf{P} * \mathbf{b}$ analog zur skalaren Funktion $x^2$ abgeleitet wird, d.h.
 der quadratische Exponent wird in der Ableitung zum Faktor $2$ und Grad der Funktion wird um eins
 reduziert, d.h. aus der quadratischen Form wird in der Ableitung die lineare Form
@@ -96,10 +97,7 @@ $\mathbf{P} * \mathbf{b}$. Der Term $\mathbf{v}^T * \mathbf{C} * \mathbf{v}$
 ist unabh\"angig von $\mathbf{b}$, d.h. es kommt darin kein $\mathbf{b}$ vor und deshalb f\"allt dieser
 Term bei der Ableitung heraus. Der letzte Term in Gleichung \ref{eq:MinVarHMinI} zeigt eine lineare
 Abh\"angigkeit in $\mathbf{b}$, was bedeutet, dass in der Ableitung noch der Konstante Faktor
-$- 2 * \mathbf{v}^T * \mathbf{G}$ \"ubrig bleibt. Damit die Ableitung bez\"ugliche der Dimensionen
-der enthaltenen Vektoren $\mathbf{P} * \mathbf{b}$ und $\mathbf{v}^T * \mathbf{G}$ konsistent wird,
-und da die Matrix $\mathbf{G}$ symmatrisch ist, transponieren wir den Ausdruck
-$\mathbf{v}^T * \mathbf{G}$ zu $\mathbf{G} * \mathbf{v}$.
+$- 2 * \mathbf{G} * \mathbf{v}$ \"ubrig bleibt.
 
 \begin{eqnarray}
 \frac{\partial Var\left(H-I\right)}{\partial\mathbf{b}} &=& 2*\mathbf{P} * \mathbf{b} - 2 * \mathbf{G} * \mathbf{v}
@@ -127,12 +125,72 @@ Indexgewichte folgende Beziehung.
 
 
 \subsubsection{Maximierung der Korrelation zwischen Selektionsindex und Gesamtzuchtwert}
-Die Korrelation zwischen Selektionsindex und Gesamtzuchtwert wird als $r_{IH}$ bezeichnet und hat folgende Form.
+Die Korrelation zwischen Selektionsindex und Gesamtzuchtwert wird als $r_{H,I}$ bezeichnet und hat folgende Form.
 
 \begin{eqnarray}
-r_{IH} &=& \frac{Cov(I,H)}{\sqrt{Var(I) * Var(H)}}
+r_{H,I} &=& \frac{Cov(H,I)}{\sqrt{Var(I) * Var(H)}}
 \label{eq:CorIH}
 \end{eqnarray}
+
+Das Ziel hier ist wiederum die Bestimmung des unbekannten Vektors der Indexgewichte $\mathbf{b}$ so, dass die
+Korrelation $r_{H,I}$ maximal wird. Zu diesem Zweck muss wieder die Ableitung von $r_{H,I}$ nach $\mathbf{b}$
+berechnet und dann gleich $0$ gesetzt werden. Derjenige Vektor f\"ur $\mathbf{b}$, welcher dabei herauskommt,
+ist dann unser gesuchter Vektor der Indexgewichte. Als Vereinfachung werden wir anstelle von der Ableitung von
+$r_{H,I}$ nach $\mathbf{b}$ die Ableitung vom nat\"urlichen Logarithmus von $r_{H,I}$ nach $\mathbf{b}$ berechnen.
+Dies ist wie gesagt einfacher und wird zum gleichen Ergebnis f\"ur $\mathbf{b}$ f\"uhren.
+
+\begin{eqnarray}
+\log \left(r_{H,I} \right) &=& \log \left(\frac{Cov(H,I)}{\sqrt{Var(I) * Var(H)}} \right)\\
+ &=& \log \left( Cov(H,I) \right) - {1 \over 2} \log \left( Var(I) \right) - {1 \over 2} \log \left( Var(H) \right) \nonumber\\
+ &=& \log \left( \mathbf{v}^T * \mathbf{G} * \mathbf{b} \right)
+     - {1 \over 2} \log \left( \mathbf{b}^T * \mathbf{P} * \mathbf{b} \right)
+     - {1 \over 2} \log \left( \mathbf{v}^T * \mathbf{C} * \mathbf{v}\right) \nonumber
+\label{eq:LogCorIH}
+\end{eqnarray}
+
+Die Ableitung von $\log \left(r_{H,I} \right)$ nach $\mathbf{b}$ wird wie folgt berechnet.
+
+\begin{eqnarray}
+\frac{\partial \log \left(r_{H,I} \right)}{\partial \mathbf{b}}
+  &=& \frac{\mathbf{G} * \mathbf{v}}{\mathbf{v}^T * \mathbf{G} * \mathbf{b}}
+      - {1 \over 2} \frac{2 * \mathbf{P} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}}
+      - {1 \over 2} \frac{0}{\mathbf{v}^T * \mathbf{C} * \mathbf{v}} \\
+  &=& \frac{\mathbf{G} * \mathbf{v}}{\mathbf{v}^T * \mathbf{G} * \mathbf{b}}
+     - \frac{\mathbf{P} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}} \nonumber\\
+  &=& \frac{\mathbf{b}^T * \mathbf{P} * \mathbf{b} * \mathbf{G} * \mathbf{v}
+             - \mathbf{v}^T * \mathbf{G} * \mathbf{b} * \mathbf{P} * \mathbf{b}}
+           {\mathbf{v}^T * \mathbf{G} * \mathbf{b} * \mathbf{b}^T * \mathbf{P} * \mathbf{b}}
+\label{eq:AblLogCorIH}
+\end{eqnarray}
+
+Das Maximum von $\log \left(r_{H,I} \right)$ finden wir durch Nullsetzen von
+$$\frac{\partial \log \left(r_{H,I} \right)}{\partial \mathbf{b}} = 0$$
+
+Daraus folgt, dass
+\begin{eqnarray}
+\mathbf{b}^T * \mathbf{P} * \mathbf{b} * \mathbf{G} * \mathbf{v}
+             &=& \mathbf{v}^T * \mathbf{G} * \mathbf{b} * \mathbf{P} * \mathbf{b}\\
+\mathbf{G} * \mathbf{v} &=& \frac{\mathbf{v}^T * \mathbf{G} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}}
+                            * \mathbf{P} * \mathbf{b} \nonumber
+\label{eq:SolMaxCorIH}
+\end{eqnarray}
+
+Ber\"ucksichtigen wir hier zus\"atzlich die Anforderung, dass der Selektionsindex $I$
+ein erwartungstreuer Sch\"atzer vom Gesamtzuchtwert $H$ sein soll, dann folgt, dass
+der Regressionskoeffizient $b_{H,I}$ vom Gesamtzuchtwert auf den Selektionsindex $=1$
+sein muss. Aus dieser Anforderung folgt dann, dass
+
+\begin{eqnarray}
+b_{H,I} &=& \frac{Cov(H,I)}{Var(I)} \\
+        &=& \frac{\mathbf{v}^T * \mathbf{G} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}} \nonumber\\
+        &=& 1 \nonumber
+\label{eq:RegCoefIH}
+\end{eqnarray}
+
+Setzen wir die Bedingung von Gleichung (\ref{eq:RegCoefIH}) in Gleichung (\ref{eq:SolMaxCorIH}) ein dann folgen die uns
+bekannten Indexgleichungen.
+
+$$\mathbf{G} * \mathbf{v} = \mathbf{P} * \mathbf{b}$$
 
 
 \section{Genetische Varianz f\"ur das Ein-Lokus Modell}
@@ -141,5 +199,8 @@ r_{IH} &=& \frac{Cov(I,H)}{\sqrt{Var(I) * Var(H)}}
 \section{Varianz der Mendelian Sampling Komponente}
 
 
+\appendix
 
+\section{Ableitungen nach Vektoren}
+\label{sec:AbleitungVektor}
 \end{document}
