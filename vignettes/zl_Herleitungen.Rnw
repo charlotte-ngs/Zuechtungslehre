@@ -84,6 +84,7 @@ des Selektionsindexes und zur Covarianz zwischen Gesamtzuchtwert und Selektionsi
 Var\left(H\right)   & = & \mathbf{v}^T * \mathbf{C} * \mathbf{v} \\
 Var\left(I\right)   & = & \mathbf{b}^T * \mathbf{P} * \mathbf{b} \nonumber\\
 Cov\left(H,I\right) & = & \mathbf{v}^T * \mathbf{G} * \mathbf{b} \nonumber
+\label{eq:VarCovSelInd}
 \end{eqnarray}
 
 
@@ -194,6 +195,38 @@ $$\mathbf{G} * \mathbf{v} = \mathbf{P} * \mathbf{b}$$
 
 
 \section{Genetische Varianz f\"ur das Ein-Lokus Modell}
+In der Vorlesung wurde das Konzept der genotypischen Werte f\"ur einen Locus mit zwei Allelen in einer Population im Hardy-Weinberg-Gleichgewicht vorgestellt. Dieses Konzept l\"asst sich mit folgendem Diagramm veranschaulichen
+
+\includegraphics[width=\textwidth]{figure/w3/GenotypischerWert}
+
+Unter der Annahme, dass die das Allel $G_1$ mit einer H\"aufigkeit von $p$ in der Population auftritt, k\"onnen die Frequenzen der Genotypen und ihre zugeh\"origen genotypischen Werten in folgender Tabelle zusammengefasst werden.
+
+\begin{center}
+  \begin{tabular}{|l|c|c|}
+  \hline
+  Genotyp  &  genotypischer Wert & Frequenz\\
+  \hline
+  $G_1G_1$  &  $V_{11} = a$ & $f(G_1G_1) = p^2$\\
+  \hline
+  $G_1G_2$  &  $V_{12} = d$ & $f(G_1G_2) = 2pq$\\
+  \hline
+  $G_2G_2$  &  $V_{22} = -a$ & $f(G_2G_2) = q^2$\\
+  \hline
+  \end{tabular}
+\end{center}
+
+\subsection{Populationsmittel}
+Als erste Kenngr\"osse f\"ur die genotypischen Werte in einer bestimmten Population hatten wir das \emph{Populationsmittel} berechnet. Das Populationsmittel ist als Erwartungswert der Zufallsvariablen der genotypischen Werte $V$ definiert. Allgemein
+ist ein Erwartungswert f\"ur eine diskrete Zufallsvariable definiert als
+
+\begin{equation}
+E\left[X\right] = \sum_{x_i\in \mathcal{X}} x_i* f(x_i)
+\label{eq:DefExpDiscRV}
+\end{equation}
+  \begin{tabular}{p{1cm}p{1cm}p{6cm}}
+  wobei & $\mathcal{X}$: &  Menge aller m\"oglichen $x$-Werte\\
+        & $f(x_i)$         &  Wahrscheinlichkeit dass $x$ den Wert $x_i$ annimmt
+  \end{tabular}
 
 
 \section{Varianz der Mendelian Sampling Komponente}
@@ -203,4 +236,49 @@ $$\mathbf{G} * \mathbf{v} = \mathbf{P} * \mathbf{b}$$
 
 \section{Ableitungen nach Vektoren}
 \label{sec:AbleitungVektor}
+Angenommen, wir haben eine Funktion $f(x_1, x_2, x_3)$, welche von drei Variablen $x_1$, $x_2$ und $x_3$ abh\"angig ist.
+Fassen wir die Variablen $x_1$, $x_2$ und $x_3$ zu einem Vektor $\mathbf{x}$ zusammen, dann ist die Ableitung der Funktion
+$f$ nach dem Vektor $\mathbf{x}$ definiert als
+
+\begin{eqnarray}
+\mathbf{v} = \frac{\partial f}{\partial\mathbf{x}} &=&
+  \left[\begin{array}{c}
+        \partial f / \partial x_1 \\
+        \partial f / \partial x_2 \\
+        \partial f / \partial x_3 \\
+  \end{array}\right]
+\label{eq:AblFNachX}
+\end{eqnarray}
+
+Die Ableitung einer Funktion nach einem Vektor mit drei Komponenten ist wieder ein Vektor ($\mathbf{v}$) mit drei Komponenten, wobei
+jede Komponente von $\mathbf{v}$ einer partiellen Ableitung der Funktion $f$ nach einer Komponente von $\*mathbf{x}$ ist. Bei der partiellen Ableitung einer Funktion $f$ nach einer Komponente $x_1$ wird die Funktion $f$ nach $x_1$ abgeleitet und die anderen Variablen $x_2$ und $x_3$ werden als Konstante behandelt. Der Vektor $\mathbf{v}$ wird auch als \emph{Gradient} der Funktion $f$ bezeichnet.
+
+\subsection{Beispiel}
+Wir nehmen an die Funktion $f$ sei definiert als
+
+$$f = 2*x_1^2*x_2 + x_2^3 - 5*x_3 + 1$$
+
+Der Gradient von $f$, also die Ableitung der Funktion $f$ nach dem Vektor $\mathbf{x}$ lautet dann
+
+\begin{eqnarray}
+\mathbf{v} = \frac{\partial f}{\partial\mathbf{x}}
+  &=&
+  \left[\begin{array}{c}
+        \partial f / \partial x_1 \\
+        \partial f / \partial x_2 \\
+        \partial f / \partial x_3 \\
+  \end{array}\right] \nonumber\\
+  &=&
+  \left[\begin{array}{c}
+      4 \, x_{1} x_{2}\\
+      2 \, x_{1}^{2} + 3 \, x_{2}^{2}\\
+      -5\\
+  \end{array}\right]
+\label{eq:GradFBsp}
+\end{eqnarray}
+
+\subsection{Anwendung f\"ur den Selektionsindex}
+
+
+
 \end{document}
