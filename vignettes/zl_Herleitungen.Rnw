@@ -228,6 +228,65 @@ E\left[X\right] = \sum_{x_i\in \mathcal{X}} x_i* f(x_i)
         & $f(x_i)$         &  Wahrscheinlichkeit dass $x$ den Wert $x_i$ annimmt
   \end{tabular}
 
+Das Populationsmittel als Erwartungswert der genotypischen Werte ist dann definiert als
+
+\begin{eqnarray}
+\mu 0 E\left[V\right] &=& f(G_1G_1) * V_{11} + f(G_1G_2) * V_{12} + f(G_2G_2) * V_{22}\\
+                      &=& p^2 * a + 2pq *d - q^2*a \nonumber\\
+                      &=& (p^2 - q^2)a + 2pqd \nonumber \\
+                      &=& (p+q)(p - q)a + 2pqd \nonumber \\
+                      &=& (p - q)a + 2pqd \nonumber
+\label{eq:PopMeanGenVal}
+\end{eqnarray}
+
+\subsection{Zuchtwerte}
+Der Zuchtwert eines bestimmten Elterngenotyps entspricht der doppelten Abweichung des mittleren genotypischen Wertes der Nachkommen vom Populationsmittel $\mu$.
+
+Die Frequenzen der Nachkommen in Abh\"angigkeit des Elterngenotyps kann folgender Tabelle entnommen werden.
+
+    \begin{tabular}{|c|c|c|}
+      \hline
+      Mutter       & \multicolumn{2}{|c|}{Vater} \\
+      \hline
+                     & $f(G_1) = p$          &  $f(G_2) = q$   \\
+      \hline
+      $G_1G_1$       &                       &                  \\
+      \hline
+      $f(G_1) = 1$   &  $f(G_1G_1) = p$      &  $f(G_1G_2) = q$  \\
+      \hline
+      \hline
+      $G_1G_2$       &                       &                   \\
+      \hline
+      $f(G_1) = 0.5$ &  $f(G_1G_1) = 0.5p$   &  $f(G_1G_2) = 0.5q$\\
+      $f(G_2) = 0.5$ &  $f(G_1G_2) = 0.5q$   &  $f(G_2G_2) = 0.5q$\\
+      \hline
+      \hline
+      $G_2G_2$       &                       &                    \\
+      \hline
+      $f(G_2) = 1$   &  $f(G_1G_2) = p$      &  $f(G_2G_2) = q$   \\
+      \hline
+    \end{tabular}
+
+
+\subsubsection{Elterngenotyp $G_1G_1$}
+Der mittlere genotypische Wert der Nachkommen vom Elterngenotyp betr\"agt
+
+$$\mu_{11} = pa + qd$$
+
+Der Zuchtwert des Elterngenotyp kann nun berechnet werden.
+
+
+\begin{eqnarray}
+ZW_{11} &=& 2 * (\mu_{11} - \mu)\\
+        &=& 2\left(pa + qd - \left[(p - q)a + 2pqd \right] \right) \nonumber\\
+          &=& 2\left(pa + qd - (p - q)a - 2pqd \right) \nonumber\\
+          &=& 2\left(qd + qa - 2pqd\right) \nonumber \\
+          &=& 2\left(qa + qd(1 - 2p)\right) \nonumber \\
+          &=& 2q\left(a + d(1 - 2p)\right) \nonumber \\
+          &=& 2q\left(a + (q-p)d\right) \nonumber
+\end{eqnarray}
+
+
 
 \section{Varianz der Mendelian Sampling Komponente}
 
