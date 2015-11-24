@@ -345,7 +345,9 @@ V_{11} - ZW_{11} &=& a - 2q\alpha \\
 
 \subsubsection{Genotyp $G_1G_2$}
 \begin{eqnarray}
-V_{12} - ZW_{12} &=& d - \left[(q-p) \alpha \right]
+V_{12} - ZW_{12} &=& d - \left[(q-p) \alpha \right] \\
+                 &=& d - \left[(q-p) \left(a + (q - p)d\right) \right] \nonumber \\
+                 &=& d - \nonumber
 \end{eqnarray}
 
 \subsubsection{Genotyp $G_2G_2$}
@@ -353,9 +355,37 @@ V_{12} - ZW_{12} &=& d - \left[(q-p) \alpha \right]
 V_{22} - ZW_{22} &=& - a + 2q\alpha
 \end{eqnarray}
 
+\subsubsection{Konsequenz und Zusammenfassung}
+Die Differenzen zwischen den genotypischen Werten und Zuchtwerten konnten f\"ur alle drei
+Genotypen als das Populationsmittel plus eine spezifische Dominanzabweichung dargestellt
+werden. Somit l\"asst sich der Genotypische Wert zerlegen in das Populationsmittel, den
+Zuchtwert und die Dominanzabweichung.
+
+$$V_{ij} = \mu + ZW_{ij} + D_{ij}$$
+
+Folgende Tabelle gibt eine Zusammenfassung \"uber alle Werte f\"ur $V_{ij}$, $ZW_{ij}$ und
+$D_{ij}$.
+
+\vspace{1ex}
+\begin{center}
+   \begin{tabular}{|c|c|c|c|}
+   \hline
+   Genotyp  &  genotypischer Wert  &  Zuchtwert     &  Dominanzabweichung\\
+   $G_iG_j$ &  $V_{ij}$            &  $ZW_{ij}$     &  $D_{ij}$           \\
+   \hline
+   $G_1G_1$ &  $a$                 &  $2q\alpha$    &  $-2q^2d$          \\
+   \hline
+   $G_1G_2$ &  $d$                 &  $(q-p)\alpha$ & $2pqd$             \\
+   \hline
+   $G_2G_2$ &  $-a$                &  $-2p\alpha$   & $-2p^2d$           \\
+   \hline
+   \end{tabular}
+\end{center}
 
 \section{Varianz der Mendelian Sampling Komponente}
 
+\clearpage
+\pagebreak
 
 \appendix
 
