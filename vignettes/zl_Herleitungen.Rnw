@@ -231,7 +231,7 @@ E\left[X\right] = \sum_{x_i\in \mathcal{X}} x_i* f(x_i)
 Das Populationsmittel als Erwartungswert der genotypischen Werte ist dann definiert als
 
 \begin{eqnarray}
-\mu 0 E\left[V\right] &=& f(G_1G_1) * V_{11} + f(G_1G_2) * V_{12} + f(G_2G_2) * V_{22}\\
+\mu = E\left[V\right] &=& f(G_1G_1) * V_{11} + f(G_1G_2) * V_{12} + f(G_2G_2) * V_{22}\\
                       &=& p^2 * a + 2pq *d - q^2*a \nonumber\\
                       &=& (p^2 - q^2)a + 2pqd \nonumber \\
                       &=& (p+q)(p - q)a + 2pqd \nonumber \\
@@ -244,6 +244,8 @@ Der Zuchtwert eines bestimmten Elterngenotyps entspricht der doppelten Abweichun
 
 Die Frequenzen der Nachkommen in Abh\"angigkeit des Elterngenotyps kann folgender Tabelle entnommen werden.
 
+\vspace{1ex}
+\begin{center}
     \begin{tabular}{|c|c|c|}
       \hline
       Mutter       & \multicolumn{2}{|c|}{Vater} \\
@@ -258,7 +260,7 @@ Die Frequenzen der Nachkommen in Abh\"angigkeit des Elterngenotyps kann folgende
       $G_1G_2$       &                       &                   \\
       \hline
       $f(G_1) = 0.5$ &  $f(G_1G_1) = 0.5p$   &  $f(G_1G_2) = 0.5q$\\
-      $f(G_2) = 0.5$ &  $f(G_1G_2) = 0.5q$   &  $f(G_2G_2) = 0.5q$\\
+      $f(G_2) = 0.5$ &  $f(G_1G_2) = 0.5p$   &  $f(G_2G_2) = 0.5q$\\
       \hline
       \hline
       $G_2G_2$       &                       &                    \\
@@ -266,7 +268,7 @@ Die Frequenzen der Nachkommen in Abh\"angigkeit des Elterngenotyps kann folgende
       $f(G_2) = 1$   &  $f(G_1G_2) = p$      &  $f(G_2G_2) = q$   \\
       \hline
     \end{tabular}
-
+\end{center}
 
 \subsubsection{Elterngenotyp $G_1G_1$}
 Der mittlere genotypische Wert der Nachkommen vom Elterngenotyp betr\"agt
@@ -275,7 +277,6 @@ $$\mu_{11} = pa + qd$$
 
 Der Zuchtwert des Elterngenotyp kann nun berechnet werden.
 
-
 \begin{eqnarray}
 ZW_{11} &=& 2 * (\mu_{11} - \mu)\\
         &=& 2\left(pa + qd - \left[(p - q)a + 2pqd \right] \right) \nonumber\\
@@ -283,9 +284,74 @@ ZW_{11} &=& 2 * (\mu_{11} - \mu)\\
           &=& 2\left(qd + qa - 2pqd\right) \nonumber \\
           &=& 2\left(qa + qd(1 - 2p)\right) \nonumber \\
           &=& 2q\left(a + d(1 - 2p)\right) \nonumber \\
-          &=& 2q\left(a + (q-p)d\right) \nonumber
+          &=& 2q\left(a + (q-p)d\right) \nonumber \\
+          &=& 2q\alpha \nonumber
 \end{eqnarray}
 
+\subsubsection{Elterngenotyp $G_1G_2$}
+Der mittlere genotypische Wert der Nachkommen vom Elterngenotyp $G_1G_2$ betr\"agt
+
+$$\mu_{12} = 0.5pa + 0.5pd + 0.5qd - 0.5qa = 0.5(p-q)a + 0.5d$$
+
+Der Zuchtwert ($ZW_{12}$) f\"ur den Elterngenotyp ($G_1G_2$)
+\begin{eqnarray}
+ZW_{12} &=& 2 * (\mu_{12} - \mu)\\
+        &=& 2\left(0.5(p-q)a + 0.5d - \left[(p - q)a + 2pqd \right] \right) \nonumber\\
+        &=& 2\left( -0.5(p-q)a + (0.5 - 2pq)d\right) \nonumber\\
+        &=& (q-p)a + (1-4pq)d \nonumber\\
+        &=& (q-p)a + (p-q)^2d \nonumber\\
+        &=& (q-p)\left(a + (q-p)d\right) \nonumber\\
+        &=& (q-p)\alpha \nonumber
+\end{eqnarray}
+
+\subsubsection{Elterngenotyp $G_2G_2$}
+Der mittlere genotypische Wert der Nachkommen vom Elterngenotyp $G_2G_2$ betr\"agt
+
+$$\mu_{12} = pd - qa$$
+
+Der Zuchtwert ($ZW_{22}$) f\"ur den Elterngenotyp ($G_2G_2$)
+
+\begin{eqnarray}
+ZW_{22} &=& 2 * (\mu_{22} - \mu)\\
+        &=& 2\left(pd - qa - \left[(p - q)a + 2pqd \right] \right) \nonumber\\
+        &=& 2\left(-pa + (p - 2pq)d\right) \nonumber\\
+        &=& -2p\left(a + (2q - 1)d\right) \nonumber\\
+        &=& -2p\left(a + (q - p)d\right) \nonumber\\
+        &=& -2p\alpha \nonumber
+\end{eqnarray}
+
+In den Formeln der drei Zuchtwerte ist der Term $a + (q-p)d$ enthalten. Dieser Term wird
+mit $\alpha$ bezeichnet und entspricht dem sogenannten Allelsubstitutionseffekt. Bildet man
+die Differenzen zwischen den Zuchtwerten der Genotypen, welche sich jeweilen durch ein
+$G_1$ Allel unterscheiden, dann sind diese Differenzen immer gleich $\alpha$, oder formell
+heisst das, dass
+
+$$ZW_{11}-ZW_{12} = ZW_{12}-ZW{22} = \alpha $$
+
+\subsection{Dominanzabweichungen}
+Die Differenzen zwischen den genotypischen Werten und den Zuchtwerten entsprechen dem
+Populationsmittel plus der sogenannten Dominanzabweichungen $D_{ij}$ f\"ur den Genotypen
+$G_iG_j$. F\"ur die drei Genotypen $G_1G_1$, $G_1G_2$ und $G_2G_2$
+sieht das wie folgt aus.
+
+\subsubsection{Genotyp $G_1G_1$}
+\begin{eqnarray}
+V_{11} - ZW_{11} &=& a - 2q\alpha \\
+                 &=& a - 2q \left(a + (q-p)d \right) \nonumber \\
+                 &=& (1 - 2q)a - 2qd(q-p) \nonumber \\
+                 &=& \left[(p - q)a + 2pqd \right] - 2q^2d  \nonumber \\
+                 &=& \mu + D_{11} \nonumber
+\end{eqnarray}
+
+\subsubsection{Genotyp $G_1G_2$}
+\begin{eqnarray}
+V_{12} - ZW_{12} &=& d - \left[(q-p) \alpha \right]
+\end{eqnarray}
+
+\subsubsection{Genotyp $G_2G_2$}
+\begin{eqnarray}
+V_{22} - ZW_{22} &=& - a + 2q\alpha
+\end{eqnarray}
 
 
 \section{Varianz der Mendelian Sampling Komponente}
