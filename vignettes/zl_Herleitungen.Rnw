@@ -347,12 +347,17 @@ V_{11} - ZW_{11} &=& a - 2q\alpha \\
 \begin{eqnarray}
 V_{12} - ZW_{12} &=& d - \left[(q-p) \alpha \right] \\
                  &=& d - \left[(q-p) \left(a + (q - p)d\right) \right] \nonumber \\
-                 &=& d - \nonumber
+                 &=& \left[(p-q)a + 2pqd \right] + 2pqd \nonumber \\
+                 &=& \mu + D_{12} \nonumber
 \end{eqnarray}
 
 \subsubsection{Genotyp $G_2G_2$}
 \begin{eqnarray}
-V_{22} - ZW_{22} &=& - a + 2q\alpha
+V_{22} - ZW_{22} &=& - a + 2p\alpha \\
+                 &=& - a + 2p\left[a + (q - p)d \right] \nonumber \\
+                 &=& (2p-1)a + 2pqd - 2p^2d \nonumber \\
+                 &=& \left[(p-q)a + 2pqd \right] - 2p^2d \nonumber \\
+                 &=& \mu + D_{22} \nonumber
 \end{eqnarray}
 
 \subsubsection{Konsequenz und Zusammenfassung}
@@ -361,7 +366,10 @@ Genotypen als das Populationsmittel plus eine spezifische Dominanzabweichung dar
 werden. Somit l\"asst sich der Genotypische Wert zerlegen in das Populationsmittel, den
 Zuchtwert und die Dominanzabweichung.
 
-$$V_{ij} = \mu + ZW_{ij} + D_{ij}$$
+\begin{equation}
+V_{ij} = \mu + ZW_{ij} + D_{ij}
+\label{eq:ZerlGenoWert}
+\end{equation}
 
 Folgende Tabelle gibt eine Zusammenfassung \"uber alle Werte f\"ur $V_{ij}$, $ZW_{ij}$ und
 $D_{ij}$.
@@ -381,6 +389,56 @@ $D_{ij}$.
    \hline
    \end{tabular}
 \end{center}
+
+\subsection{Genetische Varianz}
+Die Varianz einer diskreten Zufallsvariablen $X$ ist definiert als
+
+\begin{equation}
+Var\left[X \right] = \sum_{x_i \in \mathcal{X}} (x_i - \mu_X)^2 * f(x_i)
+\label{eq:VarDiscRv}
+\end{equation}
+  \begin{tabular}{p{1cm}p{1cm}p{6cm}}
+  wobei & $\mathcal{X}$: &  Menge aller m\"oglichen $x$-Werte\\
+        & $f(x_i)$       &  Wahrscheinlichkeit dass $x$ den Wert $x_i$ annimmt\\
+        & $\mu_X$        &  Erwartungswert $E\left[X\right]$ von $X$
+  \end{tabular}
+
+\vspace{2ex}
+\noindent F\"ur unsere genotypischen Werte $V_{ij}$ heisst das
+
+\begin{eqnarray}
+\sigma_G^2 = Var\left[V\right] &=&   (V_{11} - \mu)^2 * f(G_1G_1)           \\
+                               & & + (V_{12} - \mu)^2 * f(G_1G_2) \nonumber \\
+                               & & + (V_{22} - \mu)^2 * f(G_2G_2) \nonumber
+\label{eq:GenVar}
+\end{eqnarray}
+wobei $\mu = (p - q)a + 2pqd$ das Populationsmittel
+
+F\"ur die Frequenzen setzen wir die Werte aufgrund des Hardy-Weinberg-Gleichgewichts ein.
+Aus der Zerlegung der genotypischen Werte in Gleichung (\ref{eq:ZerlGenoWert}) verwenden wir, dass
+$V_{ij} - \mu = ZW_{ij} + D_{ij}$. Setzen wir das in Gleichung (\ref{eq:GenVar}) ein dann folgt daraus
+
+\begin{eqnarray}
+\sigma_G^2 = Var\left[V\right] &=&   (ZW_{11} + D_{11})^2 * p^2           \\
+                               & & +\  (ZW_{12} + D_{12})^2 * 2pq \nonumber \\
+                               & & +\  (ZW_{22} + D_{22})^2 * q^2 \nonumber
+\label{eq:GenVarZWD}
+\end{eqnarray}
+
+F\"ur die Zuchtwerte ($ZW_{ij}$) und die Dominanzabweichungen ($D_{ij}$) setzen wir nun die Werte aus
+der \"Ubersichtstabelle ein.
+
+\begin{eqnarray}
+\sigma_G^2 = Var\left[V\right] &=&     \left(2q\alpha - 2q^2d   \right)^2 * p^2           \\
+                               & & +\  \left((q-p)\alpha + 2pqd \right)^2 * 2pq \nonumber \\
+                               & & +\  \left(-2p\alpha - 2p^2d  \right)^2 * q^2 \nonumber \\
+                               &=&     \left(4q^2\alpha^2 - 8q^3d\alpha + 4q^4d^2  \right) * p^2  \nonumber \\
+                               & & +\  \left(q^2\alpha^2 - 2pq\alpha^2 + p^2\alpha^2 - 4(q-p)pqd\alpha
+                                             + 4p^2q^2d^2\right) * 2pq \nonumber \\
+                               & & +\  \left(4p^2\alpha^2 + 8p^3d\alpha + 4p^4\alpha^2 \right) * q^2 \nonumber
+\label{eq:GenVarIns}
+\end{eqnarray}
+
 
 \section{Varianz der Mendelian Sampling Komponente}
 
