@@ -11,18 +11,91 @@
 Drei der vier folgenden Themengebiete werden als Pr\"ufungsfragen verwendet.
 
 
-\section*{Aufgabe 1: Verwandtschaft und Inzucht ()}
+<<PointsQ1, echo=FALSE>>=
+# Assign Points for Q1
+lPointsQ1 <- list(TaskA = 25,
+                  TaskB = 10,
+                  TaskC = 4)
+nPointQ1Total <- sum(unlist(lPointsQ1))
+@
+
+\section*{Aufgabe 1: Verwandtschaft und Inzucht (\Sexpr{nPointQ1Total})}
+
+Gegeben ist folgendes Pedigree
+\begin{center}
+<<ExamPed, echo=FALSE>>=
+library(pedigreemm)
+nNrAni <- 5
+ped <- pedigree(sire = c(NA,NA,1,1,3), dam = c(NA,NA,2,2,4), label = 1:nNrAni)
+print(ped)
+@
+\end{center}
+
+
+\begin{enumerate}
+\item[a)] Stellen Sie die additive genetische Verwandtschaftsmatrix f\"ur das oben dargestellte Pedigree auf.
+\begin{flushright}\textbf{\Sexpr{lPointsQ1$TaskA}}\end{flushright}
+\end{enumerate}
+
+\clearpage
+\pagebreak
+
+\begin{enumerate}
+\item[b)] Welches der f\"unf Tiere im gezeigten Pedigree ist ingez\"uchtet und wie gross ist der Inzuchtkoeffizient $F_X$?
+(Bitte auch f\"ur nicht ingez\"uchtete Tiere den Inzuchtkoeffizienten angeben)
+\begin{flushright}\textbf{\Sexpr{lPointsQ1$TaskB}}\end{flushright}
+\end{enumerate}
+
+{\renewcommand{\arraystretch}{1.7}
+ \renewcommand{\tabcolsep}{0.2cm}
+ \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+Tier ID  &  ingez\"uchtet (ja/nein)  &  Inzuchtkoeffizient $F_X$ \\
+\hline
+1        &                           &  \\
+\hline
+2        &                           &  \\
+\hline
+3        &                           &  \\
+\hline
+4        &                           &  \\
+\hline
+5        &                           &  \\
+\hline
+\end{tabular}}
+
+\vspace{5ex}
+\begin{enumerate}
+\item[c)] Wir interessieren uns speziell f\"ur Tier $5$. Welche Elemente der additiv genetischen Verwandtschaftsmatrix enthalten den Inzuchtkoeffizienten von Tier $5$. Am besten geben Sie die Elemente der Matrix \"uber die jeweiligen Zeilen- und Kolonnennummern an.
+\begin{flushright}\textbf{\Sexpr{lPointsQ1$TaskC}}\end{flushright}
+\end{enumerate}
+
 
 
 \clearpage
 \pagebreak
 
-\section*{Aufgabe 2: R ()}
+<<PointsQ1, echo=FALSE>>=
+# Assign Points for Q1
+lPointsQ2 <- list(TaskA = 2,
+                  TaskB = 4)
+nPointQ2Total <- sum(unlist(lPointsQ2))
+@
+
+\section*{Aufgabe 2: R (\Sexpr{nPointQ2Total})}
+Beim Programmieren wird der Programmfluss \"uber Bedingungen und \"uber Schleifen (Loops) gesteuert.
+\begin{enumerate}
+\item[a)] Mit welchem Statement erzeugen Sie eine Schleife in R?
+\begin{flushright}\textbf{\Sexpr{lPointsQ2$TaskA}}\end{flushright}
+\vspace{10ex}
+\item[b)] Mit welchem Statement testen Sie eine Bedingung in R? Aus welchen Komponenten besteht dieses Statement?
+\begin{flushright}\textbf{\Sexpr{lPointsQ2$TaskB}}\end{flushright}
+\end{enumerate}
 
 \clearpage
 \pagebreak
 
-\section*{Aufgabe 3: Selektionsindex ()}
+\section*{Aufgabe 3: Selektion und Selektionsindex ()}
 
 \clearpage
 \pagebreak
