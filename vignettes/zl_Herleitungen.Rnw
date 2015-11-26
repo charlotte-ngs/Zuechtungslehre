@@ -429,16 +429,28 @@ F\"ur die Zuchtwerte ($ZW_{ij}$) und die Dominanzabweichungen ($D_{ij}$) setzen 
 der \"Ubersichtstabelle ein.
 
 \begin{eqnarray}
-\sigma_G^2 = Var\left[V\right] &=&     \left(2q\alpha - 2q^2d   \right)^2 * p^2           \\
-                               & & +\  \left((q-p)\alpha + 2pqd \right)^2 * 2pq \nonumber \\
-                               & & +\  \left(-2p\alpha - 2p^2d  \right)^2 * q^2 \nonumber \\
-                               &=&     \left(4q^2\alpha^2 - 8q^3d\alpha + 4q^4d^2  \right) * p^2  \nonumber \\
-                               & & +\  \left(q^2\alpha^2 - 2pq\alpha^2 + p^2\alpha^2 - 4(q-p)pqd\alpha
-                                             + 4p^2q^2d^2\right) * 2pq \nonumber \\
-                               & & +\  \left(4p^2\alpha^2 + 8p^3d\alpha + 4p^4\alpha^2 \right) * q^2 \nonumber
+\sigma_G^2 = Var\left[V\right] &=&     \left(2q\alpha - 2q^2d   \right)^2 * p^2                                \\
+                               & & +\  \left((q-p)\alpha + 2pqd \right)^2 * 2pq                      \nonumber \\
+                               & & +\  \left(-2p\alpha - 2p^2d  \right)^2 * q^2                      \nonumber \\
+                               &=&     \left(4q^2\alpha^2 - 8q^3d\alpha + 4q^4d^2  \right) * p^2     \nonumber \\
+                               & & +\  \left(q^2\alpha^2 - 2pq\alpha^2 + p^2\alpha^2
+                                              - 4(q-p)pqd\alpha + 4p^2q^2d^2\right) * 2pq            \nonumber \\
+                               & & +\  \left(4p^2\alpha^2 + 8p^3d\alpha + 4p^4\alpha^2 \right) * q^2 \nonumber \\
+                               &=&     4p^2q^2\alpha^2 - 8p^2q^3d\alpha + 4p^2q^4d^2                 \nonumber \\
+                               & & +\  2pq^3\alpha^2 - 4p^2q^2\alpha^2+ 2p^3q\alpha^2                \nonumber \\
+                               & & -\  8p^3q^2d\alpha + 8p^2q^3d\alpha + 8p^3q^3d^2                  \nonumber \\
+                               & & +\  4p^2q^2\alpha^2 + 8p^3q^2d\alpha + 4p^4q^2d^2                 \nonumber \\
+                               &=&     4p^2q^2\alpha^2 + 4p^2q^4d^2                                  \nonumber \\
+                               & & +\  2pq^3\alpha^2 + 2p^3q\alpha^2                                 \nonumber \\
+                               & & +\  8p^3q^3d^2                                                    \nonumber \\
+                               & & +\  4p^4q^2d^2                                                    \nonumber \\
+                               &=&     2pq\alpha^2 \left(p^2 + 2pq + q^2 \right)                     \nonumber \\
+                               & & +\  \left(2pqd \right)^2 \left(p^2 + 2pq + q^2 \right)            \nonumber \\
+                               &=&     2pq\alpha^2 + \left(2pqd \right)^2                            \nonumber
 \label{eq:GenVarIns}
 \end{eqnarray}
 
+\noindent Das Resultat der Berechnung der genetischen Varianz $\sigma_G^2$ f\"ur einen Lokus mit zwei Allelen zeigt, dass diese Varianz aus zwei Teilen besteht.
 
 \section{Varianz der Mendelian Sampling Komponente}
 
