@@ -450,7 +450,10 @@ der \"Ubersichtstabelle ein.
 \label{eq:GenVarIns}
 \end{eqnarray}
 
-\noindent Das Resultat der Berechnung der genetischen Varianz $\sigma_G^2$ f\"ur einen Lokus mit zwei Allelen zeigt, dass diese Varianz aus zwei Teilen besteht.
+\noindent Das Resultat der Berechnung der genetischen Varianz $\sigma_G^2$ f\"ur einen Lokus mit zwei Allelen zeigt, dass diese Varianz aus zwei Teilen besteht. Der erste Teil ist der additive Varianzanteil ($2pq\alpha^2$) und der zweite Teil heisst Dominanzvarianzanteil ($\left(2pqd \right)^2$).
+
+Diese Herleitung zeigt, dass die in der Vorlesung vorgestellte genetische Varianz anhand der Definition der Varianz als zweites zentrales Moment einer diskreten Zufallsvariablen f\"ur die genotypischen Werte berechnet werden kann.
+
 
 \section{Varianz der Mendelian Sampling Komponente}
 
