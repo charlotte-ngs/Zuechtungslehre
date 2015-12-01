@@ -567,7 +567,62 @@ Fassen wir wieder die Zuchtwerte aller Tiere in einer Population in einem Vektor
 \end{equation}
 
 \noindent Matrix $\mathbf{L}$ in Gleichung (\ref{eq:ALMDecomp}) ist eine untere Dreiecksmatrix, d.h. alle Elemente rechts
-der Diagonalen sind gleich null. Die Diagonalelemente der Matrix $\mathbf{L}$ sind alle gleich eins.
+der Diagonalen sind gleich null. Die Diagonalelemente der Matrix $\mathbf{L}$ sind alle gleich eins. F\"ur unser Beispiel sieht die Matrix $\mathbf{L}$ wie folgt aus.
+
+\begin{equation}
+  \left[
+    \begin{array}{c}
+      a_1 \\ a_2 \\ a_3 \\ a_4 \\ a_5
+    \end{array}
+  \right]
+  =
+  \left[
+    \begin{array}{ccccc}
+    1      &  0       &  0      &  0      &  0 \\
+    0      &  1       &  0      &  0      &  0 \\
+    $1/2$  &  $1/2$   &  1      &  0      &  0 \\
+    0      &  0       &  0      &  1      &  0 \\
+    $1/4$  &  $1/4$   &  $1/2$  &  $1/2$  &  1 \\
+    \end{array}
+  \right]
+  *
+  \left[
+    \begin{array}{c}
+      m_1 \\ m_2 \\ m_3 \\ m_4 \\ m_5
+    \end{array}
+  \right]
+\label{eq:ExPedALmDecomp}
+\end{equation}
+
+\subsection{Varianzen}
+Berechnen wir die Varianz des Vektors der Zuchtwerte $\mathbf{a}$ aufgrund der Gleichung (\ref{eq:ALMDecomp}),so folgt
+daraus
+
+\begin{eqnarray}
+  Var(\mathbf{a}) &=& Var(\mathbf{L} * \mathbf{m}) \\
+                  &=& \mathbf{L} * Var(\mathbf{m}) * \mathbf{L}^T \nonumber
+\label{eq:VarAVarD}
+\end{eqnarray}
+
+\noindent Eine weiterf\"uhrende Erkl\"arung zur Bedeutung der Varianz von Vektoren ist im Anhang \ref{sec:VarVec} aufgef\"uhrt. Die Varianz der Zuchtwerte $\mathbf{a}$ entspricht der additiv genetischen Covarianz-Matrix und diese ist gleich
+
+\begin{equation}
+  Var(\mathbf{a}) = \mathbf{A} * \sigma_{a}^2
+\label{eq:AddGenCovMat}
+\end{equation}
+
+\noindent wobei $\sigma_a^2$ der additiv genetischen Varianz entspricht.
+
+Kombinieren wir die Gleichungen (\ref{eq:AddGenCovMat}) und (\ref{eq:VarAVarD}) so folgt daraus, dass
+
+\begin{equation}
+  Var(\mathbf{a}) = \mathbf{A} * \sigma_{a}^2
+                  = \mathbf{L} * Var(\mathbf{m}) * \mathbf{L}^T
+                  = \mathbf{L} * \mathbf{D} * \mathbf{L}^T  * \sigma_{a}^2
+\label{eq:VarDAddGenCovMat}
+\end{equation}
+
+Aus Gleichung (\ref{eq:VarDAddGenCovMat}) folgt also, dass $Var(\mathbf{m}) = \mathbf{D} * \sigma_a^2$ ist. Da die Mendelian sampling Effekte unabh\"angig sind voneinander, d.h. $Cov(m_i,m_j) = 0$ f\"ur alle $i\ne j$, ist Matrix $\mathbf{D}$ eine Diagonalmatrix. Die Diagonalelemente $d_{ii}$ der Matrix $\mathbf{D}$ entsprechen den Varianzen der jeweiligen Mendelian sampling Effekte, wobei gilt, dass $d_{ii} = Var(m_i)$
 
 \clearpage
 \pagebreak
@@ -619,6 +674,43 @@ Der Gradient von $f$, also die Ableitung der Funktion $f$ nach dem Vektor $\math
 
 \subsection{Anwendung f\"ur den Selektionsindex}
 
+\section{Varianz von Vektoren}
+\label{sec:VarVec}
+Die Varianz eines Vektors $\mathbf{x}$ dessen Komponenten aus Zufallsvariablen $x_i$ bestehen, ist immer eine symmetrische  Matrix - nennen wir sie $\mathbf{V}$. Die Diagonalelmente $V_{ii}$ der Matrix $\mathbf{V}$ entsprechen den Varianzen der einzelnen Komponenten des Vektors $\mathbf{x}$, wobei gilt, dass
+
+$$V_{ii} = Var(x_i) = \sigma_i^2$$
+
+Die Offdiagonalelemente $V_{ij}$ der Matrix $\mathbf{V}$ entsprechen den Covarianzen zwischen den Elementen $x_i$ und $x_j$. Es gilt also
+
+$$V_{ij} = Cov(x_i,x_j) = \sigma_{ij}$$
+
+\noindent Aufgrund der Symmmetrie der Matrix $\mathbf{V}$ gilt auch, dass $V_{ij} = V_{ji}$.
+
+\subsection{Beispiel}
+Betrachten wir als Beispiel einen Vektor $\mathbf{x}$ der L\"ange drei. Unser Vektor $\mathbf{x}$ sieht also wie folgt aus.
+
+$$\mathbf{x} = \left[\begin{array}{c}x_1\\ x_2\\ x_3 \end{array}\right]$$
+
+Die Covarianzmatrix $\mathbf{V}$ des Vektors $\mathbf{x}$ hat dann folgende Struktur
+
+\begin{equation}
+\mathbf{V} = Var(\mathbf{x}) = \left[\begin{array}{ccc}
+                                       Var(x_1)      &  Cov(x_1,x_2)  & Cov(x_1,x_3)  \\
+                                       Cov(x_1,x_2)  &  Var(x_2)      &  Cov(x_2,x_3) \\
+                                       Cov(x_1,x_3)  &  Cov(x_2,x_3)  &  Var(x_3)
+                                     \end{array}\right]
+\label{eq:CovXStruct}
+\end{equation}
+
+F\"ur Matrix $\mathbf{V}$ gibt es auch folgende abgek\"urzte Schreibweise
+\begin{equation}
+\mathbf{V} = \left[\begin{array}{ccc}
+                     \sigma_1^2    &  \sigma_{12}  & \sigma_{13}  \\
+                     \sigma_{12}   &  \sigma_2^2   & \sigma_{23}  \\
+                     \sigma_{13}   &  \sigma_{23}  & \sigma_3^2
+                   \end{array}\right]
+\label{eq:CovXStructShort}
+\end{equation}
 
 
 \end{document}
