@@ -624,6 +624,72 @@ Kombinieren wir die Gleichungen (\ref{eq:AddGenCovMat}) und (\ref{eq:VarAVarD}) 
 
 Aus Gleichung (\ref{eq:VarDAddGenCovMat}) folgt also, dass $Var(\mathbf{m}) = \mathbf{D} * \sigma_a^2$ ist. Da die Mendelian sampling Effekte unabh\"angig sind voneinander, d.h. $Cov(m_i,m_j) = 0$ f\"ur alle $i\ne j$, ist Matrix $\mathbf{D}$ eine Diagonalmatrix. Die Diagonalelemente $d_{ii}$ der Matrix $\mathbf{D}$ entsprechen den Varianzen der jeweiligen Mendelian sampling Effekte, wobei gilt, dass $d_{ii} = Var(m_i)$
 
+% cont here %%%
+
+\subsection{Inverse Verwandtschaftsmatrix}
+Die Inverse $\mathbf{A}^{-1}$ der Verwandtschaftsmatrix $\mathbf{A}$ kann anhand der LDL-Zerlegung einfach berechnet werden. Die LDL-Zerlegung f\"ur $\mathbf{A}$ lautet
+
+\begin{equation}
+  \mathbf{A}= \mathbf{L} * \mathbf{D} * \mathbf{L}^{T}
+\label{eq:LDLDecomp}
+\end{equation}
+
+Die Inverse $\mathbf{A}^{-1}$ kann somit bestimmt werden als
+
+\begin{eqnarray}
+\mathbf{A}^{-1} &=& \left(\mathbf{L} * \mathbf{D} * \mathbf{L}^{T} \right) \\
+                &=& \left(\mathbf{L}^{T} \right)^{-1} * \mathbf{D}^{-1} * \mathbf{L}^{-1} \nonumber
+\label{eq:AinvLdl}
+\end{eqnarray}
+
+\subsubsection{Matrix $\mathbf{D}^{-1}$}
+Die Matrix $\mathbf{D}^{-1}$ ist genau wie die Matrix $\mathbf{D}$ wieder eine Diagonalmatrix, wobei die Diagonalelemente der Inversen $\mathbf{D}^{-1}$ die Werte $1/d_{ii}$ haben.
+
+\subsubsection{Matrix $\mathbf{L}^{-1}$}
+Die Struktur der Matrix $\mathbf{L}^{-1}$ kann aufgrund folgender Beziehungen erl\"autert werden. Zu Beginn dieses Abschnittes hatten wir in Gleichung (\ref{eq:PopBvDecomp}) gesehen, wie der Zuchtwert eines Tieres in je die H\"alfte der Zuchtwerte der Eltern plus den Mendelian sampling Effket zerlegt werden kann. In Matrixschreibweise lautet diese Zerlegung
+
+\begin{equation}
+  \mathbf{a} = \mathbf{P} * \mathbf{a} + \mathbf{m}
+\label{eq:BvParentBvMs}
+\end{equation}
+
+\noindent Daraus folgt, dass
+
+\begin{equation}
+  \mathbf{m} = \mathbf{a} - \mathbf{P} * \mathbf{a} = \left(\mathbf{I} - \mathbf{P}\right) * \mathbf{a}
+\label{eq:MsParentBv}
+\end{equation}
+
+\noindent Aufgrund der rekursiven Zerlegung der Zuchtwerte $\mathbf{a}$ in eine Linearkombination von Mendelian sampling Effekten
+
+\begin{equation}
+  \mathbf{a} = \mathbf{L} * \mathbf{m}
+\label{eq:BvDecompMsEff}
+\end{equation}
+
+\noindent Daraus folgt f\"ur $m$
+
+\begin{equation}
+  \mathbf{m} = \mathbf{L}^{-1} * \mathbf{a}
+\label{eq:MsEffBvDecomp}
+\end{equation}
+
+\noindent Durch Gleichsetzen beider Beziehgungen f\"ur $\mathbf{m}$ k\"onnen wir $\mathbf{L}^{-1}$ bestimmen.
+
+\begin{equation}
+  \mathbf{m} = \mathbf{L}^{-1} * \mathbf{a} = \left(\mathbf{I} - \mathbf{P}\right) * \mathbf{a}
+\label{eq:LinvEq}
+\end{equation}
+
+\noindent Es gilt also
+
+\begin{equation}
+  \mathbf{L}^{-1} = \mathbf{I} - \mathbf{P}
+\label{eq:LinvRes}
+\end{equation}
+
+\noindent wobei $\mathbf{I}$ die Einheitsmatrix ist und die Matrix $\mathbf{P}$ einer unteren Dreiecksmatrix entspricht, welche die Zuchtwerte der Tiere mit den Zuchtwerten der Eltern verkn\"upft (siehe Gleichungen (\ref{eq:PopBvDecomp}) und (\ref{eq:ExPedBvDecomp})).
+
 \clearpage
 \pagebreak
 
