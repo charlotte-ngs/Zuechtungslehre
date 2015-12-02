@@ -456,31 +456,36 @@ Diese Herleitung zeigt, dass die in der Vorlesung vorgestellte genetische Varian
 
 
 \section{Varianz der Mendelian Sampling Komponente}
-Im Gegensatz zu Abschnitt \ref{sec:OneLocusModel}, welcher Zuchtwerte an einem bestimmten Genort betrachtete, wechseln wir
+\subsection{Notation}
+In diesem Abschnitt verwenden wir eine leicht andere Notation, als in der Vorlesung. Der Grund daf\"ur ist, dass m\"ogliche Verwechslungen verhindert werden k\"onnen.
+
+Zuchtwerte werden mit der Variablen ``$u$'' bezeichnet. Dabei wird der Vektor der Zuchtwerte einer Population von Tieren mit dem kleinen  $\mathbf{u}$ in fetter Schrift bezeichnet. Der Zuchtwert eines einzelnen Tieres $i$ wird mit
+
+Im Gegensatz zu Abschnitt \ref{sec:OneLocusModel}, in welchem wir Zuchtwerte an einem bestimmten Genort betrachtet haben, wechseln wir
 in diesem Abschnitt zum sogenannten ``Infinitesimal''-Modell, in welchem angenommen wird, dass genetische Effekte aufgrund
 von unendlich vielen Genorten zustande kommen. Unter der Annahme eines solchen Modells und unter der Annahme, dass die
-betrachteten Effekte einer Normalverteilung folgen, kann der Zuchtwert eines Tieres $i$ mit bekannten Eltern $s$ und $d$
+betrachteten Effekte einer Normalverteilung folgen, kann der Zuchtwert $u_i$ eines Tieres $i$ mit bekannten Eltern $s$ und $d$
 zerlegt werden in
 
 \begin{equation}
-a_i = {1\over 2}\ a_s + {1\over 2}\ a_d + m_i
+u_i = {1\over 2}\ u_s + {1\over 2}\ u_d + m_i
 \label{eq:AnimalBvDecomp}
 \end{equation}
 
-\noindent wobei $m_i$ f\"ur den sogenannten ``Mendelian sampling'' - Effekt steht. Dieser Effekt entspricht der Abweichung des Zuchtwertes $a_i$ vom erwarteten Vollgeschwisterdurchschnitt. Er kommt durch die zuf\"allige Auswahl von Allelen w\"ahrend der Meiose bei den Eltern zustande. Die Zuchtwerte von Vollgeschwister unterscheiden sich also nur in den unterschiedlichen
+\noindent wobei $m_i$ f\"ur den sogenannten ``Mendelian sampling'' - Effekt steht. Dieser Effekt entspricht der Abweichung des Zuchtwertes $u_i$ vom erwarteten Vollgeschwisterdurchschnitt. Er kommt durch die zuf\"allige Auswahl von Allelen w\"ahrend der Meiose bei den Eltern zustande. Die Zuchtwerte von Vollgeschwistern unterscheiden sich also nur in den unterschiedlichen
 Mendelian sampling Effekten, nicht aber in den Beitr\"agen der Elternzuchtwerte.
 
-Fasst man die Zuchtwerte $a_i$ aller Tiere zu einem Vektor $\mathbf{a}$ zusammen, dann kann die Zerlegung aus Gleichung
+Fasst man die Zuchtwerte $u_i$ aller Tiere zu einem Vektor $\mathbf{u}$ zusammen, dann kann die Zerlegung aus Gleichung
 (\ref{eq:AnimalBvDecomp}) in Matrixschreibweise \"ubertragen werden.
 
 \begin{equation}
-\mathbf{a} = \mathbf{P} * \mathbf{a} + \mathbf{m}
+\mathbf{u} = \mathbf{P} * \mathbf{u} + \mathbf{m}
 \label{eq:PopBvDecomp}
 \end{equation}
 
 \vspace{1ex}
 \begin{tabular}{lll}
-wobei  &   $\mathbf{a}$  &  Vektor aller Zuchtwerte \\
+wobei  &   $\mathbf{u}$  &  Vektor aller Zuchtwerte \\
        &   $\mathbf{m}$  &  Vektor aller Mendelian sampling Effekte
 \end{tabular}
 
@@ -503,7 +508,7 @@ F\"ur dieses kleine Beispielpedigree sieht die Zerlegung der Zuchtwerte wie folg
 \begin{equation}
   \left[
     \begin{array}{c}
-      a_1 \\ a_2 \\ a_3 \\ a_4 \\ a_5
+      u_1 \\ u_2 \\ u_3 \\ u_4 \\ u_5
     \end{array}
   \right]
   =
@@ -519,7 +524,7 @@ F\"ur dieses kleine Beispielpedigree sieht die Zerlegung der Zuchtwerte wie folg
   *
   \left[
     \begin{array}{c}
-      a_1 \\ a_2 \\ a_3 \\ a_4 \\ a_5
+      u_1 \\ u_2 \\ u_3 \\ u_4 \\ u_5
     \end{array}
   \right]
   +
@@ -531,29 +536,29 @@ F\"ur dieses kleine Beispielpedigree sieht die Zerlegung der Zuchtwerte wie folg
 \label{eq:ExPedBvDecomp}
 \end{equation}
 
-Die Matrixschreibweise der Zerlegung in Gleichung (\ref{eq:ExPedBvDecomp}) zeigt, dass die Zuchtwerte f\"ur Tiere ohne Eltern den Mendelian sampling Effekten entsprechen. In unserem Beispielpedigree haben die Tiere $1$, $2$ und $4$ keine bekannten Eltern. F\"ur deren Zuchtwerte gilt also, dass $a_1 = m_1$, $a_2 = m_2$ und $a_4 = m_4$.
+Die Matrixschreibweise der Zerlegung in Gleichung (\ref{eq:ExPedBvDecomp}) zeigt, dass die Zuchtwerte f\"ur Tiere ohne Eltern den Mendelian sampling Effekten entsprechen. In unserem Beispielpedigree haben die Tiere $1$, $2$ und $4$ keine bekannten Eltern. F\"ur deren Zuchtwerte gilt also, dass $u_1 = m_1$, $u_2 = m_2$ und $u_4 = m_4$.
 
 \subsection{Rekursive Zerlegung}
 \label{sec:RekursiveZerlegung}
-Kehren wir nun zurueck zur Zerlegung f\"ur ein bestimmtes Tier $a_i$. Wie aus Gleichung (\ref{eq:AnimalBvDecomp}) ersichtlich ist, wird $a_i$ in je die H\"alfte der Elternzuchtwerte $a_s$ und $a_d$ und die Mendelian sampling Komponente zerlegt. Die Zuchtwerte $a_s$ und $a_d$ k\"onnen analog zur Zerlegung von $a_i$ auch in Kompoenten der Elternzuchtwerte und Mendelian sampling aufgeteilt werden. Konkret bedeutet das, dass $a_s$ aufgeteilt wird in
+Kehren wir nun zurueck zur Zerlegung f\"ur ein bestimmtes Tier $i$. Wie aus Gleichung (\ref{eq:AnimalBvDecomp}) ersichtlich ist, wird $u_i$ in je die H\"alfte der Elternzuchtwerte $u_s$ und $u_d$ und die Mendelian sampling Komponente $m_i$ zerlegt. Die Zuchtwerte $u_s$ und $u_d$ k\"onnen analog zur Zerlegung von $u_i$ auch in Kompoenten der Elternzuchtwerte und Mendelian sampling aufgeteilt werden. Konkret bedeutet das, dass $u_s$ aufgeteilt wird in
 
-$$a_s = {1\over 2}\ a_{ss} + {1\over 2}\ a_{sd} + m_s$$
+$$u_s = {1\over 2}\ u_{ss} + {1\over 2}\ u_{sd} + m_s$$
 
-und $a_d$ wird zerlegt in
+und $u_d$ wird zerlegt in
 
-$$a_d = {1\over 2}\ a_{ds} + {1\over 2}\ a_{dd} + m_d$$
+$$u_d = {1\over 2}\ u_{ds} + {1\over 2}\ u_{dd} + m_d$$
 
-\noindent wobei $a_{ss}$ und $a_{sd}$ die Zuchtwerte der Eltern $sd$ und $ss$ von Vater $s$ und $a_{ds}$ und $a_{dd}$ die
+\noindent wobei $u_{ss}$ und $u_{sd}$ die Zuchtwerte der Eltern $sd$ und $ss$ von Vater $s$ und $u_{ds}$ und $u_{dd}$ die
 Zuchtwerte der Eltern $ds$ und $dd$ der Mutter $d$ sind.
 
-Diese Art der rekursiven Zerlegung der Zuchtwerte wird so lange gemacht bis wir im Pedigree bei Tieren ohne Eltern angelangt sind. Deren Zuchtwerte entsprechen den entsprechenden Mendelian sampling Effekten. Somit kann jeder Zuchtwert $a_i$ als eine
+Diese Art der rekursiven Zerlegung der Zuchtwerte wird so lange gemacht bis wir im Pedigree bei Tieren ohne Eltern angelangt sind. Deren Zuchtwerte entsprechen den entsprechenden Mendelian sampling Effekten. Somit kann jeder Zuchtwert $u_i$ als eine
 Summe von Mendelian sampling Effekten dargestellt werden.
 
 In unserem Beispielpedigree kann der Zuchtwert von Tier $5$, wie folgt zerlegt werden.
 
 \begin{eqnarray}
-a_5 &=& {1\over 2} a_3 + {1\over 2} a_4 + m_5 \\
-    &=& {1\over 2}\left({1\over 2}\ a_1 + {1\over 2}\ a_2 + m_3 \right) + {1\over 2}\ m_4 + m_5 \nonumber \\
+u_5 &=& {1\over 2} u_3 + {1\over 2} u_4 + m_5 \\
+    &=& {1\over 2}\left({1\over 2}\ u_1 + {1\over 2}\ u_2 + m_3 \right) + {1\over 2}\ m_4 + m_5 \nonumber \\
     &=& {1\over 4}\ m_1 + {1\over 4}\ m_2 + {1\over 2}\ m_3 + {1\over 2}\ m_4 + m_5             \nonumber
 \label{eq:DecompBvAni5}
 \end{eqnarray}
@@ -562,7 +567,7 @@ Fassen wir wieder die Zuchtwerte aller Tiere in einer Population in einem Vektor
 (\ref{eq:DecompBvAni5}) gefundene Beziehung zwischen Zuchtwerten und Mendelian sampling Effekten in Matrixschreibweise wie folgt ausdr\"ucken.
 
 \begin{equation}
-\mathbf{a} = \mathbf{L} * \mathbf{m}
+\mathbf{u} = \mathbf{L} * \mathbf{m}
 \label{eq:ALMDecomp}
 \end{equation}
 
@@ -572,7 +577,7 @@ der Diagonalen sind gleich null. Die Diagonalelemente der Matrix $\mathbf{L}$ si
 \begin{equation}
   \left[
     \begin{array}{c}
-      a_1 \\ a_2 \\ a_3 \\ a_4 \\ a_5
+      u_1 \\ u_2 \\ u_3 \\ u_4 \\ u_5
     \end{array}
   \right]
   =
@@ -595,36 +600,78 @@ der Diagonalen sind gleich null. Die Diagonalelemente der Matrix $\mathbf{L}$ si
 \end{equation}
 
 \subsection{Varianzen}
-Berechnen wir die Varianz des Vektors der Zuchtwerte $\mathbf{a}$ aufgrund der Gleichung (\ref{eq:ALMDecomp}),so folgt
+Berechnen wir die Varianz des Vektors der Zuchtwerte $\mathbf{u}$ aufgrund der Gleichung (\ref{eq:ALMDecomp}), so folgt
 daraus
 
 \begin{eqnarray}
-  Var(\mathbf{a}) &=& Var(\mathbf{L} * \mathbf{m}) \\
+  Var(\mathbf{u}) &=& Var(\mathbf{L} * \mathbf{m}) \\
                   &=& \mathbf{L} * Var(\mathbf{m}) * \mathbf{L}^T \nonumber
 \label{eq:VarAVarD}
 \end{eqnarray}
 
-\noindent Eine weiterf\"uhrende Erkl\"arung zur Bedeutung der Varianz von Vektoren ist im Anhang \ref{sec:VarVec} aufgef\"uhrt. Die Varianz der Zuchtwerte $\mathbf{a}$ entspricht der additiv genetischen Covarianz-Matrix und diese ist gleich
+\noindent Eine weiterf\"uhrende Erkl\"arung zur Bedeutung der Varianz von Vektoren ist im Anhang \ref{sec:VarVec} aufgef\"uhrt. Die Varianz der Zuchtwerte $\mathbf{u}$ entspricht der additiv genetischen Covarianz-Matrix und diese ist gleich
 
 \begin{equation}
-  Var(\mathbf{a}) = \mathbf{A} * \sigma_{a}^2
+  Var(\mathbf{u}) = \mathbf{A} * \sigma_{u}^2
 \label{eq:AddGenCovMat}
 \end{equation}
 
-\noindent wobei $\sigma_a^2$ der additiv genetischen Varianz entspricht.
+\noindent wobei $\sigma_u^2$ der additiv genetischen Varianz entspricht.
 
 Kombinieren wir die Gleichungen (\ref{eq:AddGenCovMat}) und (\ref{eq:VarAVarD}) so folgt daraus, dass
 
-\begin{equation}
-  Var(\mathbf{a}) = \mathbf{A} * \sigma_{a}^2
-                  = \mathbf{L} * Var(\mathbf{m}) * \mathbf{L}^T
-                  = \mathbf{L} * \mathbf{D} * \mathbf{L}^T  * \sigma_{a}^2
+\begin{eqnarray}
+  Var(\mathbf{u}) &=& \mathbf{A} * \sigma_{u}^2 \\
+                  &=& \mathbf{L} * Var(\mathbf{m}) * \mathbf{L}^T \nonumber \\
+                  &=& \mathbf{L} * \mathbf{D} * \mathbf{L}^T  * \sigma_{u}^2 \nonumber
 \label{eq:VarDAddGenCovMat}
+\end{eqnarray}
+
+Aus Gleichung (\ref{eq:VarDAddGenCovMat}) folgt also, dass $Var(\mathbf{m}) = \mathbf{D} * \sigma_u^2$ ist. Da die Mendelian sampling Effekte unabh\"angig sind voneinander, d.h. $Cov(m_i,m_j) = 0$ f\"ur alle $i\ne j$, ist Matrix $\mathbf{D}$ eine Diagonalmatrix. Die Diagonalelemente $d_{ii}$ der Matrix $\mathbf{D}$ sind proportional zu den Varianzen der jeweiligen Mendelian sampling Effekte, wobei gilt, dass $d_{ii} = Var(m_i) / \sigma_u^2$
+
+Die Varianz $Var(m_i)$ des Mendelian sampling Effektes $m_i$ l\"asst sich aus der Zerlegung des Zuchtwertes $u_i$ des Tieres $i$ (siehe Gleichung (\ref{eq:AnimalBvDecomp})) berechnen.
+
+\begin{equation}
+  u_i = {1\over 2}\ u_s + {1\over 2}\ u_d + m_i
+\label{eq:BvAniIDecomp}
 \end{equation}
 
-Aus Gleichung (\ref{eq:VarDAddGenCovMat}) folgt also, dass $Var(\mathbf{m}) = \mathbf{D} * \sigma_a^2$ ist. Da die Mendelian sampling Effekte unabh\"angig sind voneinander, d.h. $Cov(m_i,m_j) = 0$ f\"ur alle $i\ne j$, ist Matrix $\mathbf{D}$ eine Diagonalmatrix. Die Diagonalelemente $d_{ii}$ der Matrix $\mathbf{D}$ entsprechen den Varianzen der jeweiligen Mendelian sampling Effekte, wobei gilt, dass $d_{ii} = Var(m_i)$
+\clearpage
+\pagebreak
 
-% cont here %%%
+\noindent Aufgrund der Zerlegung des Zuchtwertes $u_i$ in Gleichung (\ref{eq:BvAniIDecomp}) k\"onnen wir folgende Gleichung f\"ur die Varianzen aufstellen.
+
+\begin{eqnarray}
+  Var(u_i) &=& Var({1\over 2}\ u_s + {1\over 2}\ u_d + m_i) \\
+           &=& Var({1\over 2}\ u_s) + Var({1\over 2}\ u_d) + Var(m_i) \nonumber \\
+           & &  +\ 2*Cov({1\over 2}\ u_s,{1\over 2}\ u_d) \nonumber \\
+           &=& {1\over 4}\ Var(u_s) + {1\over 4}\ Var(u_d) + Var(m_i) \nonumber \\
+           & &  +\ {1\over 2}\ Cov(u_s,u_d) \nonumber
+\label{eq:VarMDeriv}
+\end{eqnarray}
+
+\noindent In Gleichung (\ref{eq:VarMDeriv}) haben wir verwendet, dass die Mendelian Sampling Effekte unabh\"angig von den Zuchtwerten sind, d.h. dass $Cov(u_j,m_i) = 0$ f\"ur alle m\"oglichen Werte f\"ur $i$ und $j$.
+
+L\"osen wir Gleichung (\ref{eq:VarMDeriv}) nach $Var(m_i)$ auf und ersetzen wir die Varianzen der Zuchtwerte durch die jeweiligen Elemente aus der Verwandtschaftsmatrix mal die genetisch additive Varianz, erhalten wir folgendes Resultat f\"ur die Varianz $Var(m_i)$ der Mendelian sampling Effekte.
+
+\begin{eqnarray}
+  Var(m_i) &=& Var(u_i) - {1\over 4}\ Var(u_s) - {1\over 4}\ Var(u_d) - {1\over 2}\ Cov(u_s,u_d) \\
+           &=& (1+F_i)\ \sigma_u^2 - {1\over 4}\ a_{ss}\ \sigma_u^2 - {1\over 4}\ a_{dd}\ \sigma_u^2
+                - {1\over 2}\ a_{sd}\ \sigma_u^2 \nonumber\\
+           &=& \left[1+F_i - {1\over 4}\ a_{ss} - {1\over 4}\ a_{dd}- {1\over 2}\ a_{sd} \right]\ \sigma_u^2 \nonumber \\
+           &=& \left[1 + {1\over 2}\ a_{sd} - {1\over 4}\ a_{ss} - {1\over 4}\ a_{dd}- {1\over 2}\ a_{sd} \right]\ \sigma_u^2 \nonumber \\
+           &=& \left[1 - {1\over 4}\ a_{ss} - {1\over 4}\ a_{dd} \right]\ \sigma_u^2 \nonumber\\
+           &=& \left[1 - {1\over 4}\ (1+F_s) - {1\over 4}\ (1+F_d) \right]\ \sigma_u^2 \nonumber\\
+           &=& \left[0.5 - 0.25(F_s + F_d) \right]\ \sigma_u^2 \nonumber
+\label{eq:VarMResult}
+\end{eqnarray}
+
+Mit diesem Resultat f\"ur die Varianz $Var(m_i)$ der Mendelian sampling Effekte lassen sich nun die Diagonalelemente $d_{ii}$ der Matrix $\mathbf{D}$ berechnen als
+
+\begin{equation}
+d_{ii} = Var(m_i)/\sigma_u^2 = 0.5 - 0.25(F_s + F_d)
+\label{eq:DiagElemDii}
+\end{equation}
 
 \subsection{Inverse Verwandtschaftsmatrix}
 Die Inverse $\mathbf{A}^{-1}$ der Verwandtschaftsmatrix $\mathbf{A}$ kann anhand der LDL-Zerlegung einfach berechnet werden. Die LDL-Zerlegung f\"ur $\mathbf{A}$ lautet
