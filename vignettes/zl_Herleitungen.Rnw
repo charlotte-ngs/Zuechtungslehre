@@ -455,12 +455,21 @@ der \"Ubersichtstabelle ein.
 Diese Herleitung zeigt, dass die in der Vorlesung vorgestellte genetische Varianz anhand der Definition der Varianz als zweites zentrales Moment einer diskreten Zufallsvariablen f\"ur die genotypischen Werte berechnet werden kann.
 
 
-\section{Varianz der Mendelian Sampling Komponente}
+\section{Varianz der Mendelian Sampling Effekte}
 \subsection{Notation}
-In diesem Abschnitt verwenden wir eine leicht andere Notation, als in der Vorlesung. Der Grund daf\"ur ist, dass m\"ogliche Verwechslungen verhindert werden k\"onnen.
+In diesem Abschnitt verwenden wir eine leicht andere Notation, als in der Vorlesung. Der Grund daf\"ur ist, dass m\"ogliche Verwechslungen und Kollosionen zwischen gleichen Bezeichnungen von unterschiedlichen Gr\"ossen verhindert werden sollen.
 
-Zuchtwerte werden mit der Variablen ``$u$'' bezeichnet. Dabei wird der Vektor der Zuchtwerte einer Population von Tieren mit dem kleinen  $\mathbf{u}$ in fetter Schrift bezeichnet. Der Zuchtwert eines einzelnen Tieres $i$ wird mit
+\subsubsection{Zuchtwerte}
+Zuchtwerte werden mit der Variablen ``$u$'' bezeichnet. Dabei wird der Vektor der Zuchtwerte einer Population von Tieren mit dem kleinen  $\mathbf{u}$ in fetter Schrift bezeichnet. Der Zuchtwert $u_i$ eines einzelnen Tieres $i$ wird mit einem kleinen $u$ in Normalschrift mit einem Subskript $i$ gekennzeichnet.
 
+Als Konsequenz der Bezeichnung der Zuchtwerte mit ``$u$'', steht die Variable $\sigma_u^2$ f\"ur die additiv genetische Varianz.
+
+Die hier verwendeten Bezeichnungen f\"ur die Zuchtwerte haben nichts zu tun mit der in der Vorlesung und in den \"Ubungen verwendeten Matrix $\mathbf{U}$ aus der Cholesky-Zerlegung der Verwandtschaftsmatrix.
+
+\subsubsection{Verwandtschaftsmatrix}
+Die Verwandtschaftsmatrix wird mit einem grossen ``$\mathbf{A}$'' in fetter Schrift bezeichnet. Die Komponenten aus dieser Matrix werden mit $a_{ij}$ bezeichnet wobei der Index $i$ f\"ur die $i-$te Zeile und der Index $j$ f\"ur die $j-$te Kolonne steht.
+
+\subsection{Einf\"uhrung}
 Im Gegensatz zu Abschnitt \ref{sec:OneLocusModel}, in welchem wir Zuchtwerte an einem bestimmten Genort betrachtet haben, wechseln wir
 in diesem Abschnitt zum sogenannten ``Infinitesimal''-Modell, in welchem angenommen wird, dass genetische Effekte aufgrund
 von unendlich vielen Genorten zustande kommen. Unter der Annahme eines solchen Modells und unter der Annahme, dass die
@@ -636,9 +645,6 @@ Die Varianz $Var(m_i)$ des Mendelian sampling Effektes $m_i$ l\"asst sich aus de
 \label{eq:BvAniIDecomp}
 \end{equation}
 
-\clearpage
-\pagebreak
-
 \noindent Aufgrund der Zerlegung des Zuchtwertes $u_i$ in Gleichung (\ref{eq:BvAniIDecomp}) k\"onnen wir folgende Gleichung f\"ur die Varianzen aufstellen.
 
 \begin{eqnarray}
@@ -666,7 +672,7 @@ L\"osen wir Gleichung (\ref{eq:VarMDeriv}) nach $Var(m_i)$ auf und ersetzen wir 
 \label{eq:VarMResult}
 \end{eqnarray}
 
-Mit diesem Resultat f\"ur die Varianz $Var(m_i)$ der Mendelian sampling Effekte lassen sich nun die Diagonalelemente $d_{ii}$ der Matrix $\mathbf{D}$ berechnen als
+Mit diesem Resultat f\"ur die Varianz $Var(m_i)$ lassen sich nun die Diagonalelemente $d_{ii}$ der Matrix $\mathbf{D}$ berechnen als
 
 \begin{equation}
 d_{ii} = Var(m_i)/\sigma_u^2 = 0.5 - 0.25(F_s + F_d)
@@ -674,26 +680,26 @@ d_{ii} = Var(m_i)/\sigma_u^2 = 0.5 - 0.25(F_s + F_d)
 \end{equation}
 
 \subsection{Inverse Verwandtschaftsmatrix}
-Die Inverse $\mathbf{A}^{-1}$ der Verwandtschaftsmatrix $\mathbf{A}$ kann anhand der LDL-Zerlegung einfach berechnet werden. Die LDL-Zerlegung f\"ur $\mathbf{A}$ lautet
+Die Inverse $\mathbf{A}^{-1}$ der Verwandtschaftsmatrix $\mathbf{A}$ kann anhand der LDL-Zerlegung einfacher berechnet werden als mit konventionellen Invertierungsmethoden. Die LDL-Zerlegung f\"ur $\mathbf{A}$ lautet
 
 \begin{equation}
   \mathbf{A}= \mathbf{L} * \mathbf{D} * \mathbf{L}^{T}
 \label{eq:LDLDecomp}
 \end{equation}
 
-Die Inverse $\mathbf{A}^{-1}$ kann somit bestimmt werden als
+\noindent Die Inverse $\mathbf{A}^{-1}$ kann somit berechnet werden als
 
 \begin{eqnarray}
-\mathbf{A}^{-1} &=& \left(\mathbf{L} * \mathbf{D} * \mathbf{L}^{T} \right) \\
+\mathbf{A}^{-1} &=& \left(\mathbf{L} * \mathbf{D} * \mathbf{L}^{T} \right)^{-1} \\
                 &=& \left(\mathbf{L}^{T} \right)^{-1} * \mathbf{D}^{-1} * \mathbf{L}^{-1} \nonumber
 \label{eq:AinvLdl}
 \end{eqnarray}
 
 \subsubsection{Matrix $\mathbf{D}^{-1}$}
-Die Matrix $\mathbf{D}^{-1}$ ist genau wie die Matrix $\mathbf{D}$ wieder eine Diagonalmatrix, wobei die Diagonalelemente der Inversen $\mathbf{D}^{-1}$ die Werte $1/d_{ii}$ haben.
+Die Matrix $\mathbf{D}^{-1}$ ist genau wie die Matrix $\mathbf{D}$ wieder eine Diagonalmatrix, wobei die Diagonalelemente der Inversen $\mathbf{D}^{-1}$ die Werte $1/d_{ii}$ haben. Die Berechnung der Diagonalelemente $d_{ii}$ wurde in Gleichung (\ref{eq:DiagElemDii}) gezeigt.
 
 \subsubsection{Matrix $\mathbf{L}^{-1}$}
-Die Struktur der Matrix $\mathbf{L}^{-1}$ kann aufgrund folgender Beziehungen erl\"autert werden. Zu Beginn dieses Abschnittes hatten wir in Gleichung (\ref{eq:PopBvDecomp}) gesehen, wie der Zuchtwert eines Tieres in je die H\"alfte der Zuchtwerte der Eltern plus den Mendelian sampling Effket zerlegt werden kann. In Matrixschreibweise lautet diese Zerlegung
+Die Struktur der Matrix $\mathbf{L}^{-1}$ kann aufgrund folgender Beziehungen erl\"autert werden. Zu Beginn dieses Abschnittes hatten wir in Gleichung (\ref{eq:PopBvDecomp}) gesehen, wie der Zuchtwert eines Tieres in je die H\"alfte der Zuchtwerte der Eltern plus den Mendelian sampling Effekt zerlegt werden kann. In Matrixschreibweise lautet diese Zerlegung
 
 \begin{equation}
   \mathbf{a} = \mathbf{P} * \mathbf{a} + \mathbf{m}
@@ -721,7 +727,7 @@ Die Struktur der Matrix $\mathbf{L}^{-1}$ kann aufgrund folgender Beziehungen er
 \label{eq:MsEffBvDecomp}
 \end{equation}
 
-\noindent Durch Gleichsetzen beider Beziehgungen f\"ur $\mathbf{m}$ k\"onnen wir $\mathbf{L}^{-1}$ bestimmen.
+\noindent Durch Gleichsetzen beider Beziehungen f\"ur $\mathbf{m}$ k\"onnen wir $\mathbf{L}^{-1}$ bestimmen.
 
 \begin{equation}
   \mathbf{m} = \mathbf{L}^{-1} * \mathbf{a} = \left(\mathbf{I} - \mathbf{P}\right) * \mathbf{a}
@@ -737,10 +743,14 @@ Die Struktur der Matrix $\mathbf{L}^{-1}$ kann aufgrund folgender Beziehungen er
 
 \noindent wobei $\mathbf{I}$ die Einheitsmatrix ist und die Matrix $\mathbf{P}$ einer unteren Dreiecksmatrix entspricht, welche die Zuchtwerte der Tiere mit den Zuchtwerten der Eltern verkn\"upft (siehe Gleichungen (\ref{eq:PopBvDecomp}) und (\ref{eq:ExPedBvDecomp})).
 
+\subsection{Berechnung der Inzuchtkoeffizienten}
+%%% % cont here %%%
+
+
 \clearpage
 \pagebreak
-
 \appendix
+
 
 \section{Ableitungen nach Vektoren}
 \label{sec:AbleitungVektor}
