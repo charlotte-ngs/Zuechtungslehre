@@ -7,6 +7,31 @@
 \author{Peter von Rohr}
 \maketitle
 
+<<HelperFunc, echo=FALSE, results=hide>>=
+#' Function returning a matrix as tex output
+#' @param  pmatAMatrix        Matrix to be represented in tex format
+#' @param  pnOutStartLine     line index where output should start, default = 5
+#' @param  pnEndIgnoreLines   number of lines to be ignored at the end of the output, default = 1
+#' @return string containing tex representation of matrix
+sGetTexMatrix <- function(pmatAMatrix, pnOutStartLine = 5, pnEndIgnoreLines = 1) {
+  sResultTexMatrix <- capture.output(print(xtable::xtable(pmatAMatrix),
+                                     include.rownames = FALSE,
+                                     include.colnames = FALSE,
+                                     hline.after = NULL,
+                                     sanitize.text.function=identity))
+  ### # do some replacements
+  sResultTexMatrix <- gsub("tabular", "array",
+                           sResultTexMatrix[pnOutStartLine:(length(sResultTexMatrix)-pnEndIgnoreLines)],
+                           fixed = TRUE)
+  return(sResultTexMatrix)
+}
+
+matLowerTri <- function(psBaseElement, pnNrRow, pnNrCol) {
+  matResult <- matrix()
+}
+@
+
+
 
 \section*{Erkl\"arung}
 Auf den Folien des ersten Teils der Vorlesung Z\"uchtungslehre wurden aus Platzgr\"unden die Herleitungen von einigen Formeln weggelassen. Diese Herleitungen werden in diesem Dokument zusammengefasst. Das hier gezeigte Material soll als zus\"atzliche Erkl\"arung und als Hilfestellung dienen und nicht den Pr\"ufungsstoff erweitern.
@@ -460,7 +485,7 @@ Diese Herleitung zeigt, dass die in der Vorlesung vorgestellte genetische Varian
 In diesem Abschnitt verwenden wir eine leicht andere Notation, als in der Vorlesung. Der Grund daf\"ur ist, dass m\"ogliche Verwechslungen und Kollosionen zwischen gleichen Bezeichnungen von unterschiedlichen Gr\"ossen verhindert werden sollen.
 
 \subsubsection{Zuchtwerte}
-Zuchtwerte werden mit der Variablen ``$u$'' bezeichnet. Dabei wird der Vektor der Zuchtwerte einer Population von Tieren mit dem kleinen  $\mathbf{u}$ in fetter Schrift bezeichnet. Der Zuchtwert $u_i$ eines einzelnen Tieres $i$ wird mit einem kleinen $u$ in Normalschrift mit einem Subskript $i$ gekennzeichnet.
+Zuchtwerte werden mit der Variablen ``$u$'' bezeichnet. Ein Vektor von Zuchtwerten wird mit dem kleinen  $\mathbf{u}$ in fetter Schrift bezeichnet. Der Zuchtwert $u_i$ eines einzelnen Tieres $i$ wird mit einem kleinen $u$ in Normalschrift mit einem Subskript $i$ gekennzeichnet.
 
 Als Konsequenz der Bezeichnung der Zuchtwerte mit ``$u$'', steht die Variable $\sigma_u^2$ f\"ur die additiv genetische Varianz.
 
@@ -481,8 +506,9 @@ u_i = {1\over 2}\ u_s + {1\over 2}\ u_d + m_i
 \label{eq:AnimalBvDecomp}
 \end{equation}
 
-\noindent wobei $m_i$ f\"ur den sogenannten ``Mendelian sampling'' - Effekt steht. Dieser Effekt entspricht der Abweichung des Zuchtwertes $u_i$ vom erwarteten Vollgeschwisterdurchschnitt. Er kommt durch die zuf\"allige Auswahl von Allelen w\"ahrend der Meiose bei den Eltern zustande. Die Zuchtwerte von Vollgeschwistern unterscheiden sich also nur in den unterschiedlichen
-Mendelian sampling Effekten, nicht aber in den Beitr\"agen der Elternzuchtwerte.
+\noindent wobei $m_i$ f\"ur den sogenannten ``Mendelian sampling'' - Effekt steht.
+
+Dieser Effekt entspricht der Abweichung des Zuchtwertes $u_i$ vom erwarteten Vollgeschwisterdurchschnitt. Er kommt durch die zuf\"allige Auswahl von Allelen w\"ahrend der Meiose bei den Eltern zustande. Die Zuchtwerte von Vollgeschwistern unterscheiden sich also nur in den unterschiedlichen Mendelian sampling Effekten, nicht aber in den Beitr\"agen der Elternzuchtwerte.
 
 Fasst man die Zuchtwerte $u_i$ aller Tiere zu einem Vektor $\mathbf{u}$ zusammen, dann kann die Zerlegung aus Gleichung
 (\ref{eq:AnimalBvDecomp}) in Matrixschreibweise \"ubertragen werden.
@@ -549,7 +575,7 @@ Die Matrixschreibweise der Zerlegung in Gleichung (\ref{eq:ExPedBvDecomp}) zeigt
 
 \subsection{Rekursive Zerlegung}
 \label{sec:RekursiveZerlegung}
-Kehren wir nun zurueck zur Zerlegung f\"ur ein bestimmtes Tier $i$. Wie aus Gleichung (\ref{eq:AnimalBvDecomp}) ersichtlich ist, wird $u_i$ in je die H\"alfte der Elternzuchtwerte $u_s$ und $u_d$ und die Mendelian sampling Komponente $m_i$ zerlegt. Die Zuchtwerte $u_s$ und $u_d$ k\"onnen analog zur Zerlegung von $u_i$ auch in Kompoenten der Elternzuchtwerte und Mendelian sampling aufgeteilt werden. Konkret bedeutet das, dass $u_s$ aufgeteilt wird in
+Kehren wir nun zurueck zur Zerlegung f\"ur ein bestimmtes Tier $i$. Wie aus Gleichung (\ref{eq:AnimalBvDecomp}) ersichtlich ist, wird $u_i$ in je die H\"alfte der Elternzuchtwerte $u_s$ und $u_d$ und die Mendelian sampling Komponente $m_i$ zerlegt. Die Zuchtwerte $u_s$ und $u_d$ k\"onnen analog zur Zerlegung von $u_i$ auch in die Komponenten der Elternzuchtwerte und der Mendelian sampling Effekte aufgeteilt werden. Konkret bedeutet das, dass $u_s$ aufgeteilt wird in
 
 $$u_s = {1\over 2}\ u_{ss} + {1\over 2}\ u_{sd} + m_s$$
 
@@ -696,41 +722,42 @@ Die Inverse $\mathbf{A}^{-1}$ der Verwandtschaftsmatrix $\mathbf{A}$ kann anhand
 \end{eqnarray}
 
 \subsubsection{Matrix $\mathbf{D}^{-1}$}
+\label{sec:MatDinv}
 Die Matrix $\mathbf{D}^{-1}$ ist genau wie die Matrix $\mathbf{D}$ wieder eine Diagonalmatrix, wobei die Diagonalelemente der Inversen $\mathbf{D}^{-1}$ die Werte $1/d_{ii}$ haben. Die Berechnung der Diagonalelemente $d_{ii}$ wurde in Gleichung (\ref{eq:DiagElemDii}) gezeigt.
 
 \subsubsection{Matrix $\mathbf{L}^{-1}$}
 Die Struktur der Matrix $\mathbf{L}^{-1}$ kann aufgrund folgender Beziehungen erl\"autert werden. Zu Beginn dieses Abschnittes hatten wir in Gleichung (\ref{eq:PopBvDecomp}) gesehen, wie der Zuchtwert eines Tieres in je die H\"alfte der Zuchtwerte der Eltern plus den Mendelian sampling Effekt zerlegt werden kann. In Matrixschreibweise lautet diese Zerlegung
 
 \begin{equation}
-  \mathbf{a} = \mathbf{P} * \mathbf{a} + \mathbf{m}
+  \mathbf{u} = \mathbf{P} * \mathbf{u} + \mathbf{m}
 \label{eq:BvParentBvMs}
 \end{equation}
 
 \noindent Daraus folgt, dass
 
 \begin{equation}
-  \mathbf{m} = \mathbf{a} - \mathbf{P} * \mathbf{a} = \left(\mathbf{I} - \mathbf{P}\right) * \mathbf{a}
+  \mathbf{m} = \mathbf{u} - \mathbf{P} * \mathbf{u} = \left(\mathbf{I} - \mathbf{P}\right) * \mathbf{u}
 \label{eq:MsParentBv}
 \end{equation}
 
-\noindent Aufgrund der rekursiven Zerlegung der Zuchtwerte $\mathbf{a}$ in eine Linearkombination von Mendelian sampling Effekten
+\noindent Aufgrund der rekursiven Zerlegung der Zuchtwerte $\mathbf{u}$ in eine Linearkombination von Mendelian sampling Effekten
 
 \begin{equation}
-  \mathbf{a} = \mathbf{L} * \mathbf{m}
+  \mathbf{u} = \mathbf{L} * \mathbf{m}
 \label{eq:BvDecompMsEff}
 \end{equation}
 
 \noindent Daraus folgt f\"ur $m$
 
 \begin{equation}
-  \mathbf{m} = \mathbf{L}^{-1} * \mathbf{a}
+  \mathbf{m} = \mathbf{L}^{-1} * \mathbf{u}
 \label{eq:MsEffBvDecomp}
 \end{equation}
 
 \noindent Durch Gleichsetzen beider Beziehungen f\"ur $\mathbf{m}$ k\"onnen wir $\mathbf{L}^{-1}$ bestimmen.
 
 \begin{equation}
-  \mathbf{m} = \mathbf{L}^{-1} * \mathbf{a} = \left(\mathbf{I} - \mathbf{P}\right) * \mathbf{a}
+  \mathbf{m} = \mathbf{L}^{-1} * \mathbf{u} = \left(\mathbf{I} - \mathbf{P}\right) * \mathbf{u}
 \label{eq:LinvEq}
 \end{equation}
 
@@ -744,6 +771,37 @@ Die Struktur der Matrix $\mathbf{L}^{-1}$ kann aufgrund folgender Beziehungen er
 \noindent wobei $\mathbf{I}$ die Einheitsmatrix ist und die Matrix $\mathbf{P}$ einer unteren Dreiecksmatrix entspricht, welche die Zuchtwerte der Tiere mit den Zuchtwerten der Eltern verkn\"upft (siehe Gleichungen (\ref{eq:PopBvDecomp}) und (\ref{eq:ExPedBvDecomp})).
 
 \subsection{Berechnung der Inzuchtkoeffizienten}
+Wie in Abschnitt \ref{sec:MatDinv} und in Gleichung (\ref{eq:DiagElemDii}) gezeigt braucht es zur Berechnung der Matrix $\mathbf{D}^{-1}$ die Inzuchtkoeffizienten. Die Inzuchtkoeffizienten sind auf der Diagonalen der Verwandtschaftsmatrix $\mathbf{A}$ ersichtlich. Somit m\"usste zur direkten Invertierung der Verwandtschaftsmatrix $\mathbf{A}$ die gesamte Matrix $\mathbf{A}$ aufgestellt und gespeichert werden. F\"ur grosse Datens\"atze kann diese Methode sehr ineffizient sein.
+
+Alternativ zum Aufstellen der gesamten Verwandtschaftsmatrix $\mathbf{A}$ k\"onnen die Inzuchtkoeffizienten aufgrund von nur zwei Zeilen der Matrix aus der Cholesky-Zerlegung von $\mathbf{A}$ berechnet werden. Die Cholesky-Zerlegung von $\mathbf{A}$ sieht wie folgt aus
+
+\begin{equation}
+  \mathbf{A} = \mathbf{R} * \mathbf{R}^T
+\label{eq:CholMatA}
+\end{equation}
+\noindent wobei $\mathbf{R}$ eine linke untere Dreiecksmatrix ist. In der Vorlesung und in den \"Ubungen wurde die Matrix $\mathbf{R}$ als Matrix $\mathbf{U}$ bezeichnet.
+
+Aufgrund der Dreiecksstruktur von Matrix $\mathbf{R}$ k\"onnen die Diagonalelemente der Matrix $\mathbf{A}$ berechnet werden als
+
+\begin{equation}
+  a_{ii} = \sum_{n=1}^i r_{in}^2
+\label{eq:DiagElemMatA}
+\end{equation}
+
+
+Schauen wir das bei einem kleinen Beispiel an.
+
+<<SmallExAChol, echo=FALSE, results=tex>>=
+nAnzAni <- 3
+matA <- matrix(sapply(0:(nAnzAni*nAnzAni-1),
+                      function(x,y) paste("a", x%/%y+1, x%%y+1, sep = ""),
+                      nAnzAni),
+               nrow = nAnzAni,
+               ncol = nAnzAni,
+               byrow = TRUE)
+
+@
+
 %%% % cont here %%%
 
 

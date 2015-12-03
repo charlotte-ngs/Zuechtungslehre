@@ -28,3 +28,5 @@ clean_slides <- function (psPkgDir = ".", psVigKeepPattern = "[.][rRsS]nw|cls|[R
   }
   invisible(TRUE)
 }
+
+clean_slides()
