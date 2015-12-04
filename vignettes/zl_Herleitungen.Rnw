@@ -785,7 +785,8 @@ Die Struktur der Matrix $\mathbf{L}^{-1}$ kann aufgrund folgender Beziehungen er
 \subsection{Berechnung der Inzuchtkoeffizienten}
 Wie in Abschnitt \ref{sec:MatDinv} und in Gleichung (\ref{eq:DiagElemDii}) gezeigt braucht es zur Berechnung der Matrix $\mathbf{D}^{-1}$ die Inzuchtkoeffizienten. Die Inzuchtkoeffizienten sind auf der Diagonalen der Verwandtschaftsmatrix $\mathbf{A}$ ersichtlich. Somit m\"usste zur direkten Invertierung der Verwandtschaftsmatrix $\mathbf{A}$ die gesamte Matrix $\mathbf{A}$ aufgestellt und gespeichert werden. F\"ur grosse Datens\"atze kann diese Methode sehr ineffizient sein.
 
-Alternativ zum Aufstellen der gesamten Verwandtschaftsmatrix $\mathbf{A}$ k\"onnen die Inzuchtkoeffizienten aufgrund von nur zwei Zeilen der Matrix aus der Cholesky-Zerlegung von $\mathbf{A}$ berechnet werden. Die Cholesky-Zerlegung von $\mathbf{A}$ sieht wie folgt aus
+\subsubsection{Cholesky Zerlegung von $\mathbf{A}$}
+Alternativ zum Aufstellen der gesamten Verwandtschaftsmatrix $\mathbf{A}$ k\"onnen die Inzuchtkoeffizienten aufgrund von einzelnen Zeilen der Matrix aus der Cholesky-Zerlegung von $\mathbf{A}$ berechnet werden. Die Cholesky-Zerlegung von $\mathbf{A}$ sieht wie folgt aus
 
 \begin{equation}
   \mathbf{A} = \mathbf{R} * \mathbf{R}^T
@@ -799,7 +800,6 @@ Aufgrund der Dreiecksstruktur von Matrix $\mathbf{R}$ k\"onnen die Diagonaleleme
   a_{ii} = \sum_{n=1}^i r_{in}^2
 \label{eq:DiagElemMatA}
 \end{equation}
-
 
 Schauen wir das bei einem kleinen Beispiel an.
 
@@ -828,8 +828,9 @@ cat("$$\n")
 \label{MatADiag}
 \end{eqnarray}
 
-Die oben gezeigten Gleichungen für die Diagonalelemente $a_{11}$, $a_{22}$ und $a_{33}$ folgen auch aus der Gleichung (\ref{eq:DiagElemMatA}). Das bedeutet, dass die Diagonalelemente der Verwandtschaftsmatrix und somit die Inzuchtkoeffizienten aufgrund einer Zeile aus der Matrix $\mathbf{R}$ berechnet werden k\"onnen. Als n\"achste Frage stellt sich, wie die Elemente der Matrix $\mathbf{R}$ berechnet werden.
+Die Gleichung (\ref{eq:DiagElemMatA}) zeigt den allgemeinen Fall der Berechnung der Diagonalelemente $a_{ii}$ der Verwandtschaftsmatrix $\mathbf{A}$. Das bedeutet, dass die Diagonalelemente der Verwandtschaftsmatrix und somit die Inzuchtkoeffizienten aufgrund einer Zeile aus der Matrix $\mathbf{R}$ berechnet werden k\"onnen. Als n\"achste Frage stellt sich, wie die Elemente der Matrix $\mathbf{R}$ rekursiv berechnet werden k\"onnen.
 
+\subsubsection{Rekursive Berechnung von $\mathbf{R}$}
 
 
 %%% % cont here %%%
