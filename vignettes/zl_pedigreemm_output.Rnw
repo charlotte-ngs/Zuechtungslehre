@@ -1,0 +1,34 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Erkl\"arungen zum Output von pedigreemm}
+\author{Peter von Rohr}
+\maketitle
+
+In Z\"uchtungslehre - \"Ubnug 5 wurden REML und ML Sch\"atzungen f\"ur ein gemischtes lineares Modell miteinander verglichen. Das nachfolgende Diagramm soll den Output der Summary-Methode noch etwas genauer erkl\"aren.
+
+\section{REML}
+
+\includegraphics[width=\textwidth]{figure/w8/pedigreemm_output.pdf}
+
+\clearpage
+\pagebreak
+
+\section{ML}
+
+Der Output f\"ur die Option ML ist bis auf den Ausschnitt der Likelihood identisch. In diesem Abschnitt zur Likelihood werden verschiedene Charakteristika des Modells aufgelistet. Darunter sind:
+
+\begin{itemize}
+\item Akaike Informationskriterium beschreibt, wie gut das Modell an die Daten angepasst ist
+\item Bayes Informationskriterium misst auch die Modellqualit\"at aber mit einer anderen Formel
+\item Deviance: Teststatistik zur Modellselektion analog zur Restvarianz in Regressionsmodellen
+\end{itemize}
+
+Dieser Abschnitt sieht wie folgt aus
+
+\includegraphics[width=\textwidth]{figure/w8/pedigreemm_output_ml.pdf}
+
+
+\end{document}

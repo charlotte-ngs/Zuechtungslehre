@@ -26,8 +26,20 @@ sGetTexMatrix <- function(pmatAMatrix, pnOutStartLine = 5, pnEndIgnoreLines = 1)
   return(sResultTexMatrix)
 }
 
-matLowerTri <- function(psBaseElement, pnNrRow, pnNrCol) {
-  matResult <- matrix()
+matGetMatElem <- function(psBaseElement, pnNrRow, pnNrCol){
+  return(matrix(sapply(0:(pnNrRow*pnNrCol-1),
+                      function(x,y) paste(psBaseElement, x%/%y+1, x%%y+1, sep = ""),
+                      pnNrCol),
+               nrow = pnNrRow,
+               ncol = pnNrCol,
+               byrow = TRUE))
+}
+
+matLowerTri <- function(psBaseElement, pnNrRow, pnNrCol, pvecDiag = NULL) {
+  matResult <- matGetMatElem(psBaseElement = psBaseElement, pnNrRow, pnNrCol)
+  matResult[upper.tri(matResult)] <- "0"
+  if (!is.null(pvecDiag)) diag(matResult) <- pvecDiag
+  return(matResult)
 }
 @
 
@@ -793,14 +805,32 @@ Schauen wir das bei einem kleinen Beispiel an.
 
 <<SmallExAChol, echo=FALSE, results=tex>>=
 nAnzAni <- 3
-matA <- matrix(sapply(0:(nAnzAni*nAnzAni-1),
-                      function(x,y) paste("a", x%/%y+1, x%%y+1, sep = ""),
-                      nAnzAni),
-               nrow = nAnzAni,
-               ncol = nAnzAni,
-               byrow = TRUE)
-
+matA <- matGetMatElem(psBaseElement = "a", pnNrRow = nAnzAni, pnNrCol = nAnzAni)
+matR <- matLowerTri(psBaseElement = "r", pnNrRow = nAnzAni, pnNrCol = nAnzAni)
+cat("$$\\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matA), collapse = "\n"))
+cat("\\right] \n")
+cat(" = \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matR), collapse = "\n"))
+cat("\\right] \n")
+cat(" * \\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = t(matR)), collapse = "\n"))
+cat("\\right] \n")
+cat("$$\n")
 @
+
+\noindent F\"ur das gezeigte kleine Beispiel berechnen wir die Diagonalelemente von $\mathbf{A}$ als
+
+\begin{eqnarray}
+  a_{11} &=& r_{11}^2 \nonumber\\
+  a_{22} &=& r_{21}^2 + r_{22}^2\nonumber\\
+  a_{33} &=& r_{31}^2 + r_{32}^2 + r_{33}^2\nonumber
+\label{MatADiag}
+\end{eqnarray}
+
+Die oben gezeigten Gleichungen für die Diagonalelemente $a_{11}$, $a_{22}$ und $a_{33}$ folgen auch aus der Gleichung (\ref{eq:DiagElemMatA}). Das bedeutet, dass die Diagonalelemente der Verwandtschaftsmatrix und somit die Inzuchtkoeffizienten aufgrund einer Zeile aus der Matrix $\mathbf{R}$ berechnet werden k\"onnen. Als n\"achste Frage stellt sich, wie die Elemente der Matrix $\mathbf{R}$ berechnet werden.
+
+
 
 %%% % cont here %%%
 
