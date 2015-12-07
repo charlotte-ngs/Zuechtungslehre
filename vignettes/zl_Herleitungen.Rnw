@@ -646,6 +646,14 @@ der Diagonalen sind gleich null. Die Diagonalelemente der Matrix $\mathbf{L}$ si
 \label{eq:ExPedALmDecomp}
 \end{equation}
 
+Bei n\"aherer Betrachtung der Matrix $\mathbf{L}$ fallen zwei Fakten auf.
+\begin{enumerate}
+\item Wie schon weiter oben erw\"ahnt sind alle Diagonalelemente der Matrix $\mathbf{L}$ gleich $1$. Da aufgrund der Zerlegung in Gleichung (\ref{eq:AnimalBvDecomp}), jeder Zuchtwert eines Tieres $i$ die Mendelian Sampling Komponente $m_i$ selber enth\"alt, folgt daraus, dass das entsprechende Diagonalelement $l_{ii}$ der Matrix $\mathbf{L}$ gleich $1$ sein muss.
+\item Die Offdiagonalelemente $l_{ij}$ wobei $i>j$ lassen sich berechnen als
+$$l_{ij} = 1/2(l_{sj} + l_{dj})$$
+wobei $s$ und $d$ die Eltern von $i$ sind.
+\end{enumerate}
+
 \subsection{Varianzen}
 Berechnen wir die Varianz des Vektors der Zuchtwerte $\mathbf{u}$ aufgrund der Gleichung (\ref{eq:ALMDecomp}), so folgt
 daraus
@@ -828,10 +836,15 @@ cat("$$\n")
 \label{MatADiag}
 \end{eqnarray}
 
-Die Gleichung (\ref{eq:DiagElemMatA}) zeigt den allgemeinen Fall der Berechnung der Diagonalelemente $a_{ii}$ der Verwandtschaftsmatrix $\mathbf{A}$. Das bedeutet, dass die Diagonalelemente der Verwandtschaftsmatrix und somit die Inzuchtkoeffizienten aufgrund einer Zeile aus der Matrix $\mathbf{R}$ berechnet werden k\"onnen. Als n\"achste Frage stellt sich, wie die Elemente der Matrix $\mathbf{R}$ rekursiv berechnet werden k\"onnen.
+Die Gleichung (\ref{eq:DiagElemMatA}) zeigt den allgemeinen Fall der Berechnung der Diagonalelemente $a_{ii}$ der Verwandtschaftsmatrix $\mathbf{A}$. Das bedeutet, dass die Diagonalelemente der Verwandtschaftsmatrix und somit die Inzuchtkoeffizienten aufgrund einer Zeile aus der Matrix $\mathbf{R}$ berechnet werden k\"onnen. Als n\"achste Frage stellt sich, wie die Elemente der Matrix $\mathbf{R}$ rekursiv berechnet werden k\"onnen, ohne dass wir die ganze Matrix $\mathbf{A}$ oder die ganze Matrix $R$ aufstellen.
 
 \subsubsection{Rekursive Berechnung von $\mathbf{R}$}
+Der Schl\"ussel zur Berechnung der Elemente von $\mathbf{R}$ liegt in der Gleichsetzung der Cholesky-Zerlegung der Verwandtschaftsmatrix $\mathbf{A}$ und der LDL-Zerlegung von $\mathbf{A}$. Daraus l\"asst sich folgende Beziehung ableiten.
 
+\begin{eqnarray}
+\mathbf{A} = \mathbf{R} * \mathbf{R}^T &=& \mathbf{L} * \mathbf{D} * \mathbf{L}^T
+\label{CholDecLdlDec}
+\end{eqnarray}
 
 %%% % cont here %%%
 
