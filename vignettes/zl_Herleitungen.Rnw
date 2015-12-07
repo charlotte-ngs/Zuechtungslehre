@@ -650,8 +650,11 @@ Bei n\"aherer Betrachtung der Matrix $\mathbf{L}$ fallen zwei Fakten auf.
 \begin{enumerate}
 \item Wie schon weiter oben erw\"ahnt sind alle Diagonalelemente der Matrix $\mathbf{L}$ gleich $1$. Da aufgrund der Zerlegung in Gleichung (\ref{eq:AnimalBvDecomp}), jeder Zuchtwert eines Tieres $i$ die Mendelian Sampling Komponente $m_i$ selber enth\"alt, folgt daraus, dass das entsprechende Diagonalelement $l_{ii}$ der Matrix $\mathbf{L}$ gleich $1$ sein muss.
 \item Die Offdiagonalelemente $l_{ij}$ wobei $i>j$ lassen sich berechnen als
-$$l_{ij} = 1/2(l_{sj} + l_{dj})$$
-wobei $s$ und $d$ die Eltern von $i$ sind.
+$$l_{ij} = {1\over 2} * (l_{sj} + l_{dj})$$
+wobei $s$ und $d$ die Eltern von $i$ sind. Das Element $l_{ij}$ in Matrix $\mathbf{L}$ bezeichnet den Anteil vom Mendelian Samlpling Effekt $m_j$, welcher im Zuchtwert $u_i$ enthalten ist. Zum Beispiel entspricht das Element $l_{53}$ dem Anteil vom Mendelian Sampling Effekt $m_3$, welcher im Zuchtwert $u_5$ enthalten ist. Aufgrund der Zerlegung des Zuchtwertes $u_5$ in
+$$u_5 = {1\over 2}\ u_3 + {1\over 2}\ u_4 + m_5 $$
+folgt, dass die Anteile von $m_3$ je zur H\"alfte \"uber den Vaterzuchtwert $u_3$ oder \"uber den Mutterzuchtwert $u_4$ zustande kommen. Der Anteil von $m_3$ im Zuchtwert $u_3$ entspricht dem Element $l_{33}$ in der Matrix $\mathbf{L}$ und der Anteil von $m_3$ im Zuchtwert $u_4$ entspricht analog dem Element $l_{43}$. Somit l\"asst sich das Element $l_{53}$ in unserem Beispiel berechnen als
+$$l_{53} = {1\over 2} * l_{33} + {1\over 2} * l_{43} = {1\over 2} * 1 + {1\over 2} * 0 = {1\over 2}$$
 \end{enumerate}
 
 \subsection{Varianzen}
@@ -845,6 +848,8 @@ Der Schl\"ussel zur Berechnung der Elemente von $\mathbf{R}$ liegt in der Gleich
 \mathbf{A} = \mathbf{R} * \mathbf{R}^T &=& \mathbf{L} * \mathbf{D} * \mathbf{L}^T
 \label{CholDecLdlDec}
 \end{eqnarray}
+
+Aus der Beziehung der beiden Zerlegungen in Gleichung (\ref{CholDecLdlDec}) wollen wir die Matrix $\mathbf{R}$ in Abh\"angigkeit der Matrizen $\mathbf{L}$ und $\mathbf{D}$ ausdr\"ucken. Der Grund daf\"ur ist, dass wir wissen wie wir einfach die Elemente der Matrizen $\mathbf{L}$ und $\mathbf{D}$ bestimmen. Somit wissen wir auch, wie wir die Elemente der Matrix $\mathbf{R}$ bestimmen, sobald wir die Beziehung zwischen $\mathbf{L}$, $\mathbf{D}$ und $\mathbf{R}$ kennen.
 
 %%% % cont here %%%
 
