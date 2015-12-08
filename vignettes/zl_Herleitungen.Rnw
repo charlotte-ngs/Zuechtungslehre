@@ -61,6 +61,13 @@ matDiag <- function(psBaseElement, pnNrRow, pnNrCol) {
 \section*{Erkl\"arung}
 Auf den Folien des ersten Teils der Vorlesung Z\"uchtungslehre wurden aus Platzgr\"unden die Herleitungen von einigen Formeln weggelassen. Diese Herleitungen werden in diesem Dokument zusammengefasst. Das hier gezeigte Material soll als zus\"atzliche Erkl\"arung und als Hilfestellung dienen und nicht den Pr\"ufungsstoff erweitern.
 
+Das hier gezeigte Material basiert auf folgenden Quellen
+\begin{itemize}
+\item Skript der Vorlesung Quantitative Genetik der ETHZ \cite{SH2015}
+\item Diss Andreas Hofer \cite{Hofer1990}
+\item Buch Linear Models for the Prediction of Animal Breeding Values von R.A. Mrode \cite{Mrode2005}
+\end{itemize}
+
 \section{Selektionsindex}
 In der Vorlesung wurde der Selektionsindex $I$ als Sch\"atzer f\"ur den Gesamtzuchtwert $H$ vorgestellt. Der Gesamtzuchtwert $H$ entspricht der mathematischen Formulierung unseres Zuchtziels. Das Zuchtziel ist die Charakterisierung des optimalen Zuchttieres. In den meisten F\"allen enth\"alt das Zuchtziel mehrere Merkmale.
 
@@ -108,7 +115,7 @@ Die Varianz der Abweichung zwischen Gesamtzuchtwert $H$ und und Selektionsindex 
 Dabei gilt es zu beachten, dass der Vektor der Indexgewichte $\mathbf{b}$ als unbekannte Gr\"osse gesucht wird.
 
 \begin{eqnarray}
-Var\left( H-I \right) & = & Var\left(H\right) + Var\left(I\right) - 2*Cov\left(H,I\right) \\
+Var\left( H-I \right) & = & Var\left(H\right) + Var\left(I\right) - 2*Cov\left(H,I\right)  \nonumber \\
  & = & Var\left( \mathbf{v}^T*\mathbf{g} \right) +  Var\left( \mathbf{b}^T * \mathbf{p} \right)
        - 2*Cov \left( \mathbf{v}^T*\mathbf{g}, \mathbf{b}^T * \mathbf{p} \right) \nonumber \\
  & = & \mathbf{v}^T * Var\left( \mathbf{g} \right) * \mathbf{v}
@@ -116,8 +123,8 @@ Var\left( H-I \right) & = & Var\left(H\right) + Var\left(I\right) - 2*Cov\left(H
        - 2 * \mathbf{v}^T * Cov \left( \mathbf{g}, \mathbf{p} \right) * \mathbf{b} \nonumber \\
  & = & \mathbf{v}^T * \mathbf{C} * \mathbf{v}
        +  \mathbf{b}^T * \mathbf{P} * \mathbf{b}
-       - 2 * \mathbf{v}^T * \mathbf{G} * \mathbf{b} \nonumber
-\label{eq:MinVarHMinI}
+       - 2 * \mathbf{v}^T * \mathbf{G} * \mathbf{b}
+\label{eq:VarHMinusI}
 \end{eqnarray}
 \noindent wobei $\mathbf{C}$ die Covarianzmatrix zwischen den Merkmalen im Gesamtzuchtwert ist,
 $\mathbf{P}$ die Covarianzmatrix zwischen den Merkmalen im Selektionsindex ist, und
@@ -125,20 +132,20 @@ $\mathbf{C}$ die Covarianzmatrix zwischen den Merkmalen im Gesamtzuchtwert und d
 Merkmalen im Selektionsindex ist.
 
 In der Herleitung der Varianz der Abweichung des Selektionsindexes vom Gesamtzuchtwert in Gleichung
-(\ref{eq:MinVarHMinI}) wird im ersten Schritt die Definition der Varianz einer Differenz angewendet. Danach
+(\ref{eq:VarHMinusI}) wird im ersten Schritt die Definition der Varianz einer Differenz angewendet. Danach
 werden die Definitionen von $H$ und $I$ eingesetzt. Aus der Entwicklung der Formeln in Gleichung
-(\ref{eq:MinVarHMinI}) k\"onnen folgende Beziehungen zur Varianz des Gesamtzuchtwertes, zur Varianz
+(\ref{eq:VarHMinusI}) k\"onnen folgende Beziehungen zur Varianz des Gesamtzuchtwertes, zur Varianz
 des Selektionsindexes und zur Covarianz zwischen Gesamtzuchtwert und Selektionsindex abgeleitet werden.
 
 \begin{eqnarray}
-Var\left(H\right)   & = & \mathbf{v}^T * \mathbf{C} * \mathbf{v} \\
-Var\left(I\right)   & = & \mathbf{b}^T * \mathbf{P} * \mathbf{b} \nonumber\\
-Cov\left(H,I\right) & = & \mathbf{v}^T * \mathbf{G} * \mathbf{b} \nonumber
+Var\left(H\right)   & = & \mathbf{v}^T * \mathbf{C} * \mathbf{v} \nonumber \\
+Var\left(I\right)   & = & \mathbf{b}^T * \mathbf{P} * \mathbf{b} \nonumber \\
+Cov\left(H,I\right) & = & \mathbf{v}^T * \mathbf{G} * \mathbf{b}
 \label{eq:VarCovSelInd}
 \end{eqnarray}
 
 
-Zum Minimieren von $Var\left( H-I \right)$ muss dieser Ausdruck in Gleichung (\ref{eq:MinVarHMinI})
+Zum Minimieren von $Var\left( H-I \right)$ muss dieser Ausdruck in Gleichung (\ref{eq:VarHMinusI})
 nach $\mathbf{b}$ abgeleitet werden (Siehe Anhang \ref{sec:AbleitungVektor} f\"ur eine allgemeine
 Erkl\"arung von Ableitungen nach Vektoren). Dabei gilt es zu beachten, dass die quadratische Form
 $\mathbf{b}^T * \mathbf{P} * \mathbf{b}$ analog zur skalaren Funktion $x^2$ abgeleitet wird, d.h.
@@ -146,12 +153,13 @@ der quadratische Exponent wird in der Ableitung zum Faktor $2$ und Grad der Funk
 reduziert, d.h. aus der quadratischen Form wird in der Ableitung die lineare Form
 $\mathbf{P} * \mathbf{b}$. Der Term $\mathbf{v}^T * \mathbf{C} * \mathbf{v}$
 ist unabh\"angig von $\mathbf{b}$, d.h. es kommt darin kein $\mathbf{b}$ vor und deshalb f\"allt dieser
-Term bei der Ableitung heraus. Der letzte Term in Gleichung \ref{eq:MinVarHMinI} zeigt eine lineare
+Term bei der Ableitung heraus. Der letzte Term in Gleichung \ref{eq:VarHMinusI} zeigt eine lineare
 Abh\"angigkeit in $\mathbf{b}$, was bedeutet, dass in der Ableitung noch der Konstante Faktor
 $- 2 * \mathbf{G} * \mathbf{v}$ \"ubrig bleibt.
 
 \begin{eqnarray}
-\frac{\partial Var\left(H-I\right)}{\partial\mathbf{b}} &=& 2*\mathbf{P} * \mathbf{b} - 2 * \mathbf{G} * \mathbf{v}
+\frac{\partial Var\left(H-I\right)}{\partial\mathbf{b}}
+  &=& 2*\mathbf{P} * \mathbf{b} - 2 * \mathbf{G} * \mathbf{v}
 \label{eq:DiffVarB}
 \end{eqnarray}
 
@@ -159,9 +167,11 @@ Die in Gleichung (\ref{eq:DiffVarB}) gezeigte Ableitung wird $=0$ gesetzt und da
 unbekannte Vektor $\mathbf{b}$ berechnet werden.
 
 \begin{eqnarray}
-\frac{\partial Var\left(H-I\right)}{\partial\mathbf{b}} &=& 2*\mathbf{P} * \mathbf{b} - 2 * \mathbf{G} * \mathbf{v} = 0\\
-2*\mathbf{P} * \mathbf{b}                               &=& 2 * \mathbf{G} * \mathbf{v}\nonumber\\
-\mathbf{P} * \mathbf{b}                                 &=& \mathbf{G} * \mathbf{v}\nonumber
+\frac{\partial Var\left(H-I\right)}{\partial\mathbf{b}}
+                         &=& 2*\mathbf{P} * \mathbf{b} - 2 * \mathbf{G} * \mathbf{v} = 0 \nonumber\\
+2*\mathbf{P} * \mathbf{b}
+                         &=& 2 * \mathbf{G} * \mathbf{v}\nonumber\\
+\mathbf{P} * \mathbf{b}  &=&  \mathbf{G} * \mathbf{v}
 \label{eq:SolDiffVarB}
 \end{eqnarray}
 
@@ -190,11 +200,12 @@ $r_{H,I}$ nach $\mathbf{b}$ die Ableitung vom nat\"urlichen Logarithmus von $r_{
 Dies ist wie gesagt einfacher und wird zum gleichen Ergebnis f\"ur $\mathbf{b}$ f\"uhren.
 
 \begin{eqnarray}
-\log \left(r_{H,I} \right) &=& \log \left(\frac{Cov(H,I)}{\sqrt{Var(I) * Var(H)}} \right)\\
- &=& \log \left( Cov(H,I) \right) - {1 \over 2} \log \left( Var(I) \right) - {1 \over 2} \log \left( Var(H) \right) \nonumber\\
- &=& \log \left( \mathbf{v}^T * \mathbf{G} * \mathbf{b} \right)
-     - {1 \over 2} \log \left( \mathbf{b}^T * \mathbf{P} * \mathbf{b} \right)
-     - {1 \over 2} \log \left( \mathbf{v}^T * \mathbf{C} * \mathbf{v}\right) \nonumber
+\log \left(r_{H,I} \right) &=& \log \left(\frac{Cov(H,I)}{\sqrt{Var(I) * Var(H)}} \right)   \nonumber\\
+  &=& \log \left( Cov(H,I) \right) - {1 \over 2} \log \left( Var(I) \right)
+       - {1 \over 2} \log \left( Var(H) \right)                                             \nonumber\\
+  &=& \log \left( \mathbf{v}^T * \mathbf{G} * \mathbf{b} \right)
+       - {1 \over 2} \log \left( \mathbf{b}^T * \mathbf{P} * \mathbf{b} \right)             \nonumber\\
+  & &  - {1 \over 2} \log \left( \mathbf{v}^T * \mathbf{C} * \mathbf{v}\right)
 \label{eq:LogCorIH}
 \end{eqnarray}
 
@@ -204,9 +215,9 @@ Die Ableitung von $\log \left(r_{H,I} \right)$ nach $\mathbf{b}$ wird wie folgt 
 \frac{\partial \log \left(r_{H,I} \right)}{\partial \mathbf{b}}
   &=& \frac{\mathbf{G} * \mathbf{v}}{\mathbf{v}^T * \mathbf{G} * \mathbf{b}}
       - {1 \over 2} \frac{2 * \mathbf{P} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}}
-      - {1 \over 2} \frac{0}{\mathbf{v}^T * \mathbf{C} * \mathbf{v}} \\
+      - {1 \over 2} \frac{0}{\mathbf{v}^T * \mathbf{C} * \mathbf{v}}               \nonumber\\
   &=& \frac{\mathbf{G} * \mathbf{v}}{\mathbf{v}^T * \mathbf{G} * \mathbf{b}}
-     - \frac{\mathbf{P} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}} \nonumber\\
+     - \frac{\mathbf{P} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}}      \nonumber\\
   &=& \frac{\mathbf{b}^T * \mathbf{P} * \mathbf{b} * \mathbf{G} * \mathbf{v}
              - \mathbf{v}^T * \mathbf{G} * \mathbf{b} * \mathbf{P} * \mathbf{b}}
            {\mathbf{v}^T * \mathbf{G} * \mathbf{b} * \mathbf{b}^T * \mathbf{P} * \mathbf{b}}
@@ -219,9 +230,10 @@ $$\frac{\partial \log \left(r_{H,I} \right)}{\partial \mathbf{b}} = 0$$
 Daraus folgt, dass
 \begin{eqnarray}
 \mathbf{b}^T * \mathbf{P} * \mathbf{b} * \mathbf{G} * \mathbf{v}
-             &=& \mathbf{v}^T * \mathbf{G} * \mathbf{b} * \mathbf{P} * \mathbf{b}\\
-\mathbf{G} * \mathbf{v} &=& \frac{\mathbf{v}^T * \mathbf{G} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}}
-                            * \mathbf{P} * \mathbf{b} \nonumber
+             &=& \mathbf{v}^T * \mathbf{G} * \mathbf{b} * \mathbf{P} * \mathbf{b} \nonumber\\
+\mathbf{G} * \mathbf{v}
+             &=& \frac{\mathbf{v}^T * \mathbf{G} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}}
+                            * \mathbf{P} * \mathbf{b}
 \label{eq:SolMaxCorIH}
 \end{eqnarray}
 
@@ -231,9 +243,9 @@ der Regressionskoeffizient $b_{H,I}$ vom Gesamtzuchtwert auf den Selektionsindex
 sein muss. Aus dieser Anforderung folgt dann, dass
 
 \begin{eqnarray}
-b_{H,I} &=& \frac{Cov(H,I)}{Var(I)} \\
+b_{H,I} &=& \frac{Cov(H,I)}{Var(I)} \nonumber\\
         &=& \frac{\mathbf{v}^T * \mathbf{G} * \mathbf{b}}{\mathbf{b}^T * \mathbf{P} * \mathbf{b}} \nonumber\\
-        &=& 1 \nonumber
+        &=& 1
 \label{eq:RegCoefIH}
 \end{eqnarray}
 
@@ -242,6 +254,8 @@ bekannten Indexgleichungen.
 
 $$\mathbf{G} * \mathbf{v} = \mathbf{P} * \mathbf{b}$$
 
+\clearpage
+\pagebreak
 
 \section{Genetische Varianz f\"ur das Ein-Lokus Modell}
 \label{sec:OneLocusModel}
@@ -281,11 +295,11 @@ E\left[X\right] = \sum_{x_i\in \mathcal{X}} x_i* f(x_i)
 Das Populationsmittel als Erwartungswert der genotypischen Werte ist dann definiert als
 
 \begin{eqnarray}
-\mu = E\left[V\right] &=& f(G_1G_1) * V_{11} + f(G_1G_2) * V_{12} + f(G_2G_2) * V_{22}\\
-                      &=& p^2 * a + 2pq *d - q^2*a \nonumber\\
-                      &=& (p^2 - q^2)a + 2pqd \nonumber \\
-                      &=& (p+q)(p - q)a + 2pqd \nonumber \\
-                      &=& (p - q)a + 2pqd \nonumber
+\mu = E\left[V\right] &=& f(G_1G_1) * V_{11} + f(G_1G_2) * V_{12} + f(G_2G_2) * V_{22} \nonumber\\
+                      &=& p^2 * a + 2pq *d - q^2*a                                     \nonumber\\
+                      &=& (p^2 - q^2)a + 2pqd                                          \nonumber\\
+                      &=& (p+q)(p - q)a + 2pqd                                         \nonumber\\
+                      &=& (p - q)a + 2pqd
 \label{eq:PopMeanGenVal}
 \end{eqnarray}
 
@@ -328,14 +342,14 @@ $$\mu_{11} = pa + qd$$
 Der Zuchtwert des Elterngenotyp kann nun berechnet werden.
 
 \begin{eqnarray}
-ZW_{11} &=& 2 * (\mu_{11} - \mu)\\
+ZW_{11} &=& 2 * (\mu_{11} - \mu)                                   \nonumber\\
         &=& 2\left(pa + qd - \left[(p - q)a + 2pqd \right] \right) \nonumber\\
-          &=& 2\left(pa + qd - (p - q)a - 2pqd \right) \nonumber\\
-          &=& 2\left(qd + qa - 2pqd\right) \nonumber \\
-          &=& 2\left(qa + qd(1 - 2p)\right) \nonumber \\
-          &=& 2q\left(a + d(1 - 2p)\right) \nonumber \\
-          &=& 2q\left(a + (q-p)d\right) \nonumber \\
-          &=& 2q\alpha \nonumber
+          &=& 2\left(pa + qd - (p - q)a - 2pqd \right)             \nonumber\\
+          &=& 2\left(qd + qa - 2pqd\right)                         \nonumber \\
+          &=& 2\left(qa + qd(1 - 2p)\right)                        \nonumber \\
+          &=& 2q\left(a + d(1 - 2p)\right)                         \nonumber \\
+          &=& 2q\left(a + (q-p)d\right)                            \nonumber \\
+          &=& 2q\alpha
 \end{eqnarray}
 
 \subsubsection{Elterngenotyp $G_1G_2$}
@@ -345,13 +359,13 @@ $$\mu_{12} = 0.5pa + 0.5pd + 0.5qd - 0.5qa = 0.5(p-q)a + 0.5d$$
 
 Der Zuchtwert ($ZW_{12}$) f\"ur den Elterngenotyp ($G_1G_2$)
 \begin{eqnarray}
-ZW_{12} &=& 2 * (\mu_{12} - \mu)\\
+ZW_{12} &=& 2 * (\mu_{12} - \mu)                                            \nonumber\\
         &=& 2\left(0.5(p-q)a + 0.5d - \left[(p - q)a + 2pqd \right] \right) \nonumber\\
-        &=& 2\left( -0.5(p-q)a + (0.5 - 2pq)d\right) \nonumber\\
-        &=& (q-p)a + (1-4pq)d \nonumber\\
-        &=& (q-p)a + (p-q)^2d \nonumber\\
-        &=& (q-p)\left(a + (q-p)d\right) \nonumber\\
-        &=& (q-p)\alpha \nonumber
+        &=& 2\left( -0.5(p-q)a + (0.5 - 2pq)d\right)                        \nonumber\\
+        &=& (q-p)a + (1-4pq)d                                               \nonumber\\
+        &=& (q-p)a + (p-q)^2d                                               \nonumber\\
+        &=& (q-p)\left(a + (q-p)d\right)                                    \nonumber\\
+        &=& (q-p)\alpha
 \end{eqnarray}
 
 \subsubsection{Elterngenotyp $G_2G_2$}
@@ -362,12 +376,12 @@ $$\mu_{12} = pd - qa$$
 Der Zuchtwert ($ZW_{22}$) f\"ur den Elterngenotyp ($G_2G_2$)
 
 \begin{eqnarray}
-ZW_{22} &=& 2 * (\mu_{22} - \mu)\\
+ZW_{22} &=& 2 * (\mu_{22} - \mu)                                   \nonumber\\
         &=& 2\left(pd - qa - \left[(p - q)a + 2pqd \right] \right) \nonumber\\
-        &=& 2\left(-pa + (p - 2pq)d\right) \nonumber\\
-        &=& -2p\left(a + (2q - 1)d\right) \nonumber\\
-        &=& -2p\left(a + (q - p)d\right) \nonumber\\
-        &=& -2p\alpha \nonumber
+        &=& 2\left(-pa + (p - 2pq)d\right)                         \nonumber\\
+        &=& -2p\left(a + (2q - 1)d\right)                          \nonumber\\
+        &=& -2p\left(a + (q - p)d\right)                           \nonumber\\
+        &=& -2p\alpha
 \end{eqnarray}
 
 In den Formeln der drei Zuchtwerte ist der Term $a + (q-p)d$ enthalten. Dieser Term wird
@@ -386,28 +400,28 @@ sieht das wie folgt aus.
 
 \subsubsection{Genotyp $G_1G_1$}
 \begin{eqnarray}
-V_{11} - ZW_{11} &=& a - 2q\alpha \\
-                 &=& a - 2q \left(a + (q-p)d \right) \nonumber \\
-                 &=& (1 - 2q)a - 2qd(q-p) \nonumber \\
-                 &=& \left[(p - q)a + 2pqd \right] - 2q^2d  \nonumber \\
-                 &=& \mu + D_{11} \nonumber
+V_{11} - ZW_{11} &=& a - 2q\alpha                           \nonumber\\
+                 &=& a - 2q \left(a + (q-p)d \right)        \nonumber\\
+                 &=& (1 - 2q)a - 2qd(q-p)                   \nonumber\\
+                 &=& \left[(p - q)a + 2pqd \right] - 2q^2d  \nonumber\\
+                 &=& \mu + D_{11}
 \end{eqnarray}
 
 \subsubsection{Genotyp $G_1G_2$}
 \begin{eqnarray}
-V_{12} - ZW_{12} &=& d - \left[(q-p) \alpha \right] \\
-                 &=& d - \left[(q-p) \left(a + (q - p)d\right) \right] \nonumber \\
-                 &=& \left[(p-q)a + 2pqd \right] + 2pqd \nonumber \\
-                 &=& \mu + D_{12} \nonumber
+V_{12} - ZW_{12} &=& d - \left[(q-p) \alpha \right]                    \nonumber\\
+                 &=& d - \left[(q-p) \left(a + (q - p)d\right) \right] \nonumber\\
+                 &=& \left[(p-q)a + 2pqd \right] + 2pqd                \nonumber\\
+                 &=& \mu + D_{12}
 \end{eqnarray}
 
 \subsubsection{Genotyp $G_2G_2$}
 \begin{eqnarray}
-V_{22} - ZW_{22} &=& - a + 2p\alpha \\
-                 &=& - a + 2p\left[a + (q - p)d \right] \nonumber \\
-                 &=& (2p-1)a + 2pqd - 2p^2d \nonumber \\
-                 &=& \left[(p-q)a + 2pqd \right] - 2p^2d \nonumber \\
-                 &=& \mu + D_{22} \nonumber
+V_{22} - ZW_{22} &=& - a + 2p\alpha                       \nonumber\\
+                 &=& - a + 2p\left[a + (q - p)d \right]   \nonumber\\
+                 &=& (2p-1)a + 2pqd - 2p^2d               \nonumber\\
+                 &=& \left[(p-q)a + 2pqd \right] - 2p^2d  \nonumber\\
+                 &=& \mu + D_{22}
 \end{eqnarray}
 
 \subsubsection{Konsequenz und Zusammenfassung}
@@ -457,9 +471,9 @@ Var\left[X \right] = \sum_{x_i \in \mathcal{X}} (x_i - \mu_X)^2 * f(x_i)
 \noindent F\"ur unsere genotypischen Werte $V_{ij}$ heisst das
 
 \begin{eqnarray}
-\sigma_G^2 = Var\left[V\right] &=&   (V_{11} - \mu)^2 * f(G_1G_1)           \\
+\sigma_G^2 = Var\left[V\right] &=&   (V_{11} - \mu)^2 * f(G_1G_1) \nonumber \\
                                & & + (V_{12} - \mu)^2 * f(G_1G_2) \nonumber \\
-                               & & + (V_{22} - \mu)^2 * f(G_2G_2) \nonumber
+                               & & + (V_{22} - \mu)^2 * f(G_2G_2)
 \label{eq:GenVar}
 \end{eqnarray}
 wobei $\mu = (p - q)a + 2pqd$ das Populationsmittel
@@ -469,9 +483,9 @@ Aus der Zerlegung der genotypischen Werte in Gleichung (\ref{eq:ZerlGenoWert}) v
 $V_{ij} - \mu = ZW_{ij} + D_{ij}$. Setzen wir das in Gleichung (\ref{eq:GenVar}) ein dann folgt daraus
 
 \begin{eqnarray}
-\sigma_G^2 = Var\left[V\right] &=&   (ZW_{11} + D_{11})^2 * p^2           \\
+\sigma_G^2 = Var\left[V\right] &=&   (ZW_{11} + D_{11})^2 * p^2   \nonumber \\
                                & & +\  (ZW_{12} + D_{12})^2 * 2pq \nonumber \\
-                               & & +\  (ZW_{22} + D_{22})^2 * q^2 \nonumber
+                               & & +\  (ZW_{22} + D_{22})^2 * q^2
 \label{eq:GenVarZWD}
 \end{eqnarray}
 
@@ -479,7 +493,7 @@ F\"ur die Zuchtwerte ($ZW_{ij}$) und die Dominanzabweichungen ($D_{ij}$) setzen 
 der \"Ubersichtstabelle ein.
 
 \begin{eqnarray}
-\sigma_G^2 = Var\left[V\right] &=&     \left(2q\alpha - 2q^2d   \right)^2 * p^2                                \\
+\sigma_G^2 = Var\left[V\right] &=&     \left(2q\alpha - 2q^2d   \right)^2 * p^2                      \nonumber \\
                                & & +\  \left((q-p)\alpha + 2pqd \right)^2 * 2pq                      \nonumber \\
                                & & +\  \left(-2p\alpha - 2p^2d  \right)^2 * q^2                      \nonumber \\
                                &=&     \left(4q^2\alpha^2 - 8q^3d\alpha + 4q^4d^2  \right) * p^2     \nonumber \\
@@ -496,7 +510,7 @@ der \"Ubersichtstabelle ein.
                                & & +\  4p^4q^2d^2                                                    \nonumber \\
                                &=&     2pq\alpha^2 \left(p^2 + 2pq + q^2 \right)                     \nonumber \\
                                & & +\  \left(2pqd \right)^2 \left(p^2 + 2pq + q^2 \right)            \nonumber \\
-                               &=&     2pq\alpha^2 + \left(2pqd \right)^2                            \nonumber
+                               &=&     2pq\alpha^2 + \left(2pqd \right)^2
 \label{eq:GenVarIns}
 \end{eqnarray}
 
@@ -504,6 +518,9 @@ der \"Ubersichtstabelle ein.
 
 Diese Herleitung zeigt, dass die in der Vorlesung vorgestellte genetische Varianz anhand der Definition der Varianz als zweites zentrales Moment einer diskreten Zufallsvariablen f\"ur die genotypischen Werte berechnet werden kann.
 
+
+\clearpage
+\pagebreak
 
 \section{Varianz der Mendelian Sampling Effekte}
 \subsection{Notation}
@@ -617,9 +634,9 @@ Summe von Mendelian sampling Effekten dargestellt werden.
 In unserem Beispielpedigree kann der Zuchtwert von Tier $5$, wie folgt zerlegt werden.
 
 \begin{eqnarray}
-u_5 &=& {1\over 2} u_3 + {1\over 2} u_4 + m_5 \\
-    &=& {1\over 2}\left({1\over 2}\ u_1 + {1\over 2}\ u_2 + m_3 \right) + {1\over 2}\ m_4 + m_5 \nonumber \\
-    &=& {1\over 4}\ m_1 + {1\over 4}\ m_2 + {1\over 2}\ m_3 + {1\over 2}\ m_4 + m_5             \nonumber
+u_5 &=& {1\over 2} u_3 + {1\over 2} u_4 + m_5                                                   \nonumber\\
+    &=& {1\over 2}\left({1\over 2}\ u_1 + {1\over 2}\ u_2 + m_3 \right) + {1\over 2}\ m_4 + m_5 \nonumber\\
+    &=& {1\over 4}\ m_1 + {1\over 4}\ m_2 + {1\over 2}\ m_3 + {1\over 2}\ m_4 + m_5
 \label{eq:DecompBvAni5}
 \end{eqnarray}
 
@@ -675,8 +692,8 @@ Berechnen wir die Varianz des Vektors der Zuchtwerte $\mathbf{u}$ aufgrund der G
 daraus
 
 \begin{eqnarray}
-  Var(\mathbf{u}) &=& Var(\mathbf{L} * \mathbf{m}) \\
-                  &=& \mathbf{L} * Var(\mathbf{m}) * \mathbf{L}^T \nonumber
+  Var(\mathbf{u}) &=& Var(\mathbf{L} * \mathbf{m}) \nonumber\\
+                  &=& \mathbf{L} * Var(\mathbf{m}) * \mathbf{L}^T
 \label{eq:VarAVarD}
 \end{eqnarray}
 
@@ -692,9 +709,9 @@ daraus
 Kombinieren wir die Gleichungen (\ref{eq:AddGenCovMat}) und (\ref{eq:VarAVarD}) so folgt daraus, dass
 
 \begin{eqnarray}
-  Var(\mathbf{u}) &=& \mathbf{A} * \sigma_{u}^2 \\
+  Var(\mathbf{u}) &=& \mathbf{A} * \sigma_{u}^2                   \nonumber\\
                   &=& \mathbf{L} * Var(\mathbf{m}) * \mathbf{L}^T \nonumber \\
-                  &=& \mathbf{L} * \mathbf{D} * \mathbf{L}^T  * \sigma_{u}^2 \nonumber
+                  &=& \mathbf{L} * \mathbf{D} * \mathbf{L}^T  * \sigma_{u}^2
 \label{eq:VarDAddGenCovMat}
 \end{eqnarray}
 
@@ -710,11 +727,11 @@ Die Varianz $Var(m_i)$ des Mendelian sampling Effektes $m_i$ l\"asst sich aus de
 \noindent Aufgrund der Zerlegung des Zuchtwertes $u_i$ in Gleichung (\ref{eq:BvAniIDecomp}) k\"onnen wir folgende Gleichung f\"ur die Varianzen aufstellen.
 
 \begin{eqnarray}
-  Var(u_i) &=& Var({1\over 2}\ u_s + {1\over 2}\ u_d + m_i) \\
+  Var(u_i) &=& Var({1\over 2}\ u_s + {1\over 2}\ u_d + m_i) \nonumber\\
            &=& Var({1\over 2}\ u_s) + Var({1\over 2}\ u_d) + Var(m_i) \nonumber \\
            & &  +\ 2*Cov({1\over 2}\ u_s,{1\over 2}\ u_d) \nonumber \\
            &=& {1\over 4}\ Var(u_s) + {1\over 4}\ Var(u_d) + Var(m_i) \nonumber \\
-           & &  +\ {1\over 2}\ Cov(u_s,u_d) \nonumber
+           & &  +\ {1\over 2}\ Cov(u_s,u_d)
 \label{eq:VarMDeriv}
 \end{eqnarray}
 
@@ -723,14 +740,14 @@ Die Varianz $Var(m_i)$ des Mendelian sampling Effektes $m_i$ l\"asst sich aus de
 L\"osen wir Gleichung (\ref{eq:VarMDeriv}) nach $Var(m_i)$ auf und ersetzen wir die Varianzen der Zuchtwerte durch die jeweiligen Elemente aus der Verwandtschaftsmatrix mal die genetisch additive Varianz, erhalten wir folgendes Resultat f\"ur die Varianz $Var(m_i)$ der Mendelian sampling Effekte.
 
 \begin{eqnarray}
-  Var(m_i) &=& Var(u_i) - {1\over 4}\ Var(u_s) - {1\over 4}\ Var(u_d) - {1\over 2}\ Cov(u_s,u_d) \\
+  Var(m_i) &=& Var(u_i) - {1\over 4}\ Var(u_s) - {1\over 4}\ Var(u_d) - {1\over 2}\ Cov(u_s,u_d) \nonumber\\
            &=& (1+F_i)\ \sigma_u^2 - {1\over 4}\ a_{ss}\ \sigma_u^2 - {1\over 4}\ a_{dd}\ \sigma_u^2
                 - {1\over 2}\ a_{sd}\ \sigma_u^2 \nonumber\\
            &=& \left[1+F_i - {1\over 4}\ a_{ss} - {1\over 4}\ a_{dd}- {1\over 2}\ a_{sd} \right]\ \sigma_u^2 \nonumber \\
            &=& \left[1 + {1\over 2}\ a_{sd} - {1\over 4}\ a_{ss} - {1\over 4}\ a_{dd}- {1\over 2}\ a_{sd} \right]\ \sigma_u^2 \nonumber \\
            &=& \left[1 - {1\over 4}\ a_{ss} - {1\over 4}\ a_{dd} \right]\ \sigma_u^2 \nonumber\\
            &=& \left[1 - {1\over 4}\ (1+F_s) - {1\over 4}\ (1+F_d) \right]\ \sigma_u^2 \nonumber\\
-           &=& \left[0.5 - 0.25(F_s + F_d) \right]\ \sigma_u^2 \nonumber
+           &=& \left[0.5 - 0.25(F_s + F_d) \right]\ \sigma_u^2
 \label{eq:VarMResult}
 \end{eqnarray}
 
@@ -752,8 +769,8 @@ Die Inverse $\mathbf{A}^{-1}$ der Verwandtschaftsmatrix $\mathbf{A}$ kann anhand
 \noindent Die Inverse $\mathbf{A}^{-1}$ kann somit berechnet werden als
 
 \begin{eqnarray}
-\mathbf{A}^{-1} &=& \left(\mathbf{L} * \mathbf{D} * \mathbf{L}^{T} \right)^{-1} \\
-                &=& \left(\mathbf{L}^{T} \right)^{-1} * \mathbf{D}^{-1} * \mathbf{L}^{-1} \nonumber
+\mathbf{A}^{-1} &=& \left(\mathbf{L} * \mathbf{D} * \mathbf{L}^{T} \right)^{-1} \nonumber\\
+                &=& \left(\mathbf{L}^{T} \right)^{-1} * \mathbf{D}^{-1} * \mathbf{L}^{-1}
 \label{eq:AinvLdl}
 \end{eqnarray}
 
@@ -862,9 +879,9 @@ Der Schl\"ussel zur Berechnung der Elemente von $\mathbf{R}$ liegt in der Gleich
 \label{CholDecLdlDec}
 \end{eqnarray}
 
-Aus der Beziehung der beiden Zerlegungen in Gleichung (\ref{CholDecLdlDec}) wollen wir die Matrix $\mathbf{R}$ in Abh\"angigkeit der Matrizen $\mathbf{L}$ und $\mathbf{D}$ ausdr\"ucken. Der Grund daf\"ur ist, dass wir wissen wie wir einfach die Elemente der Matrizen $\mathbf{L}$ und $\mathbf{D}$ bestimmen. Somit wissen wir auch, wie wir die Elemente der Matrix $\mathbf{R}$ bestimmen, sobald wir die Beziehung zwischen $\mathbf{L}$, $\mathbf{D}$ und $\mathbf{R}$ kennen.
+Aufgrund von Gleichung (\ref{CholDecLdlDec}) wollen wir die Matrix $\mathbf{R}$ in Abh\"angigkeit der Matrizen $\mathbf{L}$ und $\mathbf{D}$ ausdr\"ucken, dies deshalb, weil wir die Elemente der Matrizen $\mathbf{L}$ und $\mathbf{D}$ einfach berechnen k\"onnen.
 
-Als Idee f\"ur die Bestimmung der Beziehung zwischen $\mathbf{L}$, $\mathbf{D}$ und $\mathbf{R}$ zerlegen wir die Matrix $\mathbf{R}$ in das Produkt der zwei Matrizen $\mathbf{L}$ und $\mathbf{S}$. Somit ist
+Wir zerlegen die Matrix $\mathbf{R}$ in das Produkt der zwei Matrizen $\mathbf{L}$ und $\mathbf{S}$. Somit haben wir
 
 \begin{equation}
 \mathbf{R} = \mathbf{L} * \mathbf{S}
@@ -892,31 +909,79 @@ cat("\\right]\n")
 \end{equation}
 
 Aufgrund der speziellen Struktur der Matrizen $\mathbf{L}$ und $\mathbf{S}$ ist ersichtlich, dass die Diagnoalelemente $r_{ii}$ der Matrix $\mathbf{R}$ den Diagonalelementen $s_{ii}$ der Matrix $\mathbf{S}$ entsprechen oder anders formuliert gilt f\"ur alle $i$, dass
-$$r_{ii} = s_{ii}$$
+
+\begin{equation}
+r_{ii} = s_{ii}
+\label{eq:RiiSii}
+\end{equation}
 
 Die Offdiagonalelemente $r_{ij}$ der Matrix $\mathbf{R}$ lassen sich als Produkt von $l_{ij}$ und $s_{jj}$ berechnen. Als Gleichung k\"onnen wir schreiben, dass
-$$r_{ij} = l_{ij} * s_{jj}$$
+
+\begin{equation}
+r_{ij} = l_{ij} * s_{jj}
+\label{eq:RijDijSjj}
+\end{equation}
 
 \noindent Im Abschnitt \ref{sec:RekursiveZerlegung} haben wir gesehen, dass die Elemente $l_{ij}$ als Durchschnitt von $l_{sj}$ und $l_{dj}$ berechnet werden k\"onnen. Dabei wurde angenommen, dass $s$ und $d$ die Eltern von $i$ sind. Verwenden wir die Berechnung von $l_{ij}$ f\"ur die Berechnung von $r_{ij}$ dann erhalten wir
 
 \begin{eqnarray}
-r_{ij} &=& l_{ij} * s_{jj} \\
+r_{ij} &=& l_{ij} * s_{jj} \nonumber\\
        &=& {1\over 2}\ (l_{sj} + l_{dj}) * s_{jj}\nonumber\\
        &=& {1\over 2}\ (l_{sj} * s_{jj} + l_{dj} * s_{jj})\nonumber\\
-       &=& {1\over 2}\ (r_{sj} + r_{dj})\nonumber
-\label{eq:RijDijSjj}
+       &=& {1\over 2}\ (r_{sj} + r_{dj})
+\label{eq:RijDijSjj2}
 \end{eqnarray}
 
-Somit ist die rekursive Berechnung der Elemente in Matrix $\mathbf{R}$ bestimmt. Wir m\"ussen jetzt nur noch finden, wie wir die Elemente der Matrix $\mathbf{S}$ ermitteln. Dazu setzen wir die Zerlegung der Matrix $\mathbf{R}$ in die Cholesky-Zerklagung der Matrix $\mathbf{A}$ ein und setzen diese der LDL-Zerlegung von Matrix $\mathbf{A}$ gleich, dann folgt, dass
+Somit ist die rekursive Berechnung der Elemente in Matrix $\mathbf{R}$ bestimmt. Wir m\"ussen jetzt nur noch die Elemente der Matrix $\mathbf{S}$ finden. Dazu setzen wir die Zerlegung der Matrix $\mathbf{R}$ in die Cholesky-Zerklagung der Matrix $\mathbf{A}$ ein und setzen diese der LDL-Zerlegung von Matrix $\mathbf{A}$ gleich, dann folgt, dass
 
 \begin{eqnarray}
-\mathbf{A} = \mathbf{R} * \mathbf{R}^T &=& \mathbf{L} * \mathbf{S} * (\mathbf{L}* \mathbf{S})^T\\
+\mathbf{A} = \mathbf{R} * \mathbf{R}^T &=& \mathbf{L} * \mathbf{S} * (\mathbf{L}* \mathbf{S})^T \nonumber\\
                                        &=& \mathbf{L} * \mathbf{S} * \mathbf{S}^T * \mathbf{L}^T\nonumber\\
-                                       &=& \mathbf{L} * \mathbf{D} * \mathbf{L}^T\nonumber
+                                       &=& \mathbf{L} * \mathbf{D} * \mathbf{L}^T
 \label{eq:FindMatS}
 \end{eqnarray}
-%%% % cont here %%%
 
+Da wir auf der linken und auf der rechten Seite des letzten Gleichheitszeichens in (\ref{eq:FindMatS}) von links mit $\mathbf{L}$ und von rechts mit $\mathbf{L}^T$ multiplizieren, k\"onnen wir diese beiden Matrix-Faktoren auch streichen und es gilt also, dass
+
+$$\mathbf{D} = \mathbf{S} * \mathbf{S}^T$$
+
+Zur Veranschaulichung betrachten wir auch dieses Resultat in unserem kleinen Beispiel.
+
+\begin{equation}
+<<DequalsSSt, echo=FALSE, results=tex>>=
+matD <- matDiag(psBaseElement = "d", pnNrRow = nAnzAni, pnNrCol = nAnzAni)
+cat("\\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matD), collapse = "\n"))
+cat("\\right]  = \n")
+cat("\\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matS), collapse = "\n"))
+cat("\\right] * \n")
+cat("\\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matS), collapse = "\n"))
+cat("\\right]\n")
+@
+\label{eq:DequalSSt}
+\end{equation}
+
+Aufgrund der Regeln der Matrixmultiplikation k\"onnen wir sehen, dass f\"ur alle $i$ gilt, dass
+$d_{ii} = s_{ii}^2$ oder $s_{ii} = \sqrt{d_{ii}}$. Die Elemenente $d_{ii}$ k\"onnen wir aufgrund der Gleichung (\ref{eq:DiagElemDii}) berechnen als
+
+\begin{eqnarray}
+d_{ii} &=& 0.5 - 0.25(F_s + F_d) \nonumber\\
+       &=& 1 - 0.25(a_{ss} + a_{dd})
+\label{eq:DiagElemDii2}
+\end{eqnarray}
+
+Die Diagonalelemente $a_{ss}$ und $a_{dd}$ der Verwandtschaftsmatrix k\"onnen wir aufgrund der Gleichung (\ref{eq:DiagElemMatA}) als Summen von quadrierten Elementen der Matrix $\mathbf{R}$ ausdr\"ucken. Es gilt also
+
+\begin{eqnarray}
+a_{ss} &=& \sum_{n=1}^s r_{sn}^2\nonumber\\
+a_{dd} &=& \sum_{n=1}^d r_{dn}^2\nonumber
+\end{eqnarray}
+
+Die Elemente $r_{sn}$ und $r_{dn}$ werden aufgrund der Gleichungen (\ref{eq:RiiSii}) und (\ref{eq:RijDijSjj2}) berechnet. Somit schliesst sich der Kreis und es konnte gezeigt werden, wie die Inzuchtkoeffizienten aufgrund einer Zeile der Matrix $\mathbf{R}$ berechnet werden konnten.
+
+\textbf{Wichtig} f\"ur diese Herleitung ist, dass die Tiere gem\"ass ihres Alters sortiert sind. Konkret heisst das, dass im Pedigree kein Nachkomme vor seinen Eltern auftreten darf. Die gleiche Sortierung gilt auch f\"ur die hier verwendeten Matrizen. Nur aufgrund dieser Sortierung ist die ganze Erkl\"arung nicht zirkul\"ar, d.h. die Katze beisst sich nicht in den Schwanz.
 
 \clearpage
 \pagebreak
@@ -966,7 +1031,6 @@ Der Gradient von $f$, also die Ableitung der Funktion $f$ nach dem Vektor $\math
 \label{eq:GradFBsp}
 \end{eqnarray}
 
-\subsection{Anwendung f\"ur den Selektionsindex}
 
 \section{Varianz von Vektoren}
 \label{sec:VarVec}
@@ -1006,5 +1070,11 @@ F\"ur Matrix $\mathbf{V}$ gibt es auch folgende abgek\"urzte Schreibweise
 \label{eq:CovXStructShort}
 \end{equation}
 
+\vspace{5ex}
+\begin{thebibliography}{99}
+\bibitem{SH2015} Heidi Signer-Hasler und Hannes J\"org (2015). Quantitative Genetik und Populationsgenetik. Skript Vorlesung 751-6200-00 V. FS2015.
+\bibitem{Hofer1990} Hofer, Andreas (1990). Sch\"atzung von Zuchtwerten feldgepr\"ufter Schweine mit einem Mehrmerkmals-Tiermodell. Diss ETH 9160. http://dx.doi.org/10.3929/ethz-a-000578289
+\bibitem{Mrode2005} R.A. Mrode (2005). Linear Models For The Prediction Of Animal Breeding Values. Second Edition. CABI Publishing. ISBN 0 85199 000 2
+\end{thebibliography}
 
 \end{document}
