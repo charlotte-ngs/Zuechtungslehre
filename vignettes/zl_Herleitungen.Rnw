@@ -26,6 +26,11 @@ sGetTexMatrix <- function(pmatAMatrix, pnOutStartLine = 5, pnEndIgnoreLines = 1)
   return(sResultTexMatrix)
 }
 
+#' Matrix with character elements and column and row indices
+#'
+#' @param psBaseElement   character prefix shown in front of indices
+#' @param pnNrRow         number of rows
+#' @param pnNrCol         number of columns
 matGetMatElem <- function(psBaseElement, pnNrRow, pnNrCol){
   return(matrix(sapply(0:(pnNrRow*pnNrCol-1),
                       function(x,y) paste(psBaseElement, x%/%y+1, x%%y+1, sep = ""),
@@ -35,10 +40,18 @@ matGetMatElem <- function(psBaseElement, pnNrRow, pnNrCol){
                byrow = TRUE))
 }
 
+#' Lower triangular matrix
 matLowerTri <- function(psBaseElement, pnNrRow, pnNrCol, pvecDiag = NULL) {
-  matResult <- matGetMatElem(psBaseElement = psBaseElement, pnNrRow, pnNrCol)
+  matResult <- matGetMatElem(psBaseElement = psBaseElement, pnNrRow = pnNrRow, pnNrCol = pnNrCol)
   matResult[upper.tri(matResult)] <- "0"
   if (!is.null(pvecDiag)) diag(matResult) <- pvecDiag
+  return(matResult)
+}
+
+#' Diagonal matrix
+matDiag <- function(psBaseElement, pnNrRow, pnNrCol) {
+  matResult <- matGetMatElem(psBaseElement = psBaseElement, pnNrRow = pnNrRow, pnNrCol = pnNrCol)
+  matResult[upper.tri(matResult) | lower.tri(matResult)]  <- "0"
   return(matResult)
 }
 @
@@ -851,6 +864,57 @@ Der Schl\"ussel zur Berechnung der Elemente von $\mathbf{R}$ liegt in der Gleich
 
 Aus der Beziehung der beiden Zerlegungen in Gleichung (\ref{CholDecLdlDec}) wollen wir die Matrix $\mathbf{R}$ in Abh\"angigkeit der Matrizen $\mathbf{L}$ und $\mathbf{D}$ ausdr\"ucken. Der Grund daf\"ur ist, dass wir wissen wie wir einfach die Elemente der Matrizen $\mathbf{L}$ und $\mathbf{D}$ bestimmen. Somit wissen wir auch, wie wir die Elemente der Matrix $\mathbf{R}$ bestimmen, sobald wir die Beziehung zwischen $\mathbf{L}$, $\mathbf{D}$ und $\mathbf{R}$ kennen.
 
+Als Idee f\"ur die Bestimmung der Beziehung zwischen $\mathbf{L}$, $\mathbf{D}$ und $\mathbf{R}$ zerlegen wir die Matrix $\mathbf{R}$ in das Produkt der zwei Matrizen $\mathbf{L}$ und $\mathbf{S}$. Somit ist
+
+\begin{equation}
+\mathbf{R} = \mathbf{L} * \mathbf{S}
+\label{eq:RLSDecomp}
+\end{equation}
+\noindent wobei $\mathbf{S}$ eine Diagonalmatrix ist.
+
+Betrachten wir die Zerlegung in Gleichung (\ref{eq:RLSDecomp}) anhand eines kleinen Beispiels, dann sieht das wie folgt aus
+
+\begin{equation}
+<<RlsDecompEx, echo=FALSE, results=tex>>=
+matL <- matLowerTri(psBaseElement = "l", pnNrRow = nAnzAni, pnNrCol = nAnzAni, pvecDiag = 1)
+matS <- matDiag(psBaseElement = "s", pnNrRow = nAnzAni, pnNrCol = nAnzAni)
+cat("\\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matR), collapse = "\n"))
+cat("\\right]  = \n")
+cat("\\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matL), collapse = "\n"))
+cat("\\right]  * \n")
+cat("\\left[")
+cat(paste(sGetTexMatrix(pmatAMatrix = matS), collapse = "\n"))
+cat("\\right]\n")
+@
+\label{eq:SmallExRLS}
+\end{equation}
+
+Aufgrund der speziellen Struktur der Matrizen $\mathbf{L}$ und $\mathbf{S}$ ist ersichtlich, dass die Diagnoalelemente $r_{ii}$ der Matrix $\mathbf{R}$ den Diagonalelementen $s_{ii}$ der Matrix $\mathbf{S}$ entsprechen oder anders formuliert gilt f\"ur alle $i$, dass
+$$r_{ii} = s_{ii}$$
+
+Die Offdiagonalelemente $r_{ij}$ der Matrix $\mathbf{R}$ lassen sich als Produkt von $l_{ij}$ und $s_{jj}$ berechnen. Als Gleichung k\"onnen wir schreiben, dass
+$$r_{ij} = l_{ij} * s_{jj}$$
+
+\noindent Im Abschnitt \ref{sec:RekursiveZerlegung} haben wir gesehen, dass die Elemente $l_{ij}$ als Durchschnitt von $l_{sj}$ und $l_{dj}$ berechnet werden k\"onnen. Dabei wurde angenommen, dass $s$ und $d$ die Eltern von $i$ sind. Verwenden wir die Berechnung von $l_{ij}$ f\"ur die Berechnung von $r_{ij}$ dann erhalten wir
+
+\begin{eqnarray}
+r_{ij} &=& l_{ij} * s_{jj} \\
+       &=& {1\over 2}\ (l_{sj} + l_{dj}) * s_{jj}\nonumber\\
+       &=& {1\over 2}\ (l_{sj} * s_{jj} + l_{dj} * s_{jj})\nonumber\\
+       &=& {1\over 2}\ (r_{sj} + r_{dj})\nonumber
+\label{eq:RijDijSjj}
+\end{eqnarray}
+
+Somit ist die rekursive Berechnung der Elemente in Matrix $\mathbf{R}$ bestimmt. Wir m\"ussen jetzt nur noch finden, wie wir die Elemente der Matrix $\mathbf{S}$ ermitteln. Dazu setzen wir die Zerlegung der Matrix $\mathbf{R}$ in die Cholesky-Zerklagung der Matrix $\mathbf{A}$ ein und setzen diese der LDL-Zerlegung von Matrix $\mathbf{A}$ gleich, dann folgt, dass
+
+\begin{eqnarray}
+\mathbf{A} = \mathbf{R} * \mathbf{R}^T &=& \mathbf{L} * \mathbf{S} * (\mathbf{L}* \mathbf{S})^T\\
+                                       &=& \mathbf{L} * \mathbf{S} * \mathbf{S}^T * \mathbf{L}^T\nonumber\\
+                                       &=& \mathbf{L} * \mathbf{D} * \mathbf{L}^T\nonumber
+\label{eq:FindMatS}
+\end{eqnarray}
 %%% % cont here %%%
 
 
